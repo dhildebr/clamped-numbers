@@ -47,9 +47,9 @@ namespace clamped
     
     public:
     
-    BasicClampedNumber() = 0;
-    BasicClampedNumber(const NumT &) = 0;
-    BasicClampedNumber(const NumT &, const NumT &, const NumT &) = 0;
+    BasicClampedNumber() = delete;
+    BasicClampedNumber(const NumT &value, const NumT &min, const NumT &max):
+        _value(value), _minValue(min), _maxValue(max) {}
     virtual ~BasicClampedNumber() = 0;
     
     BasicClampedNumber(const BasicClampedNumber<NumT> &) = 0;
@@ -64,15 +64,15 @@ namespace clamped
     virtual NumT & maxValue(const NumT &newMax) final { return (this->_maxValue = newMax); }
     virtual NumT & minValue(const NumT &newMin) final { return (this->_maxValue = newMin); }
     
-    virtual NumT & operator+=(const BasicClampedNumber<NumT> &) = 0;
-    virtual NumT & operator-=(const BasicClampedNumber<NumT> &) = 0;
-    virtual NumT & operator*=(const BasicClampedNumber<NumT> &) = 0;
-    virtual NumT & operator/=(const BasicClampedNumber<NumT> &) = 0;
+    virtual BasicClampedNumber<NumT> & operator+=(const NumT &) = 0;
+    virtual BasicClampedNumber<NumT> & operator-=(const NumT &) = 0;
+    virtual BasicClampedNumber<NumT> & operator*=(const NumT &) = 0;
+    virtual BasicClampedNumber<NumT> & operator/=(const NumT &) = 0;
     
-    virtual NumT & operator++() = 0;
-    virtual NumT & operator--() = 0;
-    virtual NumT & operator++(int) = 0;
-    virtual NumT & operator--(int) = 0;
+    virtual BasicClampedNumber<NumT> & operator++() = 0;
+    virtual BasicClampedNumber<NumT> & operator--() = 0;
+    virtual BasicClampedNumber<NumT> operator++(int) = 0;
+    virtual BasicClampedNumber<NumT> operator--(int) = 0;
     
     virtual bool operator==(const BasicClampedNumber<NumT> &) const = 0;
     virtual bool operator<(const BasicClampedNumber<NumT> &)  const = 0;
@@ -85,9 +85,31 @@ namespace clamped
   };
   
   template<typename IntT>
-  class ClampedInteger:
-      public BasicClampedNumber<IntT>
+  class ClampedInteger: public BasicClampedNumber<IntT>
   {
+    public:
     
+    ClampedInteger(const IntT &value, IntT min, IntT max):
+        BasicClampedNumber<IntT>(value, min, max) {}
+    virtual ~ClampedInteger();
+    
+    ClampedInteger(const ClampedInteger<NumT> &);
+    ClampedInteger(ClampedInteger<NumT> &&);
+    virtual BasicClampedNumber<NumT> operator=(const BasicClampedNumber<NumT> &);
+    virtual BasicClampedNumber<NumT> & operator=(BasicClampedNumber<NumT> &);
+    
+    virtual ClampedInteger<IntT> & operator+=(const IntT &) override;
+    virtual ClampedInteger<IntT> & operator-=(const IntT &) override;
+    virtual ClampedInteger<IntT> & operator*=(const IntT &) override;
+    virtual ClampedInteger<IntT> & operator/=(const IntT &) override;
+    virtual ClampedInteger<IntT> & operator%=(const IntT &);
+    
+    virtual ClampedInteger<IntT> & operator++() override;
+    virtual ClampedInteger<IntT> & operator--() override;
+    virtual ClampedInteger<IntT> operator++(int) override;
+    virtual ClampedInteger<IntT> operator--(int) override;
+    
+    virtual bool operator==(const ClampedInteger<IntT> &other) const override { return this->_value == other._value; }
+    virtual bool operator<(const ClampedInteger<IntT> &other) const override { return this->_value < other._value; }
   };
 }
