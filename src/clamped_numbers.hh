@@ -34,15 +34,15 @@
 #define CLAMPED_UINT64
 #endif
 
-namespace clampednum
+namespace clamped
 {
   template<typename NumT>
   class BasicClampedNumber
   {
     protected:
     
-    const NumT _maxValue;
-    const NumT _minValue;
+    NumT _maxValue;
+    NumT _minValue;
     NumT _value;
     
     public:
@@ -57,12 +57,12 @@ namespace clampednum
     virtual BasicClampedNumber<NumT> operator=(const BasicClampedNumber<NumT> &) = 0;
     virtual BasicClampedNumber<NumT> & operator=(BasicClampedNumber<NumT> &) = 0;
     
-    virtual NumT & value() const { return this->_value; }
-    virtual NumT & maxValue() const { return this->_maxValue; }
-    virtual NumT & minValue() const { return this->_minValue; }
-    virtual NumT & value(const NumT &newVal) { return (this->_value = newVal); }
-    virtual NumT & maxValue(const NumT &newMax) { return (this->_maxValue = newMax); }
-    virtual NumT & minValue(const NumT &newMin) { return (this->_maxValue = newMin); }
+    virtual NumT & value() const final { return this->_value; }
+    virtual NumT & maxValue() const final { return this->_maxValue; }
+    virtual NumT & minValue() const final { return this->_minValue; }
+    virtual NumT & value(const NumT &newVal) final { return (this->_value = newVal); }
+    virtual NumT & maxValue(const NumT &newMax) final { return (this->_maxValue = newMax); }
+    virtual NumT & minValue(const NumT &newMin) final { return (this->_maxValue = newMin); }
     
     virtual NumT & operator+=(const BasicClampedNumber<NumT> &) = 0;
     virtual NumT & operator-=(const BasicClampedNumber<NumT> &) = 0;
@@ -82,5 +82,12 @@ namespace clampednum
     virtual bool operator>=(const BasicClampedNumber<NumT> &other) const { return !(*this < other); }
     
     virtual NumT operator NumT() { return this->_value; }
+  };
+  
+  template<typename IntT>
+  class ClampedInteger:
+      public BasicClampedNumber<IntT>
+  {
+    
   };
 }
