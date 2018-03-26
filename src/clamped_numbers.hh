@@ -73,8 +73,8 @@ namespace clamped
     virtual BasicClampedNumber<NumT> operator++(int) = 0;
     virtual BasicClampedNumber<NumT> operator--(int) = 0;
     
-    virtual bool operator==(const BasicClampedNumber<NumT> &) const = 0;
-    virtual bool operator<(const BasicClampedNumber<NumT> &)  const = 0;
+    virtual bool operator==(const BasicClampedNumber<NumT> &other) const { return this->_value == other._value; }
+    virtual bool operator<(const BasicClampedNumber<NumT> &other)  const { return this->_value < other._value; }
     virtual bool operator!=(const BasicClampedNumber<NumT> &other) const { return !(*this == other); }
     virtual bool operator<=(const BasicClampedNumber<NumT> &other) const { return *this < other || *this == other; }
     virtual bool operator>(const BasicClampedNumber<NumT> &other)  const { return !(*this <= other); }
@@ -107,8 +107,5 @@ namespace clamped
     virtual ClampedInteger<IntT> & operator--() override;
     virtual ClampedInteger<IntT> operator++(int) override;
     virtual ClampedInteger<IntT> operator--(int) override;
-    
-    virtual bool operator==(const ClampedInteger<IntT> &other) const override { return this->_value == other._value; }
-    virtual bool operator<(const ClampedInteger<IntT> &other) const override { return this->_value < other._value; }
   };
 }
