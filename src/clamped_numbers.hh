@@ -48,8 +48,7 @@ namespace clamped
     public:
     
     BasicClampedNumber() = delete;
-    BasicClampedNumber(const NumT &value, const NumT &min, const NumT &max):
-        _value(value), _minValue(min), _maxValue(max) {}
+    BasicClampedNumber(const NumT &, const NumT &, const NumT &);
     virtual ~BasicClampedNumber() = 0;
     
     BasicClampedNumber(const BasicClampedNumber<NumT> &) = 0;
@@ -57,12 +56,12 @@ namespace clamped
     virtual BasicClampedNumber<NumT> operator=(const BasicClampedNumber<NumT> &) = 0;
     virtual BasicClampedNumber<NumT> & operator=(BasicClampedNumber<NumT> &) = 0;
     
-    virtual NumT & value() const final { return this->_value; }
-    virtual NumT & maxValue() const final { return this->_maxValue; }
-    virtual NumT & minValue() const final { return this->_minValue; }
-    virtual NumT & value(const NumT &newVal) final { return (this->_value = newVal); }
-    virtual NumT & maxValue(const NumT &newMax) final { return (this->_maxValue = newMax); }
-    virtual NumT & minValue(const NumT &newMin) final { return (this->_maxValue = newMin); }
+    virtual const NumT & value() const final { return this->_value; }
+    virtual const NumT & maxValue() const final { return this->_maxValue; }
+    virtual const NumT & minValue() const final { return this->_minValue; }
+    virtual const NumT & value(const NumT &newVal) final;
+    virtual const NumT & maxValue(const NumT &newMax) final;
+    virtual const NumT & minValue(const NumT &newMin) final;
     
     virtual BasicClampedNumber<NumT> & operator+=(const NumT &) = 0;
     virtual BasicClampedNumber<NumT> & operator-=(const NumT &) = 0;
