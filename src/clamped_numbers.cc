@@ -3,22 +3,6 @@
 using namespace clamped;
 
 template<typename NumT>
-clamped::BasicClampedNumber<NumT>::BasicClampedNumber(const NumT &value, const NumT &min, const NumT &max)
-{
-  this->_value = value;
-  
-  if(min > value)
-    this->_minValue = value;
-  else
-    this->_minValue = min;
-  
-  if(max < value)
-    this->_maxValue = value;
-  else
-    this->_maxValue = max;
-}
-
-template<typename NumT>
 virtual const NumT & clamped::BasicClampedNumber<NumT>::value(const NumT &newVal)
 {
   if(newVal < this->_minValue)

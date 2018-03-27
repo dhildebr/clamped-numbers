@@ -48,7 +48,8 @@ namespace clamped
     public:
     
     BasicClampedNumber() = delete;
-    BasicClampedNumber(const NumT &, const NumT &, const NumT &);
+    BasicClampedNumber(const NumT &value, const NumT &min, const NumT &max):
+      _value(value), _minValue((min <= value) ? min : value), _maxValue((max >= value) ? max : value) {}
     virtual ~BasicClampedNumber() = 0;
     
     BasicClampedNumber(const BasicClampedNumber<NumT> &) = 0;
