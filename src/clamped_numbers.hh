@@ -81,7 +81,8 @@ namespace clamped
     virtual bool operator>(const BasicClampedNumber<NumT> &other)  const { return !(*this <= other); }
     virtual bool operator>=(const BasicClampedNumber<NumT> &other) const { return !(*this < other); }
     
-    virtual NumT operator NumT() { return this->_value; }
+    virtual explicit NumT operator NumT() const final { return this->_value; }
+    virtual explicit bool operator bool() const final { return this->_value == 0; }
   };
   
   template<typename IntT>
