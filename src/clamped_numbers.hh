@@ -86,24 +86,20 @@ namespace clamped
   };
   
   template<typename NumT>
-  BasicClampedNumber<NumT> operator+(BasicClampedNumber<NumT> lhs, const BasicClampedNumber<NumT> &rhs)
+  BasicClampedNumber<NumT> operator+(BasicClampedNumber<NumT> lhs, const NumT &rhs)
   { return (lhs += rhs); }
   
   template<typename NumT>
-  BasicClampedNumber<NumT> operator-(BasicClampedNumber<NumT> lhs, const BasicClampedNumber<NumT> &rhs)
+  BasicClampedNumber<NumT> operator-(BasicClampedNumber<NumT> lhs, const NumT &rhs)
   { return (lhs -= rhs); }
   
   template<typename NumT>
-  BasicClampedNumber<NumT> operator*(BasicClampedNumber<NumT> lhs, const BasicClampedNumber<NumT> &rhs)
+  BasicClampedNumber<NumT> operator*(BasicClampedNumber<NumT> lhs, const NumT &rhs)
   { return (lhs *= rhs); }
   
   template<typename NumT>
-  BasicClampedNumber<NumT> operator/(BasicClampedNumber<NumT> lhs, const BasicClampedNumber<NumT> &rhs)
+  BasicClampedNumber<NumT> operator/(BasicClampedNumber<NumT> lhs, const NumT &rhs)
   { return (lhs /= rhs); }
-  
-  template<typename NumT>
-  BasicClampedNumber<NumT> operator-(const BasicClampedNumber<NumT> &num)
-  { return {-num.value(), -num.minValue(), -num.maxValue()}; }
   
   template<typename IntT>
   class ClampedInteger: public BasicClampedNumber<IntT>
