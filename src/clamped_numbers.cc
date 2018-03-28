@@ -55,14 +55,14 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator-=
   }
 }
 
-template<typename IntT>
-virtual ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator*=(const IntT &other)
+template<typename NumT>
+virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=(const NumT &other)
 {
   return *this;
 }
 
-template<typename IntT>
-virtual ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator/=(const IntT &other)
+template<typename NumT>
+virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const NumT &other)
 {
   return *this;
 }
