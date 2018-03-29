@@ -3,7 +3,7 @@
 using namespace clamped;
 
 template<typename NumT>
-virtual const NumT & clamped::BasicClampedNumber<NumT>::value(const NumT &newVal)
+inline virtual const NumT & clamped::BasicClampedNumber<NumT>::value(const NumT &newVal)
 {
   if(newVal < this->_minValue)
     return (this->_value = this->_minValue);
@@ -14,14 +14,16 @@ virtual const NumT & clamped::BasicClampedNumber<NumT>::value(const NumT &newVal
 }
 
 template<typename NumT>
-virtual const NumT & clamped::BasicClampedNumber<NumT>::minValue(const NumT &newMin)
+inline virtual const NumT & clamped::BasicClampedNumber<NumT>::minValue(const NumT &newMin)
 {
+  // The new maximum must be greater than or equal to the current value
   return ((newMin <= this->_value) ? this->_minValue = newMin : this->_minValue = this->_value);
 }
 
 template<typename NumT>
-virtual const NumT & clamped::BasicClampedNumber<NumT>::maxValue(const NumT &newMax)
+inline virtual const NumT & clamped::BasicClampedNumber<NumT>::maxValue(const NumT &newMax)
 {
+  // The new minimum must be less than or equal to the current value
   return ((newMax >= this->_value) ? this->_maxValue = newMax : this->_maxValue = this->_value);
 }
 
@@ -58,11 +60,33 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator-=
 template<typename NumT>
 virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=(const NumT &other)
 {
+  if(other == 0)
+    this->_value = 0;
+  else if(other < 1 && other > -1)
+    return (*this / (1 / other));
+  else {
+    
+  }
+  
   return *this;
 }
 
 template<typename NumT>
 virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const NumT &other)
 {
+  if(other == 0) {
+    if(this->_value > 0)
+      this->_value = this->_maxValue;
+    else if(this->_value < 0)
+      this->_value = this->_minValue;
+    else
+      this->_value = 0;
+  }
+  else if(other < 1 && other > -1)
+    return (*this * (1 / other));
+  else {
+    
+  }
+  
   return *this;
 }

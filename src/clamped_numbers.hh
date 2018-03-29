@@ -63,6 +63,8 @@ namespace clamped
     virtual const NumT & value(const NumT &newVal) final;
     virtual const NumT & maxValue(const NumT &newMax) final;
     virtual const NumT & minValue(const NumT &newMin) final;
+    virtual const NumT & minimize() final { return (this->_value = this->_minValue); }
+    virtual const NumT & maximize() final { return (this->_value = this->_maxValue); }
     
     virtual BasicClampedNumber<NumT> & operator+=(const NumT &);
     virtual BasicClampedNumber<NumT> & operator-=(const NumT &);
