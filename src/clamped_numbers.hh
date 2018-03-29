@@ -69,14 +69,18 @@ namespace clamped
     virtual BasicClampedNumber<NumT> & operator*=(const NumT &);
     virtual BasicClampedNumber<NumT> & operator/=(const NumT &);
     
-    virtual BasicClampedNumber<NumT> & operator++();
-    virtual BasicClampedNumber<NumT> & operator--();
-    virtual BasicClampedNumber<NumT> operator++(int);
-    virtual BasicClampedNumber<NumT> operator--(int);
+    virtual BasicClampedNumber<NumT> & operator++()
+    { return (*this += 1); }
+    virtual BasicClampedNumber<NumT> & operator--()
+    { return (*this -= 1); }
+    virtual BasicClampedNumber<NumT> operator++(int)
+    { BasicClampedNumber<NumT> preIncr(*this); ++(*this); return preIncr; }
+    virtual BasicClampedNumber<NumT> operator--(int)
+    { BasicClampedNumber<NumT> preDecr(*this); --(*this); return preDecr; }
     
     virtual bool operator==(const BasicClampedNumber<NumT> &other) const { return this->_value == other._value; }
-    virtual bool operator< (const BasicClampedNumber<NumT> &other) const { return this->_value < other._value; }
     virtual bool operator!=(const BasicClampedNumber<NumT> &other) const { return !(*this == other); }
+    virtual bool operator< (const BasicClampedNumber<NumT> &other) const { return this->_value < other._value; }
     virtual bool operator<=(const BasicClampedNumber<NumT> &other) const { return *this < other || *this == other; }
     virtual bool operator> (const BasicClampedNumber<NumT> &other) const { return !(*this <= other); }
     virtual bool operator>=(const BasicClampedNumber<NumT> &other) const { return !(*this < other); }
