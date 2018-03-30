@@ -104,14 +104,17 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=
   // Handle multiplication by positive numbers
   else if(other > 0) {
     if(this->_value > 0)
-        this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
+      this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
     else
-      ;
+      this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
   }
   
   // Handle multiplication by negative numbers
   else {
-    
+    if(this->_value > 0)
+      this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
+    else
+      this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
   }
   
   return *this;
