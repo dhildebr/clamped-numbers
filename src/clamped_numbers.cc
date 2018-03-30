@@ -65,7 +65,12 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=
   else if(other < 1 && other > -1)
     return (*this / (1 / other));
   else {
-    
+    if(this->_maxValue / this->_value >= other)
+      this->_value *= other;
+    else if((this->_value > 0 && other > 0) || (this->_value < 0 && other < 0))
+      this->_value = this->_maxValue;
+    else
+      this->_value = this->_minValue;
   }
   
   return *this;
@@ -74,7 +79,16 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=
 template<typename NumT>
 virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const NumT &other)
 {
-  if(other == 0) {
+  // Discard no-effect divisions
+  if(this->_value == 0 || other == 1)
+    return *this;
+  
+  // Division by -1 is the same as multiplication by -1
+  else if(other == -1)
+    return (*this *= -1);
+  
+  // Handle division by zero
+  else if(other == 0) {
     if(this->_value > 0)
       this->_value = this->_maxValue;
     else if(this->_value < 0)
@@ -82,8 +96,20 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=
     else
       this->_value = 0;
   }
+  
+  // Delegate to multiplication for division by numbers where |n| < 1
   else if(other < 1 && other > -1)
     return (*this * (1 / other));
+  
+  // Handle multiplication by positive numbers
+  else if(other > 0) {
+    if(this->_value > 0)
+        this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
+    else
+      ;
+  }
+  
+  // Handle multiplication by negative numbers
   else {
     
   }
