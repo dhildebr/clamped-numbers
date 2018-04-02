@@ -34,8 +34,7 @@
 #define CLAMPED_UINT64
 #endif
 
-namespace clamped
-{
+namespace clamped {
   template<typename NumT>
   class BasicClampedNumber
   {
@@ -60,7 +59,7 @@ namespace clamped
      * The maximum value is similarly constrained, and must be greater than or
      * equal to the starting value.
      * 
-     * \param value The starting value of this number
+     * \param value the starting value of this number
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
@@ -370,41 +369,188 @@ namespace clamped
     }
   };
   
+  /**
+   * Returns a new BasicClampedNumber with a value equal to that of the original,
+   * plus the given number, within the clamped number's bounds. For example,
+   * given a number with value 5 and bounds [0, 10], num + 10 returns a new
+   * number with value 10 and bounds [0, 10].
+   * 
+   * \param lhs the clamped nuber being added onto
+   * \param rhs the number being added onto the first
+   * \returns Returns a new clamped number equal to the bounded sum.
+   */
   template<typename NumT>
   BasicClampedNumber<NumT> operator+(BasicClampedNumber<NumT> lhs, const NumT &rhs)
   {
     return (lhs += rhs);
   }
   
+  /**
+   * Returns a new BasicClampedNumber with a value equal to that of the original,
+   * minus the given number, within the clamped nunber's bounds. For example,
+   * given a number with value 5 and bounds [0, 10], num - 10 returns a new
+   * number with value 0 and bounds [0, 10].
+   * 
+   * \param lhs the clamped nuber being subtracted from
+   * \param rhs the number being subtracted from the first
+   * \returns Returns a new clamped number equal to the bounded difference.
+   */
   template<typename NumT>
   BasicClampedNumber<NumT> operator-(BasicClampedNumber<NumT> lhs, const NumT &rhs)
   {
     return (lhs -= rhs);
   }
   
+  /**
+   * Returns a new BasicClampedNumber with a value equal to that of the original,
+   * multiplied by the given number, within the clamped nunber's bounds. For
+   * example, given a number with value 10 and bounds [0, 50], num * 10 returns
+   * a new number with value 50 and bounds [0, 50].
+   * 
+   * \param lhs the clamped number being multiplied
+   * \param rhs the number being multiplied with the first
+   * \returns Returns a new clamped number equal to the bounded product.
+   */
   template<typename NumT>
   BasicClampedNumber<NumT> operator*(BasicClampedNumber<NumT> lhs, const NumT &rhs)
   {
     return (lhs *= rhs);
   }
   
+  /**
+   * Returns a new BasicClampedNumber with a value equal to that of the original,
+   * divided by the given number, within the clamped nunber's bounds. For
+   * example, given a number with value 50 and bounds [25, 100], num / 10
+   * returns a new number with value 25 and bounds [25, 100].
+   * 
+   * \param lhs the clamped number being divided
+   * \param rhs the number being divided into the first
+   * \returns Returns a new clamped number equal to the bounded quotient.
+   */
   template<typename NumT>
   BasicClampedNumber<NumT> operator/(BasicClampedNumber<NumT> lhs, const NumT &rhs)
   {
     return (lhs /= rhs);
   }
   
-  template<typename IntT>
-  class ClampedInteger: public BasicClampedNumber<IntT>
+  template<typename NatT>
+  class ClampedNaturalNumber: public BasicClampedNumber<NatT>
   {
     public:
     
-    ClampedInteger(const IntT &value, IntT min, IntT max) :
-        BasicClampedNumber<IntT>(value, min, max)
+    /**
+     * Constructs a new ClampedNaturalNumber with the specified current,
+     * minimum, and maximum values. The minimum value must be less than or equal
+     * to the starting value: if it is not, it is itself clamped to the starting
+     * value. The maximum value is similarly constrained, and must be greater
+     * than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
+    ClampedNaturalNumber(const NatT &value, NatT min, NatT max) :
+        BasicClampedNumber<NatT>(value, min, max)
     {
     }
-    virtual ~ClampedInteger() = default;
     
-    virtual ClampedInteger<IntT> & operator%=(const IntT &);
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
+    virtual ~ClampedNaturalNumber() = default;
+    
+    virtual ClampedNaturalNumber<IntT> & operator%=(const IntT &);
   };
+  
+  template<typename IntT>
+  class ClampedInteger: public ClampedNaturalNumber
+  {
+    public:
+    
+    /**
+     * Constructs a new ClampedInteger with the specified current, minimum, and
+     * maximum values. The minimum value must be less than or equal to the
+     * starting value: if it is not, it is itself clamped to the starting value.
+     * The maximum value is similarly constrained, and must be greater than or
+     * equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
+    ClampedInteger(const IntT &value, const IntT &min, const IntT &max) :
+        ClampedNaturalNumber(value, min, max)
+    {
+    }
+    
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
+    virtual ~ClampedInteger() = default;
+  };
+  
+  /**
+   * Returns the negative of a ClampedInteger. The value is negated, but the
+   * mimumum and maximum will be unchanged, except where they are stretched to
+   * fit the new value, in line with the constructors of BasicClampedNumbers.
+   * 
+   * \param signedInt the integer to be negated
+   * \return Returns the negation of the number provided.
+   */
+  template<typename IntT>
+  ClampedInteger<IntT> operator-(const ClampedInteger<IntT> &signedInt)
+  {
+    return {-signedInt.value(), signedInt.minValue(), signedInt.maxValue()};
+  }
+  
+  template<typename FloatT>
+  class ClampedDecimal: public BasicClampedNumber<FloatT>
+  {
+    public:
+    
+    /**
+     * Constructs a new ClampedDecimal with an initial value of zero and bounds
+     * [-1, 1]. This default construction can be thought of as a "normalized"
+     * real number.
+     */
+    ClampedDecimal() :
+        BasicClampedNumber(0, -1, 1)
+    {
+    }
+    
+    /**
+     * Constructs a new ClampedDecimal with the specified current, minimum, and
+     * maximum values. The minimum value must be less than or equal to the
+     * starting value: if it is not, it is itself clamped to the starting value.
+     * The maximum value is similarly constrained, and must be greater than or
+     * equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
+    ClampedDecimal(const FloatT &value, const FloatT &min, const FloatT &max) :
+        BasicClampedNumber(value, min, max)
+    {
+    }
+    
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
+    virtual ~ClampedDecimal() = default;
+  };
+  
+  /**
+   * Returns the negative of a ClampedDecimal. The value is negated, but the
+   * mimumum and maximum will be unchanged, except where they are stretched to
+   * fit the new value, in line with the constructors of BasicClampedNumbers.
+   * 
+   * \param decim the integer to be negated
+   * \return Returns the negation of the number provided.
+   */
+  template<typename FloatT>
+  ClampedDecimal<FloatT> operator-(const ClampedDecimal<FloatT> &decim)
+  {
+    return {-decim.value(), decim.minValue(), decim.maxValue()};
+  }
 }

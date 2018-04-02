@@ -51,7 +51,11 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_decimal.html">ClampedDecimal</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_natural_number.html">ClampedNaturalNumber</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -68,6 +72,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a4aebb77bce37713e8b88ead747065bc7"><td class="memTemplParams" colspan="2">template&lt;typename NumT &gt; </td></tr>
 <tr class="memitem:a4aebb77bce37713e8b88ead747065bc7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceclamped.html#a4aebb77bce37713e8b88ead747065bc7">operator/</a> (<a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; lhs, const NumT &amp;rhs)</td></tr>
 <tr class="separator:a4aebb77bce37713e8b88ead747065bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60f57a4f52e1753f03c276fd46ef32dd"><td class="memTemplParams" colspan="2">template&lt;typename IntT &gt; </td></tr>
+<tr class="memitem:a60f57a4f52e1753f03c276fd46ef32dd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a>&lt; IntT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceclamped.html#a60f57a4f52e1753f03c276fd46ef32dd">operator-</a> (const <a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a>&lt; IntT &gt; &amp;signedInt)</td></tr>
+<tr class="memdesc:a60f57a4f52e1753f03c276fd46ef32dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the negative of a <a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a>.  <a href="#a60f57a4f52e1753f03c276fd46ef32dd">More...</a><br /></td></tr>
+<tr class="separator:a60f57a4f52e1753f03c276fd46ef32dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae1bcc0e5527755fa80bd14eedc83e3a"><td class="memTemplParams" colspan="2">template&lt;typename FloatT &gt; </td></tr>
+<tr class="memitem:aae1bcc0e5527755fa80bd14eedc83e3a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classclamped_1_1_clamped_decimal.html">ClampedDecimal</a>&lt; FloatT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceclamped.html#aae1bcc0e5527755fa80bd14eedc83e3a">operator-</a> (const <a class="el" href="classclamped_1_1_clamped_decimal.html">ClampedDecimal</a>&lt; FloatT &gt; &amp;decim)</td></tr>
+<tr class="memdesc:aae1bcc0e5527755fa80bd14eedc83e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the negative of a <a class="el" href="classclamped_1_1_clamped_decimal.html">ClampedDecimal</a>.  <a href="#aae1bcc0e5527755fa80bd14eedc83e3a">More...</a><br /></td></tr>
+<tr class="separator:aae1bcc0e5527755fa80bd14eedc83e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a8d5f457377752b665cd9f875982198e0"></a>
@@ -131,7 +143,7 @@ template&lt;typename NumT &gt; </div>
 </div>
 </div>
 <a id="a606014b7e27b35afeadbc7b6bb1f4909"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a606014b7e27b35afeadbc7b6bb1f4909">&#9670;&nbsp;</a></span>operator-()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a606014b7e27b35afeadbc7b6bb1f4909">&#9670;&nbsp;</a></span>operator-() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,6 +169,66 @@ template&lt;typename NumT &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60f57a4f52e1753f03c276fd46ef32dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60f57a4f52e1753f03c276fd46ef32dd">&#9670;&nbsp;</a></span>operator-() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename IntT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a>&lt;IntT&gt; clamped::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a>&lt; IntT &gt; &amp;&#160;</td>
+          <td class="paramname"><em>signedInt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the negative of a <a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a>. </p>
+<p>The value is negated, but the mimumum and maximum will be unchanged, except where they are stretched to fit the new value, in line with the constructors of BasicClampedNumbers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">signedInt</td><td>the integer to be negated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the negation of the number provided. </dd></dl>
+
+</div>
+</div>
+<a id="aae1bcc0e5527755fa80bd14eedc83e3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae1bcc0e5527755fa80bd14eedc83e3a">&#9670;&nbsp;</a></span>operator-() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FloatT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classclamped_1_1_clamped_decimal.html">ClampedDecimal</a>&lt;FloatT&gt; clamped::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classclamped_1_1_clamped_decimal.html">ClampedDecimal</a>&lt; FloatT &gt; &amp;&#160;</td>
+          <td class="paramname"><em>decim</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the negative of a <a class="el" href="classclamped_1_1_clamped_decimal.html">ClampedDecimal</a>. </p>
+<p>The value is negated, but the mimumum and maximum will be unchanged, except where they are stretched to fit the new value, in line with the constructors of BasicClampedNumbers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">decim</td><td>the integer to be negated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the negation of the number provided. </dd></dl>
 
 </div>
 </div>
