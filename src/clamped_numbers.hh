@@ -34,7 +34,31 @@
 #define CLAMPED_UINT64
 #endif
 
-namespace clamped {
+namespace clamped
+{
+  /**
+   * A generic number with defined lower and upper bounds beyond which its value
+   * will never pass. The type parameter for this class determines the numeric
+   * type which is kept within these bounds. Clamped numbers are designed with
+   * the built-in types such as int, double, and size_t in mind, though any
+   * numeric type with suitable operators defined can be substituted as the type
+   * parameter.
+   * 
+   * Numeric types used in a BasicClampedNumber must, in general, implement the
+   * same operators as a float. This includes the four basic arithmetic
+   * operators (+, -, *, /, +=, -=, *=, /=) and the comparison operators
+   * (==, !=, <, <=, >, >=), each with an int as the right operand. For example,
+   * it must be value to ask whether num == 0. A BasicClampedNumber does not
+   * have a concept of a sign, and hence the numeric type it wraps does not
+   * necessarily need to implement the unary - operator.
+   * 
+   * While BasicClampedNumber is technically a fully concrete class and has all
+   * the necessary operators to wrap a floating-point type such as double,
+   * direct instantiation is not reccomended, at least not for the built-in
+   * types. For floating-point types, ClampedDecimal is instead reccomended.
+   * 
+   * \param NumT the numeric type being bounded
+   */
   template<typename NumT>
   class BasicClampedNumber
   {
@@ -433,6 +457,23 @@ namespace clamped {
     return (lhs /= rhs);
   }
   
+  /**
+   * A natural number with defined lower and upper bounds beyond which its value
+   * will never pass. As compared to the very general BasicClampedNumber, a
+   * ClampedNaturalNumber is designed to wrap an unsigned integral numberical
+   * type, such as a size_t or unsigned long.
+   * 
+   * Numeric types wrapped in a ClampedNaturalNumber must - as well as the
+   * arithmetic and coparison operators required for all BasicClampedNumbers -
+   * implement the remainder operator (%, %=).
+   * 
+   * If representation of negative numbers is needed, ClampedInteger should be
+   * preffered over this type. A ClampedNaturalNumber corresponds with the
+   * mathematical concept of natural numbers (including zero), wheras a
+   * ClampedInteger corresponds with the superset thereof, of all integers.
+   * 
+   * \param NatT the unsigned integral typ being wrapped
+   */
   template<typename NatT>
   class ClampedNaturalNumber: public BasicClampedNumber<NatT>
   {
@@ -459,7 +500,7 @@ namespace clamped {
      */
     virtual ~ClampedNaturalNumber() = default;
     
-    virtual ClampedNaturalNumber<IntT> & operator%=(const IntT &);
+    virtual ClampedNaturalNumber<NatT> & operator%=(const NatT &);
   };
   
   template<typename IntT>
