@@ -500,8 +500,34 @@ namespace clamped
      */
     virtual ~ClampedNaturalNumber() = default;
     
-    virtual ClampedNaturalNumber<NatT> & operator%=(const NatT &);
+    /**
+     * Sets this number's value to the remainder of division by the given
+     * number, within this number's bounds. Notably, division by zero will yield
+     * a remainder of zero, rather than having undefined behavior.
+     * 
+     * \param other the value by which to divide this one
+     * \return Returns this number, allowing chain of operations.
+     */
+    virtual ClampedNaturalNumber<NatT> & operator%=(const NatT &other);
   };
+  
+  /**
+   * Returns a new ClampedNaturalNumber holding the remainder of the division
+   * of the original by the given number, within the clamped number's bounds.
+   * For example, given a number with value 7 and bounds [5, 10], num % 2
+   * returns a new number with value 5 and bounds [5, 10]. Notably, if the right
+   * operand is zero then the remainder will be zero, rather than being undefined.
+   * 
+   * \param lhs the left operand of the division
+   * \param rhs the number being divided into the first
+   * \return Returns a new clamped number equal to the remainder of division
+   * between the two operands.
+   */
+  template<typename NatT>
+  ClampedNaturalNumber<NatT> operator%(ClampedNaturalNumber<NatT> lhs, NatT rhs)
+  {
+    return (lhs %= rhs);
+  }
   
   template<typename IntT>
   class ClampedInteger: public ClampedNaturalNumber

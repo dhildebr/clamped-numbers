@@ -74,8 +74,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3feb83ba659e3a07575d157576a3a1e4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_natural_number.html#a3feb83ba659e3a07575d157576a3a1e4">~ClampedNaturalNumber</a> ()=default</td></tr>
 <tr class="memdesc:a3feb83ba659e3a07575d157576a3a1e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a virtual destructor with the default dehavior.  <a href="#a3feb83ba659e3a07575d157576a3a1e4">More...</a><br /></td></tr>
 <tr class="separator:a3feb83ba659e3a07575d157576a3a1e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f1b319eafa684b89564697bd26faa1b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_clamped_natural_number.html">ClampedNaturalNumber</a>&lt; NatT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_natural_number.html#a5f1b319eafa684b89564697bd26faa1b">operator%=</a> (const NatT &amp;)</td></tr>
-<tr class="separator:a5f1b319eafa684b89564697bd26faa1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a3407bcfb9a12c350fb0fc837ff0da9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_clamped_natural_number.html">ClampedNaturalNumber</a>&lt; NatT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_natural_number.html#a8a3407bcfb9a12c350fb0fc837ff0da9">operator%=</a> (const NatT &amp;other)</td></tr>
+<tr class="memdesc:a8a3407bcfb9a12c350fb0fc837ff0da9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets this number's value to the remainder of division by the given number, within this number's bounds.  <a href="#a8a3407bcfb9a12c350fb0fc837ff0da9">More...</a><br /></td></tr>
+<tr class="separator:a8a3407bcfb9a12c350fb0fc837ff0da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classclamped_1_1_basic_clamped_number"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classclamped_1_1_basic_clamped_number')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber&lt; NatT &gt;</a></td></tr>
 <tr class="memitem:a35e7101f49f509563380cdbff0078420 inherit pub_methods_classclamped_1_1_basic_clamped_number"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a35e7101f49f509563380cdbff0078420">BasicClampedNumber</a> ()=delete</td></tr>
 <tr class="memdesc:a35e7101f49f509563380cdbff0078420 inherit pub_methods_classclamped_1_1_basic_clamped_number"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default constructor is disabled.  <a href="classclamped_1_1_basic_clamped_number.html#a35e7101f49f509563380cdbff0078420">More...</a><br /></td></tr>
@@ -281,8 +282,8 @@ template&lt;typename NatT&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5f1b319eafa684b89564697bd26faa1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f1b319eafa684b89564697bd26faa1b">&#9670;&nbsp;</a></span>operator%=()</h2>
+<a id="a8a3407bcfb9a12c350fb0fc837ff0da9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a3407bcfb9a12c350fb0fc837ff0da9">&#9670;&nbsp;</a></span>operator%=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,6 +307,16 @@ template&lt;typename NatT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Sets this number's value to the remainder of division by the given number, within this number's bounds. </p>
+<p>Notably, division by zero will yield a remainder of zero, rather than having undefined behavior.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the value by which to divide this one </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns this number, allowing chain of operations. </dd></dl>
 
 </div>
 </div>

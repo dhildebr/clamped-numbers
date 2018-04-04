@@ -78,6 +78,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a4aebb77bce37713e8b88ead747065bc7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceclamped.html#a4aebb77bce37713e8b88ead747065bc7">operator/</a> (<a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; lhs, const NumT &amp;rhs)</td></tr>
 <tr class="memdesc:a4aebb77bce37713e8b88ead747065bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new <a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a> with a value equal to that of the original, divided by the given number, within the clamped nunber's bounds.  <a href="#a4aebb77bce37713e8b88ead747065bc7">More...</a><br /></td></tr>
 <tr class="separator:a4aebb77bce37713e8b88ead747065bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2029413868316112580c61612e720680"><td class="memTemplParams" colspan="2">template&lt;typename NatT &gt; </td></tr>
+<tr class="memitem:a2029413868316112580c61612e720680"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classclamped_1_1_clamped_natural_number.html">ClampedNaturalNumber</a>&lt; NatT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceclamped.html#a2029413868316112580c61612e720680">operator%</a> (<a class="el" href="classclamped_1_1_clamped_natural_number.html">ClampedNaturalNumber</a>&lt; NatT &gt; lhs, NatT rhs)</td></tr>
+<tr class="memdesc:a2029413868316112580c61612e720680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new <a class="el" href="classclamped_1_1_clamped_natural_number.html" title="A natural number with defined lower and upper bounds beyond which its value will never pass...">ClampedNaturalNumber</a> holding the remainder of the division of the original by the given number, within the clamped number's bounds.  <a href="#a2029413868316112580c61612e720680">More...</a><br /></td></tr>
+<tr class="separator:a2029413868316112580c61612e720680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60f57a4f52e1753f03c276fd46ef32dd"><td class="memTemplParams" colspan="2">template&lt;typename IntT &gt; </td></tr>
 <tr class="memitem:a60f57a4f52e1753f03c276fd46ef32dd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a>&lt; IntT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceclamped.html#a60f57a4f52e1753f03c276fd46ef32dd">operator-</a> (const <a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a>&lt; IntT &gt; &amp;signedInt)</td></tr>
 <tr class="memdesc:a60f57a4f52e1753f03c276fd46ef32dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the negative of a <a class="el" href="classclamped_1_1_clamped_integer.html">ClampedInteger</a>.  <a href="#a60f57a4f52e1753f03c276fd46ef32dd">More...</a><br /></td></tr>
@@ -88,6 +92,47 @@ Functions</h2></td></tr>
 <tr class="separator:aae1bcc0e5527755fa80bd14eedc83e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a2029413868316112580c61612e720680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2029413868316112580c61612e720680">&#9670;&nbsp;</a></span>operator%()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename NatT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classclamped_1_1_clamped_natural_number.html">ClampedNaturalNumber</a>&lt;NatT&gt; clamped::operator% </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classclamped_1_1_clamped_natural_number.html">ClampedNaturalNumber</a>&lt; NatT &gt;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NatT&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a new <a class="el" href="classclamped_1_1_clamped_natural_number.html" title="A natural number with defined lower and upper bounds beyond which its value will never pass...">ClampedNaturalNumber</a> holding the remainder of the division of the original by the given number, within the clamped number's bounds. </p>
+<p>For example, given a number with value 7 and bounds [5, 10], num % 2 returns a new number with value 5 and bounds [5, 10]. Notably, if the right operand is zero then the remainder will be zero, rather than being undefined.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>the left operand of the division </td></tr>
+    <tr><td class="paramname">rhs</td><td>the number being divided into the first </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a new clamped number equal to the remainder of division between the two operands. </dd></dl>
+
+</div>
+</div>
 <a id="a8d5f457377752b665cd9f875982198e0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d5f457377752b665cd9f875982198e0">&#9670;&nbsp;</a></span>operator*()</h2>
 
