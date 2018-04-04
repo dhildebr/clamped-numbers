@@ -2,35 +2,35 @@
 
 #include <cstdint>
 
-#if defined(INT8_MAX) && defined(INT8_MIN)
+#if !defined(CLAMPED_INT8) && defined(INT8_MAX) && defined(INT8_MIN)
 #define CLAMPED_INT8
 #endif
 
-#if defined(INT16_MAX) && defined(INT16_MIN)
+#if !defined(CLAMPED_INT16) && defined(INT16_MAX) && defined(INT16_MIN)
 #define CLAMPED_INT16
 #endif
 
-#if defined(INT32_MAX) && defined(INT32_MIN)
+#if !defined(CLAMPED_INT32) && defined(INT32_MAX) && defined(INT32_MIN)
 #define CLAMPED_INT32
 #endif
 
-#if defined(INT64_MAX) && defined(INT64_MIN)
+#if !defined(CLAMPED_INT64) && defined(INT64_MAX) && defined(INT64_MIN)
 #define CLAMPED_INT64
 #endif
 
-#if defined(UINT8_MAX)
+#if !defined(CLAMPED_UINT8) && defined(UINT8_MAX)
 #define CLAMPED_UINT8
 #endif
 
-#if defined(UINT16_MAX)
+#if !defined(CLAMPED_UINT16) && defined(UINT16_MAX)
 #define CLAMPED_UINT16
 #endif
 
-#if defined(UINT32_MAX)
+#if !defined(CLAMPED_UINT32) && defined(UINT32_MAX)
 #define CLAMPED_UINT32
 #endif
 
-#if defined(UINT64_MAX)
+#if !defined(CLAMPED_UINT64) && defined(UINT64_MAX)
 #define CLAMPED_UINT64
 #endif
 
