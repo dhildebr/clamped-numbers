@@ -40,24 +40,27 @@ namespace clamped
    * A generic number with defined lower and upper bounds beyond which its value
    * will never pass. The type parameter for this class determines the numeric
    * type which is kept within these bounds. Clamped numbers are designed with
-   * the built-in types such as int, double, and size_t in mind, though any
-   * numeric type with suitable operators defined can be substituted as the type
-   * parameter.
+   * the built-in types such as `int`, `double`, and `size_t` in mind, though
+   * any numeric type with suitable operators defined can be substituted as the
+   * type parameter.
    * 
-   * Numeric types used in a BasicClampedNumber must, in general, implement the
-   * same operators as a float. This includes the four basic arithmetic
+   * Numeric types used in a `BasicClampedNumber` must, in general, implement
+   * the same operators as a float. This includes the four basic arithmetic
    * operators (+, -, *, /, +=, -=, *=, /=) and the comparison operators
-   * (==, !=, <, <=, >, >=), each with an int as the right operand. For example,
-   * it must be value to ask whether num == 0. A BasicClampedNumber does not
-   * have a concept of a sign, and hence the numeric type it wraps does not
-   * necessarily need to implement the unary - operator.
+   * (==, !=, <, <=, >, >=), each with an `int` as the right operand. For
+   * example, it must be value to ask whether num == 0. A BasicClampedNumber
+   * does not have a concept of a sign, and hence the numeric type it wraps does
+   * not necessarily need to implement the unary - operator.
    * 
-   * While BasicClampedNumber is technically a fully concrete class and has all
-   * the necessary operators to wrap a floating-point type such as double,
+   * While `BasicClampedNumber` is technically a fully concrete class and has
+   * all the necessary operators to wrap a floating-point type such as `double`,
    * direct instantiation is not reccomended, at least not for the built-in
-   * types. For floating-point types, ClampedDecimal is instead reccomended.
+   * types. For floating-point types, `ClampedDecimal` is instead reccomended.
    * 
    * \param NumT the numeric type being bounded
+   * 
+   * \see clamped::ClampedNaturalNumber clamped::ClampedInteger
+   * clamped::ClampedDecimal
    */
   template<typename NumT>
   class BasicClampedNumber
@@ -71,17 +74,17 @@ namespace clamped
     public:
     
     /**
-     * The default constructor is disabled. A BasicClampedNumber is
+     * The default constructor is disabled. A `BasicClampedNumber` is
      * sufficiently general that no reasonable default values can be generated.
      */
     BasicClampedNumber() = delete;
     
     /**
-     * Constructs a new BasicClampedNumber with the specified current, minimum,
-     * and maximum values. The minimum value must be less than or equal to the
-     * starting value: if it is not, it is itself clamped to the starting value.
-     * The maximum value is similarly constrained, and must be greater than or
-     * equal to the starting value.
+     * Constructs a new `BasicClampedNumber` with the specified current,
+     * minimum, and maximum values. The minimum value must be less than or equal
+     * to the starting value: if it is not, it is itself clamped to the starting
+     * value. The maximum value is similarly constrained, and must be greater
+     * than or equal to the starting value.
      * 
      * \param value the starting value of this number
      * \param min the minimum value for this number
@@ -184,7 +187,7 @@ namespace clamped
 
     /**
      * Sets this number's current value to its maximum. After calling this
-     * function, therefore, value() == maxValue().
+     * function, therefore, `value() == maxValue()`.
      * 
      * \return Returns this number's current value after modification.
      */
@@ -195,7 +198,7 @@ namespace clamped
     
     /**
      * Sets this number's current value to its minimum. After calling this
-     * function, therefore, value() == minValue().
+     * function, therefore, `value() == minValue()`.
      * 
      * \return Returns this number's current value after modification.
      */
@@ -368,9 +371,10 @@ namespace clamped
     }
     
     /**
-     * Allows the excplicit conversion of this BasicClampedNumber to an instance
-     * of NumT, the numerical type it wraps. This conversion is similar to
-     * calling value(), but returns a copy instead of a const reference.
+     * Allows the excplicit conversion of this `BasicClampedNumber` to an
+     * instance of `NumT`, the numerical type it wraps. This conversion is
+     * similar to calling `value()`, but it returns a copy instead of a
+     * constant reference.
      * 
      * \return Returns a copy of this number's internal value.
      */
@@ -380,8 +384,8 @@ namespace clamped
     }
     
     /**
-     * Allows the explicit conversion of this BasicClampedNumber to a boolean
-     * value. This is equivalent to asking whether NumT(*this) == 0. As the
+     * Allows the explicit conversion of this `BasicClampedNumber` to a boolean
+     * value. This is equivalent to asking whether `NumT(*this) == 0`. As the
      * bounds of some numbers may forbid their equalling zero, these numbers
      * will always convert to false.
      * 
@@ -394,10 +398,10 @@ namespace clamped
   };
   
   /**
-   * Returns a new BasicClampedNumber with a value equal to that of the original,
-   * plus the given number, within the clamped number's bounds. For example,
-   * given a number with value 5 and bounds [0, 10], num + 10 returns a new
-   * number with value 10 and bounds [0, 10].
+   * Returns a new `BasicClampedNumber` with a value equal to that of the
+   * original, plus the given number, within the clamped number's bounds. For
+   * example, given a number with value 5 and bounds [0, 10], num + 10 returns a
+   * new number with value 10 and bounds [0, 10].
    * 
    * \param lhs the clamped nuber being added onto
    * \param rhs the number being added onto the first
@@ -410,10 +414,10 @@ namespace clamped
   }
   
   /**
-   * Returns a new BasicClampedNumber with a value equal to that of the original,
-   * minus the given number, within the clamped nunber's bounds. For example,
-   * given a number with value 5 and bounds [0, 10], num - 10 returns a new
-   * number with value 0 and bounds [0, 10].
+   * Returns a new `BasicClampedNumber` with a value equal to that of the
+   * original, minus the given number, within the clamped nunber's bounds. For
+   * example, given a number with value 5 and bounds [0, 10], num - 10 returns a
+   * new number with value 0 and bounds [0, 10].
    * 
    * \param lhs the clamped nuber being subtracted from
    * \param rhs the number being subtracted from the first
@@ -426,10 +430,10 @@ namespace clamped
   }
   
   /**
-   * Returns a new BasicClampedNumber with a value equal to that of the original,
-   * multiplied by the given number, within the clamped nunber's bounds. For
-   * example, given a number with value 10 and bounds [0, 50], num * 10 returns
-   * a new number with value 50 and bounds [0, 50].
+   * Returns a new `BasicClampedNumber` with a value equal to that of the
+   * original, multiplied by the given number, within the clamped nunber's
+   * bounds. For example, given a number with value 10 and bounds [0, 50],
+   * num * 10 returns a new number with value 50 and bounds [0, 50].
    * 
    * \param lhs the clamped number being multiplied
    * \param rhs the number being multiplied with the first
@@ -442,9 +446,9 @@ namespace clamped
   }
   
   /**
-   * Returns a new BasicClampedNumber with a value equal to that of the original,
-   * divided by the given number, within the clamped nunber's bounds. For
-   * example, given a number with value 50 and bounds [25, 100], num / 10
+   * Returns a new `BasicClampedNumber` with a value equal to that of the
+   * original, divided by the given number, within the clamped nunber's bounds.
+   * For example, given a number with value 50 and bounds [25, 100], num / 10
    * returns a new number with value 25 and bounds [25, 100].
    * 
    * \param lhs the clamped number being divided
@@ -459,20 +463,22 @@ namespace clamped
   
   /**
    * A natural number with defined lower and upper bounds beyond which its value
-   * will never pass. As compared to the very general BasicClampedNumber, a
-   * ClampedNaturalNumber is designed to wrap an unsigned integral numberical
-   * type, such as a size_t or unsigned long.
+   * will never pass. As compared to the very general `BasicClampedNumber`, a
+   * `ClampedNaturalNumber` is designed to wrap an unsigned integral numberical
+   * type, such as a `size_t` or `unsigned long`.
    * 
-   * Numeric types wrapped in a ClampedNaturalNumber must - as well as the
-   * arithmetic and coparison operators required for all BasicClampedNumbers -
+   * Numeric types wrapped in a `ClampedNaturalNumber` must - as well as the
+   * arithmetic and coparison operators required for all `BasicClampedNumber`s -
    * implement the remainder operator (%, %=).
    * 
-   * If representation of negative numbers is needed, ClampedInteger should be
-   * preffered over this type. A ClampedNaturalNumber corresponds with the
+   * If representation of negative numbers is needed, `ClampedInteger` should be
+   * preffered over this type. A `ClampedNaturalNumber` corresponds with the
    * mathematical concept of natural numbers (including zero), wheras a
-   * ClampedInteger corresponds with the superset thereof, of all integers.
+   * `ClampedInteger` corresponds with the superset thereof, of all integers.
    * 
    * \param NatT the unsigned integral typ being wrapped
+   * 
+   * \see clamped::ClampedInteger
    */
   template<typename NatT>
   class ClampedNaturalNumber: public BasicClampedNumber<NatT>
@@ -480,7 +486,7 @@ namespace clamped
     public:
     
     /**
-     * Constructs a new ClampedNaturalNumber with the specified current,
+     * Constructs a new `ClampedNaturalNumber` with the specified current,
      * minimum, and maximum values. The minimum value must be less than or equal
      * to the starting value: if it is not, it is itself clamped to the starting
      * value. The maximum value is similarly constrained, and must be greater
@@ -512,7 +518,7 @@ namespace clamped
   };
   
   /**
-   * Returns a new ClampedNaturalNumber holding the remainder of the division
+   * Returns a new `ClampedNaturalNumber` holding the remainder of the division
    * of the original by the given number, within the clamped number's bounds.
    * For example, given a number with value 7 and bounds [5, 10], num % 2
    * returns a new number with value 5 and bounds [5, 10]. Notably, if the right
@@ -529,14 +535,28 @@ namespace clamped
     return (lhs %= rhs);
   }
   
+  /**
+   * An integer with defined lower and upper bounds beyond which its value will
+   * never pass. A clamped integer corresponds with signed integral types such
+   * as `int` and `long`, and the mathematical set of all integers. Taken
+   * together, `ClampedInteger` and `ClampedDecimal` are named to draw a
+   * parallel to Java's `BigInteger` and `BigDecimal` types.
+   * 
+   * In addition  to those implemented by the types a `ClampedNaturalNumber`
+   * wraps, the numeric type contained by a `ClampedInteger` must also implement
+   * the unary - operator. In short, the wrapped type must therefore have all
+   * the same operators as an `int`, except for the bitwise ones.
+   * 
+   * \see clamped::ClampedDecimal
+   */
   template<typename IntT>
   class ClampedInteger: public ClampedNaturalNumber
   {
     public:
     
     /**
-     * Constructs a new ClampedInteger with the specified current, minimum, and
-     * maximum values. The minimum value must be less than or equal to the
+     * Constructs a new `ClampedInteger` with the specified current, minimum,
+     * and maximum values. The minimum value must be less than or equal to the
      * starting value: if it is not, it is itself clamped to the starting value.
      * The maximum value is similarly constrained, and must be greater than or
      * equal to the starting value.
@@ -557,9 +577,9 @@ namespace clamped
   };
   
   /**
-   * Returns the negative of a ClampedInteger. The value is negated, but the
+   * Returns the negative of a `ClampedInteger`. The value is negated, but the
    * mimumum and maximum will be unchanged, except where they are stretched to
-   * fit the new value, in line with the constructors of BasicClampedNumbers.
+   * fit the new value, in line with the constructors of `BasicClampedNumber`s.
    * 
    * \param signedInt the integer to be negated
    * \return Returns the negation of the number provided.
@@ -570,15 +590,28 @@ namespace clamped
     return {-signedInt.value(), signedInt.minValue(), signedInt.maxValue()};
   }
   
+  /**
+   * A real number with defined lower and upper bounds beyond which its value
+   * will never pass. A `ClampedDecimal` corresponds with floating-point types
+   * such as `float` and `double`, and with the mathematical set of all real
+   * numbers. Taken together, `ClampedInteger` and `ClampedDecimal` are named to
+   * draw a parallel to Java's `BigInteger` and `BigDecimal` types.
+   * 
+   * In addition  to those implemented by the types a `BasicClampedNumber`
+   * wraps, the numeric type contained by a `ClampedDecimal` must also implement
+   * the unary - operator.
+   * 
+   * \see clamped::ClampedInteger
+   */
   template<typename FloatT>
   class ClampedDecimal: public BasicClampedNumber<FloatT>
   {
     public:
     
     /**
-     * Constructs a new ClampedDecimal with an initial value of zero and bounds
-     * [-1, 1]. This default construction can be thought of as a "normalized"
-     * real number.
+     * Constructs a new `ClampedDecimal` with an initial value of zero and
+     * bounds [-1, 1]. This default construction can be thought of as a
+     * "normalized" real number.
      */
     ClampedDecimal() :
         BasicClampedNumber(0, -1, 1)
