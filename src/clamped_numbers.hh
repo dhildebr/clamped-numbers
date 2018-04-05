@@ -48,9 +48,10 @@ namespace clamped
    * the same operators as a float. This includes the four basic arithmetic
    * operators (+, -, *, /, +=, -=, *=, /=) and the comparison operators
    * (==, !=, <, <=, >, >=), each with an `int` as the right operand. For
-   * example, it must be value to ask whether num == 0. A BasicClampedNumber
-   * does not have a concept of a sign, and hence the numeric type it wraps does
-   * not necessarily need to implement the unary - operator.
+   * example, it must be possible to ask whether `num == 0`. A 
+   * `BasicClampedNumber` does not have a concept of a sign, and hence the
+   * numeric type it wraps does not necessarily need to implement the
+   * unary - operator.
    * 
    * While `BasicClampedNumber` is technically a fully concrete class and has
    * all the necessary operators to wrap a floating-point type such as `double`,
@@ -59,8 +60,7 @@ namespace clamped
    * 
    * \param NumT the numeric type being bounded
    * 
-   * \see clamped::ClampedNaturalNumber clamped::ClampedInteger
-   * clamped::ClampedDecimal
+   * \see ClampedNaturalNumber ClampedInteger ClampedDecimal
    */
   template<typename NumT>
   class BasicClampedNumber
@@ -476,9 +476,9 @@ namespace clamped
    * mathematical concept of natural numbers (including zero), wheras a
    * `ClampedInteger` corresponds with the superset thereof, of all integers.
    * 
-   * \param NatT the unsigned integral typ being wrapped
+   * \param NatT the unsigned integral type being wrapped
    * 
-   * \see clamped::ClampedInteger
+   * \see ClampedInteger
    */
   template<typename NatT>
   class ClampedNaturalNumber: public BasicClampedNumber<NatT>
@@ -547,7 +547,7 @@ namespace clamped
    * the unary - operator. In short, the wrapped type must therefore have all
    * the same operators as an `int`, except for the bitwise ones.
    * 
-   * \see clamped::ClampedDecimal
+   * \see ClampedDecimal
    */
   template<typename IntT>
   class ClampedInteger: public ClampedNaturalNumber
@@ -601,7 +601,7 @@ namespace clamped
    * wraps, the numeric type contained by a `ClampedDecimal` must also implement
    * the unary - operator.
    * 
-   * \see clamped::ClampedInteger
+   * \see ClampedInteger
    */
   template<typename FloatT>
   class ClampedDecimal: public BasicClampedNumber<FloatT>
