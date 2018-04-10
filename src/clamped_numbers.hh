@@ -755,12 +755,12 @@ namespace clamped
     public:
     
     ClampedInt8() :
-        ClampedInteger(0, INT8_MIN, INT8_MAX)
+        ClampedInteger(0, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
     {
     }
     
     ClampedInt8(int8_t value) :
-        ClampedInteger(value, INT8_MIN, INT8_MAX)
+        ClampedInteger(value, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
     {
     }
     
@@ -780,12 +780,12 @@ namespace clamped
     public:
     
     ClampedInt16() :
-        ClampedInteger(0, INT16_MIN, INT16_MAX)
+        ClampedInteger(0, std::numeric_limits<int16_t>::min(), std::numeric_limits<int16_t>::max())
     {
     }
     
     ClampedInt16(int16_t value) :
-        ClampedInteger(value, INT16_MIN, INT16_MAX)
+        ClampedInteger(value, std::numeric_limits<int16_t>::min(), std::numeric_limits<int16_t>::max())
     {
     }
     
@@ -805,12 +805,12 @@ namespace clamped
     public:
     
     ClampedInt32() :
-        ClampedInteger(0, INT32_MIN, INT32_MAX)
+        ClampedInteger(0, std::numeric_limits<int32_t>::min(), std::numeric_limits<int32_t>::max())
     {
     }
     
     ClampedInt32(int32_t value) :
-        ClampedInteger(value, INT8_MIN, INT8_MAX)
+        ClampedInteger(value, std::numeric_limits<int32_t>::min(), std::numeric_limits<int32_t>::max())
     {
     }
     
@@ -830,12 +830,12 @@ namespace clamped
     public:
     
     ClampedInt64() :
-        ClampedInteger(0, INT64_MIN, INT64_MAX)
+        ClampedInteger(0, std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::max())
     {
     }
     
     ClampedInt64(int64_t value) :
-        ClampedInteger(value, INT64_MIN, INT64_MAX)
+        ClampedInteger(value, std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::max())
     {
     }
     
@@ -855,12 +855,12 @@ namespace clamped
     public:
     
     ClampedUInt8() :
-        ClampedInteger(0, 0, UINT8_MAX)
+        ClampedInteger(0, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
     {
     }
     
     ClampedUInt8(uint8_t value) :
-        ClampedInteger(value, 0, UINT8_MAX)
+        ClampedInteger(value, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
     {
     }
     
@@ -880,12 +880,12 @@ namespace clamped
     public:
     
     ClampedUInt16() :
-        ClampedInteger(0, 0, UINT16_MAX)
+        ClampedInteger(0, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
     {
     }
     
     ClampedUInt16(uint16_t value) :
-        ClampedInteger(value, 0, UINT16_MAX)
+        ClampedInteger(value, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
     {
     }
     
@@ -905,12 +905,12 @@ namespace clamped
     public:
     
     ClampedUInt32() :
-        ClampedInteger(0, 0, UINT32_MAX)
+        ClampedInteger(0, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
     {
     }
     
     ClampedUInt32(uint32_t value) :
-        ClampedInteger(value, 0, UINT32_MAX)
+        ClampedInteger(value, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
     {
     }
     
@@ -930,12 +930,12 @@ namespace clamped
     public:
     
     ClampedUInt64() :
-        ClampedInteger(0, 0, UINT64_MAX)
+        ClampedInteger(0, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
     {
     }
     
     ClampedUInt64(uint64_t value) :
-        ClampedInteger(value, 0, UINT64_MAX)
+        ClampedInteger(value, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
     {
     }
     
