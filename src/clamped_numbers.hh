@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+#include <limits>
+
 #if !defined(CLAMPED_INT8) && defined(INT8_MAX) && defined(INT8_MIN)
 #define CLAMPED_INT8
 #endif
@@ -653,4 +655,296 @@ namespace clamped
   {
     return {-decim.value(), decim.minValue(), decim.maxValue()};
   }
+  
+  template<>
+  class ClampedStdInt: public ClampedInteger<int>
+  {
+    public:
+    
+    ClampedStdInt() :
+        ClampedInteger(0, std::numeric_limits<int>::min(), std::numeric_limits<int>::max())
+    {
+    }
+    
+    ClampedStdInt(int value) :
+        ClampedInteger(value, std::numeric_limits<int>::min(), std::numeric_limits<int>::max())
+    {
+    }
+    
+    ClampedStdInt(int value, int min, int max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedStdInt() = default;
+  };
+  
+  template<>
+  class ClampedStdUInt: public ClampedInteger<unsigned int>
+  {
+    public:
+    
+    ClampedStdUInt() :
+        ClampedInteger(0, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
+    {
+    }
+    
+    ClampedStdUInt(unsigned int value) :
+        ClampedInteger(value, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
+    {
+    }
+    
+    ClampedStdUInt(unsigned int value, unsigned int min, unsigned int max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedStdUInt() = default;
+  };
+  
+  template<>
+  class ClampedMaxInt: public ClampedInteger<intmax_t>
+  {
+    public:
+    
+    ClampedMaxInt() :
+        ClampedInteger(0, std::numeric_limits<intmax_t>::min(), std::numeric_limits<intmax_t>::max())
+    {
+    }
+    
+    ClampedMaxInt(intmax_t value) :
+        ClampedInteger(value, std::numeric_limits<intmax_t>::min(), std::numeric_limits<intmax_t>::max())
+    {
+    }
+    
+    ClampedMaxInt(intmax_t value, intmax_t min, intmax_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedMaxInt() = default;
+  };
+  
+  template<>
+  class ClampedMaxUInt: public ClampedInteger<uintmax_t>
+  {
+    public:
+    
+    ClampedMaxUInt() :
+        ClampedInteger(0, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
+    {
+    }
+    
+    ClampedMaxUInt(uintmax_t value) :
+        ClampedInteger(value, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
+    {
+    }
+    
+    ClampedMaxUInt(uintmax_t value, uintmax_t min, uintmax_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedMaxUInt() = default;
+  };
+  
+#ifdef CLAMPED_INT8
+  template<>
+  class ClampedInt8: public ClampedInteger<int8_t>
+  {
+    public:
+    
+    ClampedInt8() :
+        ClampedInteger(0, INT8_MIN, INT8_MAX)
+    {
+    }
+    
+    ClampedInt8(int8_t value) :
+        ClampedInteger(value, INT8_MIN, INT8_MAX)
+    {
+    }
+    
+    ClampedInt8(int8_t value, int8_t min, int8_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedInt8() = default;
+  };
+#endif
+  
+#ifdef CLAMPED_INT16
+  template<>
+  class ClampedInt16: public ClampedInteger<int16_t>
+  {
+    public:
+    
+    ClampedInt16() :
+        ClampedInteger(0, INT16_MIN, INT16_MAX)
+    {
+    }
+    
+    ClampedInt16(int16_t value) :
+        ClampedInteger(value, INT16_MIN, INT16_MAX)
+    {
+    }
+    
+    ClampedInt16(int16_t value, int16_t min, int16_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedInt16() = default;
+  };
+#endif
+  
+#ifdef CLAMPED_INT32
+  template<>
+  class ClampedInt32: public ClampedInteger<int32_t>
+  {
+    public:
+    
+    ClampedInt32() :
+        ClampedInteger(0, INT32_MIN, INT32_MAX)
+    {
+    }
+    
+    ClampedInt32(int32_t value) :
+        ClampedInteger(value, INT8_MIN, INT8_MAX)
+    {
+    }
+    
+    ClampedInt32(int32_t value, int32_t min, int32_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedInt32() = default;
+  };
+#endif
+  
+#ifdef CLAMPED_INT64
+  template<>
+  class ClampedInt64: public ClampedInteger<int64_t>
+  {
+    public:
+    
+    ClampedInt64() :
+        ClampedInteger(0, INT64_MIN, INT64_MAX)
+    {
+    }
+    
+    ClampedInt64(int64_t value) :
+        ClampedInteger(value, INT64_MIN, INT64_MAX)
+    {
+    }
+    
+    ClampedInt64(int64_t value, int64_t min, int64_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedInt64() = default;
+  };
+#endif
+  
+#ifdef CLAMPED_UINT8
+  template<>
+  class ClampedUInt8: public ClampedNaturalNumber<uint8_t>
+  {
+    public:
+    
+    ClampedUInt8() :
+        ClampedInteger(0, 0, UINT8_MAX)
+    {
+    }
+    
+    ClampedUInt8(uint8_t value) :
+        ClampedInteger(value, 0, UINT8_MAX)
+    {
+    }
+    
+    ClampedUInt8(uint8_t value, uint8_t min, uint8_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedUInt8() = default;
+  };
+#endif
+  
+#ifdef CLAMPED_UINT16
+  template<>
+  class ClampedUInt16: public ClampedNaturalNumber<uint16_t>
+  {
+    public:
+    
+    ClampedUInt16() :
+        ClampedInteger(0, 0, UINT16_MAX)
+    {
+    }
+    
+    ClampedUInt16(uint16_t value) :
+        ClampedInteger(value, 0, UINT16_MAX)
+    {
+    }
+    
+    ClampedUInt16(uint16_t value, uint16_t min, uint16_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedUInt16() = default;
+  };
+#endif
+  
+#ifdef CLAMPED_UINT32
+  template<>
+  class ClampedUInt32: public ClampedNaturalNumber<uint32_t>
+  {
+    public:
+    
+    ClampedUInt32() :
+        ClampedInteger(0, 0, UINT32_MAX)
+    {
+    }
+    
+    ClampedUInt32(uint32_t value) :
+        ClampedInteger(value, 0, UINT32_MAX)
+    {
+    }
+    
+    ClampedUInt32(uint32_t value, uint32_t min, uint32_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedUInt32() = default;
+  };
+#endif
+  
+#ifdef CLAMPED_UINT64
+  template<>
+  class ClampedUInt64: public ClampedNaturalNumber<uint64_t>
+  {
+    public:
+    
+    ClampedUInt64() :
+        ClampedInteger(0, 0, UINT64_MAX)
+    {
+    }
+    
+    ClampedUInt64(uint64_t value) :
+        ClampedInteger(value, 0, UINT64_MAX)
+    {
+    }
+    
+    ClampedUInt64(uint64_t value, uint64_t min, uint64_t max) :
+        ClampedInteger(value, min, max)
+    {
+    }
+    
+    virtual ~ClampedUInt64() = default;
+  };
+#endif
 }
