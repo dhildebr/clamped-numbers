@@ -656,99 +656,212 @@ namespace clamped
     return {-decim.value(), decim.minValue(), decim.maxValue()};
   }
   
+  /**
+   * An `int` with defined lower and upper bounds beyond which its value will
+   * never pass.
+   */
   template<>
   class ClampedStdInt: public ClampedInteger<int>
   {
     public:
     
+    /**
+     * Constructs a new `ClampedStdInt` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `int` that does not overflow nor underflow when the maximum or
+     * minimum value it can represent is exceeded.
+     */
     ClampedStdInt() :
         ClampedInteger(0, std::numeric_limits<int>::min(), std::numeric_limits<int>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedStdInt` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `int` that does not overflow nor underflow when the maximum or
+     * minimum value it can represent is exceeded.
+     */
     ClampedStdInt(int value) :
         ClampedInteger(value, std::numeric_limits<int>::min(), std::numeric_limits<int>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedStdInt` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     */
     ClampedStdInt(int value, int min, int max) :
         ClampedInteger(value, min, max)
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedStdInt() = default;
   };
   
+  /**
+   * An `unsigned int` with defined lower and upper bounds beyond which its
+   * value will never pass.
+   */
   template<>
   class ClampedStdUInt: public ClampedInteger<unsigned int>
   {
     public:
     
+    /**
+     * Constructs a new `ClampedStdUInt` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `unsigned int` that does not overflow nor underflow when the
+     * maximum or minimum value it can represent is exceeded.
+     */
     ClampedStdUInt() :
         ClampedInteger(0, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedStdUInt` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `int` that does not overflow nor underflow when the maximum or
+     * minimum value it can represent is exceeded.
+     */
     ClampedStdUInt(unsigned int value) :
         ClampedInteger(value, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedStdUInt` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     */
     ClampedStdUInt(unsigned int value, unsigned int min, unsigned int max) :
         ClampedInteger(value, min, max)
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedStdUInt() = default;
   };
   
+  /**
+   * A signed integer of the largest type supported with defined lower and upper
+   * bounds beyond which its value will never pass. In other words, this class
+   * is a type specialization of `ClampedInteger` for `intmax_t` in `<cstdint>`.
+   */
   template<>
   class ClampedMaxInt: public ClampedInteger<intmax_t>
   {
     public:
     
+    /**
+     * Constructs a new `ClampedMaxInt` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `intmax_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedMaxInt() :
         ClampedInteger(0, std::numeric_limits<intmax_t>::min(), std::numeric_limits<intmax_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedMaxInt` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `intmax_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedMaxInt(intmax_t value) :
         ClampedInteger(value, std::numeric_limits<intmax_t>::min(), std::numeric_limits<intmax_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedMaxInt` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     */
     ClampedMaxInt(intmax_t value, intmax_t min, intmax_t max) :
         ClampedInteger(value, min, max)
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedMaxInt() = default;
   };
   
+  /**
+   * An unsigned signed integer of the largest type supported with defined lower
+   * and upper bounds beyond which its value will never pass. In other words,
+   * this class is a type specialization of `ClampedInteger` for `uintmax_t`
+   * in `<cstdint>`.
+   */
   template<>
   class ClampedMaxUInt: public ClampedInteger<uintmax_t>
   {
     public:
     
+    /**
+     * Constructs a new `ClampedMaxUInt` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `uintmax_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedMaxUInt() :
         ClampedInteger(0, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedMaxUInt` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `uintmax_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedMaxUInt(uintmax_t value) :
         ClampedInteger(value, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedMaxUInt` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     */
     ClampedMaxUInt(uintmax_t value, uintmax_t min, uintmax_t max) :
         ClampedInteger(value, min, max)
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedMaxUInt() = default;
   };
   
 #ifdef CLAMPED_INT8
+  /**
+   * A signed integer exactly 8 bits in size and with defined lower and upper
+   * bounds beyond which its value will never pass. This type wil only be
+   * defined if `int8_t` from `<cstdint>`, upon which it relies, also exists. If
+   * so, the macro `CLAMPED_INT8` will also be defined.
+   */
   template<>
   class ClampedInt8: public ClampedInteger<int8_t>
   {
@@ -769,11 +882,20 @@ namespace clamped
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedInt8() = default;
   };
 #endif
   
 #ifdef CLAMPED_INT16
+  /**
+   * A signed integer exactly 16 bits in size and with defined lower and upper
+   * bounds beyond which its value will never pass. This type wil only be
+   * defined if `int16_t` from `<cstdint>`, upon which it relies, also exists.
+   * If so, the macro `CLAMPED_INT16` will also be defined.
+   */
   template<>
   class ClampedInt16: public ClampedInteger<int16_t>
   {
@@ -794,11 +916,20 @@ namespace clamped
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedInt16() = default;
   };
 #endif
   
 #ifdef CLAMPED_INT32
+  /**
+   * A signed integer exactly 32 bits in size and with defined lower and upper
+   * bounds beyond which its value will never pass. This type wil only be
+   * defined if `int32_t` from `<cstdint>`, upon which it relies, also exists.
+   * If so, the macro `CLAMPED_INT32` will also be defined.
+   */
   template<>
   class ClampedInt32: public ClampedInteger<int32_t>
   {
@@ -819,11 +950,20 @@ namespace clamped
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedInt32() = default;
   };
 #endif
   
 #ifdef CLAMPED_INT64
+  /**
+   * A signed integer exactly 64 bits in size and with defined lower and upper
+   * bounds beyond which its value will never pass. This type wil only be
+   * defined if `int164_t` from `<cstdint>`, upon which it relies, also exists.
+   * If so, the macro `CLAMPED_INT64` will also be defined.
+   */
   template<>
   class ClampedInt64: public ClampedInteger<int64_t>
   {
@@ -844,11 +984,20 @@ namespace clamped
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedInt64() = default;
   };
 #endif
   
 #ifdef CLAMPED_UINT8
+  /**
+   * An unsigned integer exactly 8 bits in size and with defined lower and upper
+   * bounds beyond which its value will never pass. This type wil only be
+   * defined if `uint8_t` from `<cstdint>`, upon which it relies, also exists.
+   * If so, the macro `CLAMPED_UINT8` will also be defined.
+   */
   template<>
   class ClampedUInt8: public ClampedNaturalNumber<uint8_t>
   {
@@ -869,11 +1018,20 @@ namespace clamped
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedUInt8() = default;
   };
 #endif
   
 #ifdef CLAMPED_UINT16
+  /**
+   * An unsigned integer exactly 16 bits in size and with defined lower and
+   * upper bounds beyond which its value will never pass. This type wil only be
+   * defined if `uint16_t` from `<cstdint>`, upon which it relies, also exists.
+   * If so, the macro `CLAMPED_UINT16` will also be defined.
+   */
   template<>
   class ClampedUInt16: public ClampedNaturalNumber<uint16_t>
   {
@@ -894,11 +1052,20 @@ namespace clamped
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedUInt16() = default;
   };
 #endif
   
 #ifdef CLAMPED_UINT32
+  /**
+   * An unsigned integer exactly 32 bits in size and with defined lower and
+   * upper bounds beyond which its value will never pass. This type wil only be
+   * defined if `uint32_t` from `<cstdint>`, upon which it relies, also exists.
+   * If so, the macro `CLAMPED_UINT32` will also be defined.
+   */
   template<>
   class ClampedUInt32: public ClampedNaturalNumber<uint32_t>
   {
@@ -919,11 +1086,20 @@ namespace clamped
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedUInt32() = default;
   };
 #endif
   
 #ifdef CLAMPED_UINT64
+  /**
+   * An unsigned integer exactly 64 bits in size and with defined lower and
+   * upper bounds beyond which its value will never pass. This type wil only be
+   * defined if `uint64_t` from `<cstdint>`, upon which it relies, also exists.
+   * If so, the macro `CLAMPED_UINT64` will also be defined.
+   */
   template<>
   class ClampedUInt64: public ClampedNaturalNumber<uint64_t>
   {
@@ -944,6 +1120,9 @@ namespace clamped
     {
     }
     
+    /**
+     * Provides a virtual destructor with the default dehavior.
+     */
     virtual ~ClampedUInt64() = default;
   };
 #endif
