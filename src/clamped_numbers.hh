@@ -681,6 +681,8 @@ namespace clamped
      * bounds. With these default bounds left intact, this number will thus act
      * like an `int` that does not overflow nor underflow when the maximum or
      * minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
      */
     ClampedStdInt(int value) :
         ClampedInteger(value, std::numeric_limits<int>::min(), std::numeric_limits<int>::max())
@@ -693,6 +695,10 @@ namespace clamped
      * equal to the starting value: if it is not, it is itself clamped to the
      * starting value. The maximum value is similarly constrained, and must be
      * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
      */
     ClampedStdInt(int value, int min, int max) :
         ClampedInteger(value, min, max)
@@ -730,6 +736,8 @@ namespace clamped
      * bounds. With these default bounds left intact, this number will thus act
      * like an `int` that does not overflow nor underflow when the maximum or
      * minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
      */
     ClampedStdUInt(unsigned int value) :
         ClampedInteger(value, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
@@ -742,6 +750,10 @@ namespace clamped
      * equal to the starting value: if it is not, it is itself clamped to the
      * starting value. The maximum value is similarly constrained, and must be
      * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
      */
     ClampedStdUInt(unsigned int value, unsigned int min, unsigned int max) :
         ClampedInteger(value, min, max)
@@ -780,6 +792,8 @@ namespace clamped
      * bounds. With these default bounds left intact, this number will thus act
      * like an `intmax_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
      */
     ClampedMaxInt(intmax_t value) :
         ClampedInteger(value, std::numeric_limits<intmax_t>::min(), std::numeric_limits<intmax_t>::max())
@@ -792,6 +806,10 @@ namespace clamped
      * equal to the starting value: if it is not, it is itself clamped to the
      * starting value. The maximum value is similarly constrained, and must be
      * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
      */
     ClampedMaxInt(intmax_t value, intmax_t min, intmax_t max) :
         ClampedInteger(value, min, max)
@@ -829,8 +847,10 @@ namespace clamped
     /**
      * Constructs a new `ClampedMaxUInt` with the given initial value and no
      * bounds. With these default bounds left intact, this number will thus act
-     * like an `uintmax_t` that does not overflow nor underflow when the maximum
+     * like a `uintmax_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
      */
     ClampedMaxUInt(uintmax_t value) :
         ClampedInteger(value, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
@@ -843,6 +863,10 @@ namespace clamped
      * equal to the starting value: if it is not, it is itself clamped to the
      * starting value. The maximum value is similarly constrained, and must be
      * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
      */
     ClampedMaxUInt(uintmax_t value, uintmax_t min, uintmax_t max) :
         ClampedInteger(value, min, max)
@@ -855,7 +879,7 @@ namespace clamped
     virtual ~ClampedMaxUInt() = default;
   };
   
-#ifdef CLAMPED_INT8
+# ifdef CLAMPED_INT8
   /**
    * A signed integer exactly 8 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
@@ -867,16 +891,41 @@ namespace clamped
   {
     public:
     
+    /**
+     * Constructs a new `ClampedInt8` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `int8_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedInt8() :
         ClampedInteger(0, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedInt8` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `int8_t` that does not overflow nor underflow when the maximum or
+     * minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
+     */
     ClampedInt8(int8_t value) :
         ClampedInteger(value, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedInt8` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
     ClampedInt8(int8_t value, int8_t min, int8_t max) :
         ClampedInteger(value, min, max)
     {
@@ -887,9 +936,9 @@ namespace clamped
      */
     virtual ~ClampedInt8() = default;
   };
-#endif
+# endif
   
-#ifdef CLAMPED_INT16
+# ifdef CLAMPED_INT16
   /**
    * A signed integer exactly 16 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
@@ -901,16 +950,41 @@ namespace clamped
   {
     public:
     
+    /**
+     * Constructs a new `ClampedInt16` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `int16_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedInt16() :
         ClampedInteger(0, std::numeric_limits<int16_t>::min(), std::numeric_limits<int16_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedInt16` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `int16_t` that does not overflow nor underflow when the maximum or
+     * minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
+     */
     ClampedInt16(int16_t value) :
         ClampedInteger(value, std::numeric_limits<int16_t>::min(), std::numeric_limits<int16_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedInt16` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
     ClampedInt16(int16_t value, int16_t min, int16_t max) :
         ClampedInteger(value, min, max)
     {
@@ -921,9 +995,9 @@ namespace clamped
      */
     virtual ~ClampedInt16() = default;
   };
-#endif
+# endif
   
-#ifdef CLAMPED_INT32
+# ifdef CLAMPED_INT32
   /**
    * A signed integer exactly 32 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
@@ -935,16 +1009,41 @@ namespace clamped
   {
     public:
     
+    /**
+     * Constructs a new `ClampedInt32` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `int32_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedInt32() :
         ClampedInteger(0, std::numeric_limits<int32_t>::min(), std::numeric_limits<int32_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedInt32` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `int32_t` that does not overflow nor underflow when the maximum or
+     * minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
+     */
     ClampedInt32(int32_t value) :
         ClampedInteger(value, std::numeric_limits<int32_t>::min(), std::numeric_limits<int32_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedInt32` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
     ClampedInt32(int32_t value, int32_t min, int32_t max) :
         ClampedInteger(value, min, max)
     {
@@ -955,9 +1054,9 @@ namespace clamped
      */
     virtual ~ClampedInt32() = default;
   };
-#endif
+# endif
   
-#ifdef CLAMPED_INT64
+# ifdef CLAMPED_INT64
   /**
    * A signed integer exactly 64 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
@@ -969,16 +1068,41 @@ namespace clamped
   {
     public:
     
+    /**
+     * Constructs a new `ClampedInt64` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like an `int64_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedInt64() :
         ClampedInteger(0, std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedInt64` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `int64_t` that does not overflow nor underflow when the maximum or
+     * minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
+     */
     ClampedInt64(int64_t value) :
         ClampedInteger(value, std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedInt64` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
     ClampedInt64(int64_t value, int64_t min, int64_t max) :
         ClampedInteger(value, min, max)
     {
@@ -989,9 +1113,9 @@ namespace clamped
      */
     virtual ~ClampedInt64() = default;
   };
-#endif
+# endif
   
-#ifdef CLAMPED_UINT8
+# ifdef CLAMPED_UINT8
   /**
    * An unsigned integer exactly 8 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
@@ -1003,16 +1127,41 @@ namespace clamped
   {
     public:
     
+    /**
+     * Constructs a new `ClampedUInt8` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `uint8_t` that does not overflow nor underflow when the maximum or
+     * minimum value it can represent is exceeded.
+     */
     ClampedUInt8() :
         ClampedInteger(0, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedUInt8` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `uint8_t` that does not overflow nor underflow when the maximum or
+     * minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
+     */
     ClampedUInt8(uint8_t value) :
         ClampedInteger(value, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedUInt8` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
     ClampedUInt8(uint8_t value, uint8_t min, uint8_t max) :
         ClampedInteger(value, min, max)
     {
@@ -1023,9 +1172,9 @@ namespace clamped
      */
     virtual ~ClampedUInt8() = default;
   };
-#endif
+# endif
   
-#ifdef CLAMPED_UINT16
+# ifdef CLAMPED_UINT16
   /**
    * An unsigned integer exactly 16 bits in size and with defined lower and
    * upper bounds beyond which its value will never pass. This type wil only be
@@ -1037,16 +1186,41 @@ namespace clamped
   {
     public:
     
+    /**
+     * Constructs a new `ClampedUInt16` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `uint16_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedUInt16() :
         ClampedInteger(0, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedUInt16` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `uint16_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
+     */
     ClampedUInt16(uint16_t value) :
         ClampedInteger(value, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedUInt16` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
     ClampedUInt16(uint16_t value, uint16_t min, uint16_t max) :
         ClampedInteger(value, min, max)
     {
@@ -1057,9 +1231,9 @@ namespace clamped
      */
     virtual ~ClampedUInt16() = default;
   };
-#endif
+# endif
   
-#ifdef CLAMPED_UINT32
+# ifdef CLAMPED_UINT32
   /**
    * An unsigned integer exactly 32 bits in size and with defined lower and
    * upper bounds beyond which its value will never pass. This type wil only be
@@ -1071,16 +1245,41 @@ namespace clamped
   {
     public:
     
+    /**
+     * Constructs a new `ClampedUInt32` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `uint32_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedUInt32() :
         ClampedInteger(0, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedUInt32` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `uint32_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
+     */
     ClampedUInt32(uint32_t value) :
         ClampedInteger(value, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedUInt32` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
     ClampedUInt32(uint32_t value, uint32_t min, uint32_t max) :
         ClampedInteger(value, min, max)
     {
@@ -1091,9 +1290,9 @@ namespace clamped
      */
     virtual ~ClampedUInt32() = default;
   };
-#endif
+# endif
   
-#ifdef CLAMPED_UINT64
+# ifdef CLAMPED_UINT64
   /**
    * An unsigned integer exactly 64 bits in size and with defined lower and
    * upper bounds beyond which its value will never pass. This type wil only be
@@ -1105,16 +1304,41 @@ namespace clamped
   {
     public:
     
+    /**
+     * Constructs a new `ClampedUInt64` with an initial value of zero and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `uint64_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     */
     ClampedUInt64() :
         ClampedInteger(0, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedUInt64` with the given initial value and no
+     * bounds. With these default bounds left intact, this number will thus act
+     * like a `uint64_t` that does not overflow nor underflow when the maximum
+     * or minimum value it can represent is exceeded.
+     * 
+     * \param value the starting value of this number
+     */
     ClampedUInt64(uint64_t value) :
         ClampedInteger(value, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
     {
     }
     
+    /**
+     * Constructs a new `ClampedUInt64` with the given initial value and the
+     * specified lower and upper bounds. The minimum value must be less than or
+     * equal to the starting value: if it is not, it is itself clamped to the
+     * starting value. The maximum value is similarly constrained, and must be
+     * greater than or equal to the starting value.
+     * 
+     * \param value the starting value of this number
+     * \param min the minimum value for this number
+     * \param max the maximum value for this number
+     */
     ClampedUInt64(uint64_t value, uint64_t min, uint64_t max) :
         ClampedInteger(value, min, max)
     {
@@ -1125,5 +1349,5 @@ namespace clamped
      */
     virtual ~ClampedUInt64() = default;
   };
-#endif
+# endif
 }

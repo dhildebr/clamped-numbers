@@ -69,10 +69,13 @@ Inheritance diagram for clamped::ClampedUInt8&lt;&gt;:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4cf22367dd9ce43d2bd420cb4dfbe924"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_u_int8.html#a4cf22367dd9ce43d2bd420cb4dfbe924">ClampedUInt8</a> ()</td></tr>
+<tr class="memdesc:a4cf22367dd9ce43d2bd420cb4dfbe924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <code><a class="el" href="classclamped_1_1_clamped_u_int8.html" title="An unsigned integer exactly 8 bits in size and with defined lower and upper bounds beyond which its v...">ClampedUInt8</a></code> with an initial value of zero and no bounds.  <a href="#a4cf22367dd9ce43d2bd420cb4dfbe924">More...</a><br /></td></tr>
 <tr class="separator:a4cf22367dd9ce43d2bd420cb4dfbe924"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8f93768a3da1eb6a2291414e3280159"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_u_int8.html#ae8f93768a3da1eb6a2291414e3280159">ClampedUInt8</a> (uint8_t <a class="el" href="classclamped_1_1_basic_clamped_number.html#a1e30f985b86986731c24130661a7a002">value</a>)</td></tr>
+<tr class="memdesc:ae8f93768a3da1eb6a2291414e3280159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <code><a class="el" href="classclamped_1_1_clamped_u_int8.html" title="An unsigned integer exactly 8 bits in size and with defined lower and upper bounds beyond which its v...">ClampedUInt8</a></code> with the given initial value and no bounds.  <a href="#ae8f93768a3da1eb6a2291414e3280159">More...</a><br /></td></tr>
 <tr class="separator:ae8f93768a3da1eb6a2291414e3280159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3be0dbe5b0ec3b2b2589bfe004ecfa76"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_u_int8.html#a3be0dbe5b0ec3b2b2589bfe004ecfa76">ClampedUInt8</a> (uint8_t <a class="el" href="classclamped_1_1_basic_clamped_number.html#a1e30f985b86986731c24130661a7a002">value</a>, uint8_t min, uint8_t max)</td></tr>
+<tr class="memdesc:a3be0dbe5b0ec3b2b2589bfe004ecfa76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <code><a class="el" href="classclamped_1_1_clamped_u_int8.html" title="An unsigned integer exactly 8 bits in size and with defined lower and upper bounds beyond which its v...">ClampedUInt8</a></code> with the given initial value and the specified lower and upper bounds.  <a href="#a3be0dbe5b0ec3b2b2589bfe004ecfa76">More...</a><br /></td></tr>
 <tr class="separator:a3be0dbe5b0ec3b2b2589bfe004ecfa76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3185b78062418dc1f7c58aa451b03105"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_clamped_u_int8.html#a3185b78062418dc1f7c58aa451b03105">~ClampedUInt8</a> ()=default</td></tr>
 <tr class="memdesc:a3185b78062418dc1f7c58aa451b03105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a virtual destructor with the default dehavior.  <a href="#a3185b78062418dc1f7c58aa451b03105">More...</a><br /></td></tr>
@@ -222,6 +225,9 @@ class clamped::ClampedUInt8&lt;&gt;</h3>
 </table>
 </div><div class="memdoc">
 
+<p>Constructs a new <code><a class="el" href="classclamped_1_1_clamped_u_int8.html" title="An unsigned integer exactly 8 bits in size and with defined lower and upper bounds beyond which its v...">ClampedUInt8</a></code> with an initial value of zero and no bounds. </p>
+<p>With these default bounds left intact, this number will thus act like a <code>uint8_t</code> that does not overflow nor underflow when the maximum or minimum value it can represent is exceeded. </p>
+
 </div>
 </div>
 <a id="ae8f93768a3da1eb6a2291414e3280159"></a>
@@ -247,6 +253,15 @@ class clamped::ClampedUInt8&lt;&gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Constructs a new <code><a class="el" href="classclamped_1_1_clamped_u_int8.html" title="An unsigned integer exactly 8 bits in size and with defined lower and upper bounds beyond which its v...">ClampedUInt8</a></code> with the given initial value and no bounds. </p>
+<p>With these default bounds left intact, this number will thus act like a <code>uint8_t</code> that does not overflow nor underflow when the maximum or minimum value it can represent is exceeded.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the starting value of this number </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -289,6 +304,17 @@ class clamped::ClampedUInt8&lt;&gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Constructs a new <code><a class="el" href="classclamped_1_1_clamped_u_int8.html" title="An unsigned integer exactly 8 bits in size and with defined lower and upper bounds beyond which its v...">ClampedUInt8</a></code> with the given initial value and the specified lower and upper bounds. </p>
+<p>The minimum value must be less than or equal to the starting value: if it is not, it is itself clamped to the starting value. The maximum value is similarly constrained, and must be greater than or equal to the starting value.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the starting value of this number </td></tr>
+    <tr><td class="paramname">min</td><td>the minimum value for this number </td></tr>
+    <tr><td class="paramname">max</td><td>the maximum value for this number </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
