@@ -3,7 +3,7 @@
 using namespace clamped;
 
 template<typename NumT>
-inline virtual const NumT & clamped::BasicClampedNumber<NumT>::value(const NumT &newVal)
+inline const NumT & clamped::BasicClampedNumber<NumT>::value(const NumT &newVal)
 {
   if(newVal < this->_minValue)
     return (this->_value = this->_minValue);
@@ -14,21 +14,21 @@ inline virtual const NumT & clamped::BasicClampedNumber<NumT>::value(const NumT 
 }
 
 template<typename NumT>
-inline virtual const NumT & clamped::BasicClampedNumber<NumT>::minValue(const NumT &newMin)
+inline const NumT & clamped::BasicClampedNumber<NumT>::minValue(const NumT &newMin)
 {
   // The new maximum must be greater than or equal to the current value
   return ((newMin <= this->_value) ? this->_minValue = newMin : this->_minValue = this->_value);
 }
 
 template<typename NumT>
-inline virtual const NumT & clamped::BasicClampedNumber<NumT>::maxValue(const NumT &newMax)
+inline const NumT & clamped::BasicClampedNumber<NumT>::maxValue(const NumT &newMax)
 {
   // The new minimum must be less than or equal to the current value
   return ((newMax >= this->_value) ? this->_maxValue = newMax : this->_maxValue = this->_value);
 }
 
 template<typename NumT>
-virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator+=(const NumT &other)
+BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator+=(const NumT &other)
 {
   // Discard no-effect additions
   if(this->_value == this->_maxValue || other == 0)
@@ -61,7 +61,7 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator+=
 }
 
 template<typename NumT>
-virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator-=(const NumT &other)
+BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator-=(const NumT &other)
 {
   // Discard no-effect subtractions
   if(this->_value == this->_minValue || other == 0)
@@ -94,7 +94,7 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator-=
 }
 
 template<typename NumT>
-virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=(const NumT &other)
+BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=(const NumT &other)
 {
   // Multiplication by zero is trivially done
   if(other == 0)
@@ -102,7 +102,7 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=
   
   // Delegate to division for multiplication where |other| < 1
   else if(other < 1 && other > -1)
-    return (*this / (1 / other));
+    return (*this /= (1 / other));
   
   // Handle remaining cases, i.e. where |other| >= 1
   else {
@@ -118,7 +118,7 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=
 }
 
 template<typename NumT>
-virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const NumT &other)
+BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const NumT &other)
 {
   // Discard no-effect divisions
   if(this->_value == 0 || other == 1)
@@ -140,7 +140,7 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=
   
   // Delegate to multiplication for division by numbers where |other| < 1
   else if(other < 1 && other > -1)
-    return (*this * (1 / other));
+    return (*this *= (1 / other));
   
   // Handle division by positive numbers: other > 1
   else if(other > 0) {
@@ -162,7 +162,7 @@ virtual BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=
 }
 
 template<typename NatT>
-virtual ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator%=(const NatT &other)
+ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator%=(const NatT &other)
 {
   if(other == 0 || other > this->_value)
     this->_value = 0;

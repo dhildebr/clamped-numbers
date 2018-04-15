@@ -69,9 +69,9 @@ namespace clamped
   {
     protected:
     
-    NumT _maxValue;
-    NumT _minValue;
     NumT _value;
+    NumT _minValue;
+    NumT _maxValue;
 
     public:
     
@@ -101,30 +101,6 @@ namespace clamped
      * Provides a virtual destructor with the default dehavior.
      */
     virtual ~BasicClampedNumber() = default;
-    
-    /**
-     * Provides defaiult behavior for the copy constructor.
-     */
-    BasicClampedNumber(const BasicClampedNumber<NumT> &) = default;
-    
-    /**
-     * Provides defaiult behavior for the move constructor.
-     */
-    BasicClampedNumber(BasicClampedNumber<NumT> &&) = default;
-    
-    /**
-     * Provides default behavior for the copy assignment operator.
-     * 
-     * \return Returns a copy of the right operand.
-     */
-    virtual BasicClampedNumber<NumT> operator=(const BasicClampedNumber<NumT> &) = default;
-    
-    /**
-     * Provides default behavior for the move assignment operator.
-     * 
-     * \return Returns the left operand's data, moved into the right operand.
-     */
-    virtual BasicClampedNumber<NumT> & operator=(BasicClampedNumber<NumT> &) = default;
     
     /**
      * Returns this number's current value by const reference.
@@ -380,7 +356,7 @@ namespace clamped
      * 
      * \return Returns a copy of this number's internal value.
      */
-    virtual explicit NumT operator NumT() const final
+    virtual explicit operator NumT() const final
     {
       return this->_value;
     }
@@ -393,7 +369,7 @@ namespace clamped
      * 
      * \return Returns true if this number equals zero, else false.
      */
-    virtual explicit bool operator bool() const final
+    virtual explicit operator bool() const final
     {
       return this->_value == 0;
     }
@@ -552,7 +528,7 @@ namespace clamped
    * \see ClampedDecimal
    */
   template<typename IntT>
-  class ClampedInteger: public ClampedNaturalNumber
+  class ClampedInteger: public ClampedNaturalNumber<IntT>
   {
     public:
     
@@ -568,7 +544,7 @@ namespace clamped
      * \param max the maximum value for this number
      */
     ClampedInteger(const IntT &value, const IntT &min, const IntT &max) :
-        ClampedNaturalNumber(value, min, max)
+        ClampedNaturalNumber<IntT>(value, min, max)
     {
     }
     
@@ -616,7 +592,7 @@ namespace clamped
      * "normalized" real number.
      */
     ClampedDecimal() :
-        BasicClampedNumber(0, -1, 1)
+        BasicClampedNumber<FloatT>(0, -1, 1)
     {
     }
     
@@ -632,7 +608,7 @@ namespace clamped
      * \param max the maximum value for this number
      */
     ClampedDecimal(const FloatT &value, const FloatT &min, const FloatT &max) :
-        BasicClampedNumber(value, min, max)
+        BasicClampedNumber<FloatT>(value, min, max)
     {
     }
     
@@ -660,7 +636,6 @@ namespace clamped
    * An `int` with defined lower and upper bounds beyond which its value will
    * never pass.
    */
-  template<>
   class ClampedStdInt: public ClampedInteger<int>
   {
     public:
@@ -715,7 +690,6 @@ namespace clamped
    * An `unsigned int` with defined lower and upper bounds beyond which its
    * value will never pass.
    */
-  template<>
   class ClampedStdUInt: public ClampedInteger<unsigned int>
   {
     public:
@@ -771,7 +745,6 @@ namespace clamped
    * bounds beyond which its value will never pass. In other words, this class
    * is a type specialization of `ClampedInteger` for `intmax_t` in `<cstdint>`.
    */
-  template<>
   class ClampedMaxInt: public ClampedInteger<intmax_t>
   {
     public:
@@ -828,7 +801,6 @@ namespace clamped
    * this class is a type specialization of `ClampedInteger` for `uintmax_t`
    * in `<cstdint>`.
    */
-  template<>
   class ClampedMaxUInt: public ClampedInteger<uintmax_t>
   {
     public:
@@ -886,7 +858,6 @@ namespace clamped
    * defined if `int8_t` from `<cstdint>`, upon which it relies, also exists. If
    * so, the macro `CLAMPED_INT8` will also be defined.
    */
-  template<>
   class ClampedInt8: public ClampedInteger<int8_t>
   {
     public:
@@ -898,7 +869,7 @@ namespace clamped
      * or minimum value it can represent is exceeded.
      */
     ClampedInt8() :
-        ClampedInteger(0, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
+        ClampedInteger<int8_t>(0, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
     {
     }
     
@@ -911,7 +882,7 @@ namespace clamped
      * \param value the starting value of this number
      */
     ClampedInt8(int8_t value) :
-        ClampedInteger(value, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
+        ClampedInteger<int8_t>(value, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
     {
     }
     
@@ -927,7 +898,7 @@ namespace clamped
      * \param max the maximum value for this number
      */
     ClampedInt8(int8_t value, int8_t min, int8_t max) :
-        ClampedInteger(value, min, max)
+        ClampedInteger<int8_t>(value, min, max)
     {
     }
     
@@ -945,7 +916,6 @@ namespace clamped
    * defined if `int16_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_INT16` will also be defined.
    */
-  template<>
   class ClampedInt16: public ClampedInteger<int16_t>
   {
     public:
@@ -1004,7 +974,6 @@ namespace clamped
    * defined if `int32_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_INT32` will also be defined.
    */
-  template<>
   class ClampedInt32: public ClampedInteger<int32_t>
   {
     public:
@@ -1063,7 +1032,6 @@ namespace clamped
    * defined if `int164_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_INT64` will also be defined.
    */
-  template<>
   class ClampedInt64: public ClampedInteger<int64_t>
   {
     public:
@@ -1122,7 +1090,6 @@ namespace clamped
    * defined if `uint8_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_UINT8` will also be defined.
    */
-  template<>
   class ClampedUInt8: public ClampedNaturalNumber<uint8_t>
   {
     public:
@@ -1134,7 +1101,7 @@ namespace clamped
      * minimum value it can represent is exceeded.
      */
     ClampedUInt8() :
-        ClampedInteger(0, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
+        ClampedNaturalNumber(0, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
     {
     }
     
@@ -1147,7 +1114,7 @@ namespace clamped
      * \param value the starting value of this number
      */
     ClampedUInt8(uint8_t value) :
-        ClampedInteger(value, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
+        ClampedNaturalNumber(value, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
     {
     }
     
@@ -1163,7 +1130,7 @@ namespace clamped
      * \param max the maximum value for this number
      */
     ClampedUInt8(uint8_t value, uint8_t min, uint8_t max) :
-        ClampedInteger(value, min, max)
+        ClampedNaturalNumber(value, min, max)
     {
     }
     
@@ -1181,7 +1148,6 @@ namespace clamped
    * defined if `uint16_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_UINT16` will also be defined.
    */
-  template<>
   class ClampedUInt16: public ClampedNaturalNumber<uint16_t>
   {
     public:
@@ -1193,7 +1159,7 @@ namespace clamped
      * or minimum value it can represent is exceeded.
      */
     ClampedUInt16() :
-        ClampedInteger(0, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
+        ClampedNaturalNumber(0, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
     {
     }
     
@@ -1206,7 +1172,7 @@ namespace clamped
      * \param value the starting value of this number
      */
     ClampedUInt16(uint16_t value) :
-        ClampedInteger(value, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
+        ClampedNaturalNumber(value, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
     {
     }
     
@@ -1222,7 +1188,7 @@ namespace clamped
      * \param max the maximum value for this number
      */
     ClampedUInt16(uint16_t value, uint16_t min, uint16_t max) :
-        ClampedInteger(value, min, max)
+        ClampedNaturalNumber(value, min, max)
     {
     }
     
@@ -1240,7 +1206,6 @@ namespace clamped
    * defined if `uint32_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_UINT32` will also be defined.
    */
-  template<>
   class ClampedUInt32: public ClampedNaturalNumber<uint32_t>
   {
     public:
@@ -1252,7 +1217,7 @@ namespace clamped
      * or minimum value it can represent is exceeded.
      */
     ClampedUInt32() :
-        ClampedInteger(0, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
+        ClampedNaturalNumber(0, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
     {
     }
     
@@ -1265,7 +1230,7 @@ namespace clamped
      * \param value the starting value of this number
      */
     ClampedUInt32(uint32_t value) :
-        ClampedInteger(value, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
+        ClampedNaturalNumber(value, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
     {
     }
     
@@ -1281,7 +1246,7 @@ namespace clamped
      * \param max the maximum value for this number
      */
     ClampedUInt32(uint32_t value, uint32_t min, uint32_t max) :
-        ClampedInteger(value, min, max)
+        ClampedNaturalNumber(value, min, max)
     {
     }
     
@@ -1299,7 +1264,6 @@ namespace clamped
    * defined if `uint64_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_UINT64` will also be defined.
    */
-  template<>
   class ClampedUInt64: public ClampedNaturalNumber<uint64_t>
   {
     public:
@@ -1311,7 +1275,7 @@ namespace clamped
      * or minimum value it can represent is exceeded.
      */
     ClampedUInt64() :
-        ClampedInteger(0, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
+        ClampedNaturalNumber(0, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
     {
     }
     
@@ -1324,7 +1288,7 @@ namespace clamped
      * \param value the starting value of this number
      */
     ClampedUInt64(uint64_t value) :
-        ClampedInteger(value, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
+        ClampedNaturalNumber(value, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
     {
     }
     
@@ -1340,7 +1304,7 @@ namespace clamped
      * \param max the maximum value for this number
      */
     ClampedUInt64(uint64_t value, uint64_t min, uint64_t max) :
-        ClampedInteger(value, min, max)
+        ClampedNaturalNumber(value, min, max)
     {
     }
     
