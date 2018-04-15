@@ -224,6 +224,70 @@ namespace clamped
     virtual BasicClampedNumber<NumT> & operator/=(const NumT &other);
 
     /**
+     * Returns a new `BasicClampedNumber` with a value equal to that of the
+     * original, plus the given number, within the clamped number's bounds. For
+     * example, given a number with value 5 and bounds [0, 10], num + 10 returns
+     * a new number with value 10 and bounds [0, 10].
+     * 
+     * \param other the number added onto this one
+     * \return Returns the sum of this and the other number.
+     */
+    virtual BasicClampedNumber<NumT> operator+(const NumT &other) const
+    {
+      BasicClampedNumber<NumT> sum(*this);
+      sum += other;
+      return sum;
+    }
+    
+    /**
+     * Returns a new `BasicClampedNumber` with a value equal to that of the
+     * original, minus the given number, within the clamped nunber's bounds. For
+     * example, given a number with value 5 and bounds [0, 10], num - 10 returns
+     * a new number with value 0 and bounds [0, 10].
+     * 
+     * \param other the number subtracted from this one
+     * \return Returns the difference of this and the other number.
+     */
+    virtual BasicClampedNumber<NumT> operator-(const NumT &other) const
+    {
+      BasicClampedNumber<NumT> difference(*this);
+      difference -= other;
+      return difference;
+    }
+    
+    /**
+     * Returns a new `BasicClampedNumber` with a value equal to that of the
+     * original, multiplied by the given number, within the clamped nunber's
+     * bounds. For example, given a number with value 10 and bounds [0, 50],
+     * num * 10 returns a new number with value 50 and bounds [0, 50].
+     * 
+     * \param other the number by which this one is multiplied
+     * \return Returns the product of this and the other number.
+     */
+    virtual BasicClampedNumber<NumT> operator*(const NumT &other) const
+    {
+      BasicClampedNumber<NumT> product(*this);
+      product *= other;
+      return product;
+    }
+    
+    /**
+     * Returns a new `BasicClampedNumber` with a value equal to that of the
+     * original, divided by the given number, within the clamped nunber's
+     * bounds. For example, given a number with value 50 and bounds [25, 100],
+     * num / 10 returns a new number with value 25 and bounds [25, 100].
+     * 
+     * \param other the number by which this one is divided
+     * \return Returns the quotient of this and the other number.
+     */
+    virtual BasicClampedNumber<NumT> operator/(const NumT &other) const
+    {
+      BasicClampedNumber<NumT> quotient(*this);
+      quotient /= other;
+      return quotient;
+    }
+    
+    /**
      * Increments this number by one, within its bounds.
      * 
      * \return Returns this number post-incrementation.
@@ -376,70 +440,6 @@ namespace clamped
   };
   
   /**
-   * Returns a new `BasicClampedNumber` with a value equal to that of the
-   * original, plus the given number, within the clamped number's bounds. For
-   * example, given a number with value 5 and bounds [0, 10], num + 10 returns a
-   * new number with value 10 and bounds [0, 10].
-   * 
-   * \param lhs the clamped nuber being added onto
-   * \param rhs the number being added onto the first
-   * \returns Returns a new clamped number equal to the bounded sum.
-   */
-  template<typename NumT>
-  BasicClampedNumber<NumT> operator+(BasicClampedNumber<NumT> lhs, const NumT &rhs)
-  {
-    return (lhs += rhs);
-  }
-  
-  /**
-   * Returns a new `BasicClampedNumber` with a value equal to that of the
-   * original, minus the given number, within the clamped nunber's bounds. For
-   * example, given a number with value 5 and bounds [0, 10], num - 10 returns a
-   * new number with value 0 and bounds [0, 10].
-   * 
-   * \param lhs the clamped nuber being subtracted from
-   * \param rhs the number being subtracted from the first
-   * \returns Returns a new clamped number equal to the bounded difference.
-   */
-  template<typename NumT>
-  BasicClampedNumber<NumT> operator-(BasicClampedNumber<NumT> lhs, const NumT &rhs)
-  {
-    return (lhs -= rhs);
-  }
-  
-  /**
-   * Returns a new `BasicClampedNumber` with a value equal to that of the
-   * original, multiplied by the given number, within the clamped nunber's
-   * bounds. For example, given a number with value 10 and bounds [0, 50],
-   * num * 10 returns a new number with value 50 and bounds [0, 50].
-   * 
-   * \param lhs the clamped number being multiplied
-   * \param rhs the number being multiplied with the first
-   * \returns Returns a new clamped number equal to the bounded product.
-   */
-  template<typename NumT>
-  BasicClampedNumber<NumT> operator*(BasicClampedNumber<NumT> lhs, const NumT &rhs)
-  {
-    return (lhs *= rhs);
-  }
-  
-  /**
-   * Returns a new `BasicClampedNumber` with a value equal to that of the
-   * original, divided by the given number, within the clamped nunber's bounds.
-   * For example, given a number with value 50 and bounds [25, 100], num / 10
-   * returns a new number with value 25 and bounds [25, 100].
-   * 
-   * \param lhs the clamped number being divided
-   * \param rhs the number being divided into the first
-   * \returns Returns a new clamped number equal to the bounded quotient.
-   */
-  template<typename NumT>
-  BasicClampedNumber<NumT> operator/(BasicClampedNumber<NumT> lhs, const NumT &rhs)
-  {
-    return (lhs /= rhs);
-  }
-  
-  /**
    * A natural number with defined lower and upper bounds beyond which its value
    * will never pass. As compared to the very general `BasicClampedNumber`, a
    * `ClampedNaturalNumber` is designed to wrap an unsigned integral numberical
@@ -493,25 +493,25 @@ namespace clamped
      * \return Returns this number, allowing chain of operations.
      */
     virtual ClampedNaturalNumber<NatT> & operator%=(const NatT &other);
+
+    /**
+     * Returns a new `ClampedNaturalNumber` holding the remainder of the
+     * division of the original by the given number, within this number's
+     * bounds. For example, given a number with value 7 and bounds [5, 10],
+     * num % 2 returns a new number with value 5 and bounds [5, 10]. Notably, if
+     * the right operand is zero then the remainder will be zero, rather than
+     * being undefined.
+     * 
+     * \param other the number from which this one's remainder is found
+     * \return Returns the remainder of dividing this number by the other.
+     */
+    virtual ClampedNaturalNumber<NatT> operator%(const NatT &other) const
+    {
+      ClampedNaturalNumber<NatT> remainder(*this);
+      remainder %= other;
+      return remainder;
+    }
   };
-  
-  /**
-   * Returns a new `ClampedNaturalNumber` holding the remainder of the division
-   * of the original by the given number, within the clamped number's bounds.
-   * For example, given a number with value 7 and bounds [5, 10], num % 2
-   * returns a new number with value 5 and bounds [5, 10]. Notably, if the right
-   * operand is zero then the remainder will be zero, rather than being undefined.
-   * 
-   * \param lhs the left operand of the division
-   * \param rhs the number being divided into the first
-   * \return Returns a new clamped number equal to the remainder of division
-   * between the two operands.
-   */
-  template<typename NatT>
-  ClampedNaturalNumber<NatT> operator%(ClampedNaturalNumber<NatT> lhs, NatT rhs)
-  {
-    return (lhs %= rhs);
-  }
   
   /**
    * An integer with defined lower and upper bounds beyond which its value will
@@ -552,21 +552,20 @@ namespace clamped
      * Provides a virtual destructor with the default dehavior.
      */
     virtual ~ClampedInteger() = default;
+    
+    /**
+     * Returns the negative of this number. The value is negated, but the
+     * mimimum and maximum will be unchanged, except where they are stretched to
+     * fit the new value, in line with the constructors
+     * of `BasicClampedNumber`s.
+     * 
+     * \return Returns the negation of this number.
+     */
+    virtual ClampedInteger<IntT> operator-() const
+    {
+      return {-(this->_value), this->_minValue, this->_maxValue};
+    }
   };
-  
-  /**
-   * Returns the negative of a `ClampedInteger`. The value is negated, but the
-   * mimumum and maximum will be unchanged, except where they are stretched to
-   * fit the new value, in line with the constructors of `BasicClampedNumber`s.
-   * 
-   * \param signedInt the integer to be negated
-   * \return Returns the negation of the number provided.
-   */
-  template<typename IntT>
-  ClampedInteger<IntT> operator-(const ClampedInteger<IntT> &signedInt)
-  {
-    return {-signedInt.value(), signedInt.minValue(), signedInt.maxValue()};
-  }
   
   /**
    * A real number with defined lower and upper bounds beyond which its value
@@ -616,21 +615,20 @@ namespace clamped
      * Provides a virtual destructor with the default dehavior.
      */
     virtual ~ClampedDecimal() = default;
+    
+    /**
+     * Returns the negative of this number. The value is negated, but the
+     * mimimum and maximum will be unchanged, except where they are stretched to
+     * fit the new value, in line with the constructors
+     * of `BasicClampedNumber`s.
+     * 
+     * \return Returns the negation of this number.
+     */
+    virtual ClampedDecimal<FloatT> operator-() const
+    {
+      return {-(this->_value), this->_minValue, this->_maxValue};
+    }
   };
-  
-  /**
-   * Returns the negative of a ClampedDecimal. The value is negated, but the
-   * mimumum and maximum will be unchanged, except where they are stretched to
-   * fit the new value, in line with the constructors of BasicClampedNumbers.
-   * 
-   * \param decim the integer to be negated
-   * \return Returns the negation of the number provided.
-   */
-  template<typename FloatT>
-  ClampedDecimal<FloatT> operator-(const ClampedDecimal<FloatT> &decim)
-  {
-    return {-decim.value(), decim.minValue(), decim.maxValue()};
-  }
   
   /**
    * An `int` with defined lower and upper bounds beyond which its value will
