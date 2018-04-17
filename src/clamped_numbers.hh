@@ -442,7 +442,7 @@ namespace clamped
   /**
    * A natural number with defined lower and upper bounds beyond which its value
    * will never pass. As compared to the very general `BasicClampedNumber`, a
-   * `ClampedNaturalNumber` is designed to wrap an unsigned integral numberical
+   * `ClampedNaturalNumber` is designed to wrap an unsigned integral numerical
    * type, such as a `size_t` or `unsigned long`.
    * 
    * Numeric types wrapped in a `ClampedNaturalNumber` must - as well as the
@@ -484,6 +484,14 @@ namespace clamped
      */
     virtual ~ClampedNaturalNumber() = default;
     
+    virtual ClampedNaturalNumber<NatT> & operator+=(const NatT &other) override;
+
+    virtual ClampedNaturalNumber<NatT> & operator-=(const NatT &other) override;
+
+    virtual ClampedNaturalNumber<NatT> & operator*=(const NatT &other) override;
+
+    virtual ClampedNaturalNumber<NatT> & operator/=(const NatT &other) override;
+
     /**
      * Sets this number's value to the remainder of division by the given
      * number, within this number's bounds. Notably, division by zero will yield
@@ -563,7 +571,8 @@ namespace clamped
      */
     virtual ClampedInteger<IntT> operator-() const
     {
-      return {-(this->_value), this->_minValue, this->_maxValue};
+      IntT negVal = -(this->_value);
+      return {negVal, this->_minValue, this->_maxValue};
     }
   };
   
@@ -626,7 +635,8 @@ namespace clamped
      */
     virtual ClampedDecimal<FloatT> operator-() const
     {
-      return {-(this->_value), this->_minValue, this->_maxValue};
+      FloatT negVal = -(this->_value);
+      return {negVal, this->_minValue, this->_maxValue};
     }
   };
   

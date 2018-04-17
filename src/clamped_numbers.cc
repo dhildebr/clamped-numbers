@@ -27,6 +27,116 @@ inline const NumT & clamped::BasicClampedNumber<NumT>::maxValue(const NumT &newM
   return ((newMax >= this->_value) ? this->_maxValue = newMax : this->_maxValue = this->_value);
 }
 
+// ############################################### BasicClampedNumber ############################################### //
+// ################################################################################################################## //
+// ############################################## ClampedNaturalNumber ############################################## //
+
+template<typename NatT>
+ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator+=(const NatT &other)
+{
+  // Discard no-effect additions
+  if(this->_value >= this->_maxValue || other == 0)
+    return *this;
+  
+  // Handle remaining cases: other > 0
+  else {
+    if(this->_maxValue - this->_value >= other)
+      this->_value += other;
+    else
+      this->_value = this->_maxValue;
+  }
+  
+  return *this;
+}
+
+template<typename NatT>
+ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator-=(const NatT &other)
+{
+  // Discard no-effect subtractions
+  if(this->_value <= this->_minValue || other == 0)
+    return *this;
+  
+  // Handle remaining cases: other > 0
+  else {
+    if(this->_value - this->_minValue <= other)
+      this->_value -= other;
+    else
+      this->_value = this->_minValue;
+  }
+  
+  return *this;
+}
+
+template<typename NatT>
+ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator*=(const NatT &other)
+{
+  // Multiplication by zero is trivially done
+  if(other == 0)
+    this->_value = 0;
+  
+  // Handle remaining cases, i.e. where |other| >= 1
+  else {
+    if(this->_maxValue / this->_value >= other)
+      this->_value *= other;
+    else
+      this->_value = this->_maxValue;
+  }
+  
+  return *this;
+}
+
+template<typename NatT>
+ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator/=(const NatT &other)
+{
+  // Discard no-effect divisions
+  if(this->_value != 0 && other != 1) {
+    // Handle division by zero
+    if(other == 0) {
+      if(this->_value > 0)
+        this->_value = this->_maxValue;
+      else
+        this->_value = 0;
+    }
+    
+    // Handle division by positive numbers: other > 1
+    else if(other > 0) {
+      if(this->_value / this->_minValue >= other)
+        this->_value /= other;
+      else
+        this->_value = this->_minValue;
+    }
+    
+    return *this;
+  }
+}
+
+template<typename NatT>
+ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator%=(const NatT &other)
+{
+  if(other == 0 || other > this->_value)
+    this->_value = 0;
+  else if(this->_value % other < this->_minValue)
+    this->_value = this->_minValue;
+  else if(this->_value % other > this->_maxValue)
+    this->_value = this->_maxValue;
+  else
+    this->_value %= other;
+  
+  return *this;
+}
+
+// ############################################## ClampedNaturalNumber ############################################## //
+// ################################################################################################################## //
+// ############################################## ClampedNaturalNumber ############################################## //
+
+// ############################################## ClampedNaturalNumber ############################################## //
+// ################################################################################################################## //
+// ################################################# ClampedInteger ################################################# //
+
+// ################################################# ClampedInteger ################################################# //
+// ################################################################################################################## //
+// ################################################# ClampedDecimal ################################################# //
+
 template<typename NumT>
 BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator+=(const NumT &other)
 {
@@ -157,21 +267,6 @@ BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const N
     else
       this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
   }
-  
-  return *this;
-}
-
-template<typename NatT>
-ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator%=(const NatT &other)
-{
-  if(other == 0 || other > this->_value)
-    this->_value = 0;
-  else if(this->_value % other < this->_minValue)
-    this->_value = this->_minValue;
-  else if(this->_value % other > this->_maxValue)
-    this->_value = this->_maxValue;
-  else
-    this->_value %= other;
   
   return *this;
 }
