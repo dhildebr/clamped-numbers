@@ -561,6 +561,16 @@ namespace clamped
      */
     virtual ~ClampedInteger() = default;
     
+    virtual ClampedInteger<IntT> & operator+=(const IntT &other);
+
+    virtual ClampedInteger<IntT> & operator-=(const IntT &other);
+
+    virtual ClampedInteger<IntT> & operator*=(const IntT &other);
+
+    virtual ClampedInteger<IntT> & operator/=(const IntT &other);
+
+    virtual ClampedInteger<IntT> & operator%=(const IntT &other);
+
     /**
      * Returns the negative of this number. The value is negated, but the
      * mimimum and maximum will be unchanged, except where they are stretched to

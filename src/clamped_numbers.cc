@@ -71,7 +71,7 @@ template<typename NatT>
 ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator*=(const NatT &other)
 {
   // Multiplication by zero is trivially done
-  if(other == 0)
+  if(other == 0 || this->_value == 0)
     this->_value = 0;
   
   // Handle remaining cases, i.e. where |other| >= 1
@@ -127,11 +127,121 @@ ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator%=(con
 
 // ############################################## ClampedNaturalNumber ############################################## //
 // ################################################################################################################## //
-// ############################################## ClampedNaturalNumber ############################################## //
-
-// ############################################## ClampedNaturalNumber ############################################## //
-// ################################################################################################################## //
 // ################################################# ClampedInteger ################################################# //
+
+template<typename IntT>
+ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator+=(const IntT &other)
+{
+  // Discard no-effect additions
+  if(this->_value >= this->_maxValue || other == 0)
+    return *this;
+  
+  // Delegate to subtraction when adding negatives
+  else if(other < 0)
+    return (*this -= (-other));
+  
+  // Handle remaining cases: other > 0
+  else {
+    // Positive max, negative min: the reverse is impossible
+    if(this->_maxValue >= 0 && this->_value < 0) {
+      if(other + this->_value <= this->_maxValue)
+        this->_value += other;
+      else
+        this->_value = this->_maxValue;
+    }
+    
+    // Maximum and current have matching signs
+    else {
+      if(this->_maxValue - this->_value >= other)
+        this->_value += other;
+      else
+        this->_value = this->_maxValue;
+    }
+    
+    return *this;
+  }
+}
+
+template<typename IntT>
+ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator-=(const IntT &other)
+{
+  // Discard no-effect subtractions
+  if(this->_value <= this->_minValue || other == 0)
+    return *this;
+  
+  // Delegate to addition for subtraction of negatives
+  else if(other < 0)
+    return (*this += (-other));
+  
+  // Handle remaining cases: other > 0
+  else {
+    // Negative minimum, positive current: the reverse is impossible
+    if(this->_minValue < 0 && this->_value >= 0) {
+      if(other - this->_value >= this->_minValue)
+        this->_value -= other;
+      else
+        this->_value = this->_minValue;
+    }
+    
+    // Minimum and current have matching signs
+    else {
+      if(this->_value - this->_minValue <= other)
+        this->_value -= other;
+      else
+        this->_value = this->_minValue;
+    }
+    
+    return *this;
+  }
+}
+
+template<typename IntT>
+ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator*=(const IntT &other)
+{
+  // Multiplication by zero is trivially done
+  if(other == 0 || this->_value == 0)
+    this->_value = 0;
+  
+  // Handle remaining cases, i.e. where |other| >= 1
+  else {
+    if(other > 0) {
+      if((this->_value > 0 && this->_maxValue / this->_value >= other)
+          || (this->_value < 0 && this->_minValue / this->_value >= other))
+        this->_value *= other;
+      else {
+        if((this->_value > 0 && other > 0) || (this->_value < 0 && other < 0))
+          this->_value = this->_maxValue;
+        else
+          this->_value = this->_minValue;
+      }
+    }
+    else {
+      if((this->_value > 0 && false)
+          || (this->_value < 0 && false))
+        this->_value *= other;
+      else {
+        if((this->_value > 0 && other > 0) || (this->_value < 0 && other < 0))
+          this->_value = this->_maxValue;
+        else
+          this->_value = this->_minValue;
+      }
+    }
+  }
+  
+  return *this;
+}
+
+template<typename IntT>
+ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator/=(const IntT &other)
+{
+  return *this;
+}
+
+template<typename IntT>
+ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator%=(const IntT &other)
+{
+  return *this;
+}
 
 // ################################################# ClampedInteger ################################################# //
 // ################################################################################################################## //
@@ -230,15 +340,15 @@ BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=(const N
 template<typename NumT>
 BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const NumT &other)
 {
-  // Discard no-effect divisions
+// Discard no-effect divisions
   if(this->_value == 0 || other == 1)
     return *this;
   
-  // Division by -1 is the same as multiplication by -1 (delegate)
+// Division by -1 is the same as multiplication by -1 (delegate)
   else if(other == -1)
     return (*this *= -1);
   
-  // Handle division by zero
+// Handle division by zero
   else if(other == 0) {
     if(this->_value > 0)
       this->_value = this->_maxValue;
@@ -248,11 +358,11 @@ BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const N
       this->_value = 0;
   }
   
-  // Delegate to multiplication for division by numbers where |other| < 1
+// Delegate to multiplication for division by numbers where |other| < 1
   else if(other < 1 && other > -1)
     return (*this *= (1 / other));
   
-  // Handle division by positive numbers: other > 1
+// Handle division by positive numbers: other > 1
   else if(other > 0) {
     if(this->_value > 0)
       this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
@@ -260,7 +370,7 @@ BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const N
       this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
   }
   
-  // Handle division by negative numbers: other < -1
+// Handle division by negative numbers: other < -1
   else {
     if(this->_value > 0)
       this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
