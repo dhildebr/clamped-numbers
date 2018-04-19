@@ -3,6 +3,22 @@
 using namespace clamped;
 
 template<typename NumT>
+static bool roomToAdd(NumT &, NumT &, NumT &, NumT &);
+
+template<typename NumT>
+static bool roomToSubtract(NumT &, NumT &, NumT &, NumT &);
+
+template<typename NumT>
+static bool roomToMultiply(NumT &, NumT &, NumT &, NumT &);
+
+template<typename NumT>
+static bool roomToDivide(NumT &, NumT &, NumT &, NumT &);
+
+// ############################################## Forward Declarations ############################################## //
+// ################################################################################################################## //
+// ############################################### BasicClampedNumber ############################################### //
+
+template<typename NumT>
 inline const NumT & clamped::BasicClampedNumber<NumT>::value(const NumT &newVal)
 {
   if(newVal < this->_minValue)
@@ -113,9 +129,7 @@ ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator/=(con
 template<typename NatT>
 ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator%=(const NatT &other)
 {
-  if(other == 0 || other > this->_value)
-    this->_value = 0;
-  else if(this->_value % other < this->_minValue)
+  if(this->_value % other < this->_minValue)
     this->_value = this->_minValue;
   else if(this->_value % other > this->_maxValue)
     this->_value = this->_maxValue;
@@ -217,7 +231,8 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator*=(const IntT &oth
     }
     else {
       if((this->_value > 0 && false)
-          || (this->_value < 0 && false))
+          || (this->_value < 0 && ((this->_maxValue >= 0) ? this->_maxValue / this->_value >= other :
+                                                            -(this->_maxValue) / this->_value <= other)))
         this->_value *= other;
       else {
         if((this->_value > 0 && other > 0) || (this->_value < 0 && other < 0))
@@ -234,12 +249,53 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator*=(const IntT &oth
 template<typename IntT>
 ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator/=(const IntT &other)
 {
+  // Discard no-effect divisions
+  if(this->_value == 0 || other == 1)
+    return *this;
+  
+  // Division by -1 is the same as multiplication by -1 (delegate)
+  else if(other == -1)
+    return (*this *= -1);
+  
+  // Handle division by zero
+  else if(other == 0) {
+    if(this->_value > 0)
+      this->_value = this->_maxValue;
+    else if(this->_value < 0)
+      this->_value = this->_minValue;
+    else
+      this->_value = 0;
+  }
+  
+  // Handle division by positive numbers: other > 1
+  else if(other > 0) {
+    if(this->_value > 0)
+      this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
+    else
+      this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
+  }
+  
+  // Handle division by negative numbers: other < -1
+  else {
+    if(this->_value > 0)
+      this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
+    else
+      this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
+  }
+  
   return *this;
 }
 
 template<typename IntT>
 ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator%=(const IntT &other)
 {
+  if(this->_value % other < this->_minValue)
+    this->_value = this->_minValue;
+  else if(this->_value % other > this->_maxValue)
+    this->_value = this->_maxValue;
+  else
+    this->_value %= other;
+  
   return *this;
 }
 
@@ -340,15 +396,15 @@ BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator*=(const N
 template<typename NumT>
 BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const NumT &other)
 {
-// Discard no-effect divisions
+  // Discard no-effect divisions
   if(this->_value == 0 || other == 1)
     return *this;
   
-// Division by -1 is the same as multiplication by -1 (delegate)
+  // Division by -1 is the same as multiplication by -1 (delegate)
   else if(other == -1)
     return (*this *= -1);
   
-// Handle division by zero
+  // Handle division by zero
   else if(other == 0) {
     if(this->_value > 0)
       this->_value = this->_maxValue;
@@ -358,11 +414,11 @@ BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const N
       this->_value = 0;
   }
   
-// Delegate to multiplication for division by numbers where |other| < 1
+  // Delegate to multiplication for division by numbers where |other| < 1
   else if(other < 1 && other > -1)
     return (*this *= (1 / other));
   
-// Handle division by positive numbers: other > 1
+  // Handle division by positive numbers: other > 1
   else if(other > 0) {
     if(this->_value > 0)
       this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
@@ -370,7 +426,7 @@ BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const N
       this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
   }
   
-// Handle division by negative numbers: other < -1
+  // Handle division by negative numbers: other < -1
   else {
     if(this->_value > 0)
       this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
@@ -379,4 +435,32 @@ BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const N
   }
   
   return *this;
+}
+
+// ################################################# ClampedDecimal ################################################# //
+// ################################################################################################################## //
+// ################################################ Helper Functions ################################################ //
+
+template<typename NumT>
+static bool roomToAdd(NumT &current, NumT &other, NumT &min, NumT &max)
+{
+  return false;
+}
+
+template<typename NumT>
+static bool roomToSubtract(NumT &current, NumT &other, NumT &min, NumT &max)
+{
+  return false;
+}
+
+template<typename NumT>
+static bool roomToMultiply(NumT &current, NumT &other, NumT &min, NumT &max)
+{
+  return false;
+}
+
+template<typename NumT>
+static bool roomToDivide(NumT &current, NumT &other, NumT &min, NumT &max)
+{
+  return false;
 }
