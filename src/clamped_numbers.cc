@@ -1,22 +1,16 @@
+#include <cstdint>
+
 #include "clamped_numbers.hh"
 
 using namespace clamped;
 
-template<typename NumT>
-static bool roomToAdd(NumT &, NumT &, NumT &, NumT &);
-
-template<typename NumT>
-static bool roomToSubtract(NumT &, NumT &, NumT &, NumT &);
-
-template<typename NumT>
-static bool roomToMultiply(NumT &, NumT &, NumT &, NumT &);
-
-template<typename NumT>
-static bool roomToDivide(NumT &, NumT &, NumT &, NumT &);
-
-// ############################################## Forward Declarations ############################################## //
-// ################################################################################################################## //
-// ############################################### BasicClampedNumber ############################################### //
+// An enumeration of clamping reactions during modification
+enum class ClampReaction: uint8_t
+{ 
+  MAXIMUM, // Value should clamp to maximum
+  MINIMUM, // Value should clamp to minimum
+  NONE     // Value can be modified normally
+};
 
 template<typename NumT>
 inline const NumT & clamped::BasicClampedNumber<NumT>::value(const NumT &newVal)
@@ -143,11 +137,49 @@ ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator%=(con
 // ################################################################################################################## //
 // ################################################# ClampedInteger ################################################# //
 
+// Invariants: other > 0
+template<typename IntT>
+static ClampReaction addReactionInteger(const IntT &current, const IntT &other, const IntT &, const IntT &max)
+{
+  // Positive max, negative current: the reverse is impossible
+  if(max >= 0 && current < 0)
+    return (current + other <= max) ? ClampReaction::NONE : ClampReaction::MAXIMUM;
+  
+  // Maximum and current have matching signs
+  else
+    return (max - current >= other) ? ClampReaction::NONE : ClampReaction::MAXIMUM;
+}
+
+// Invariants: other > 0
+template<typename IntT>
+static ClampReaction subtractReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &)
+{
+  // Negative minimum, positive current: the reverse is impossible
+  if(min < 0 && current >= 0)
+    return (current - other >= min) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+  
+  // Minimum and current have matching signs
+  else
+    return (current - min <= other) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+}
+
+template<typename IntT>
+static ClampReaction multiplyReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &max)
+{
+  return ClampReaction::NONE;
+}
+
+template<typename IntT>
+static ClampReaction divideReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &max)
+{
+  return ClampReaction::NONE;
+}
+
 template<typename IntT>
 ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator+=(const IntT &other)
 {
   // Discard no-effect additions
-  if(this->_value >= this->_maxValue || other == 0)
+  if(other == 0)
     return *this;
   
   // Delegate to subtraction when adding negatives
@@ -156,20 +188,16 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator+=(const IntT &oth
   
   // Handle remaining cases: other > 0
   else {
-    // Positive max, negative min: the reverse is impossible
-    if(this->_maxValue >= 0 && this->_value < 0) {
-      if(other + this->_value <= this->_maxValue)
+    switch(addReactionInteger(this->_value, other, this->_minValue, this->_maxValue)) {
+      case ClampReaction::NONE:
         this->_value += other;
-      else
+      break;
+      case ClampReaction::MAXIMUM:
         this->_value = this->_maxValue;
-    }
-    
-    // Maximum and current have matching signs
-    else {
-      if(this->_maxValue - this->_value >= other)
-        this->_value += other;
-      else
-        this->_value = this->_maxValue;
+      break;
+      case ClampReaction::MINIMUM:
+        this->_value = this->_minValue;
+      break;
     }
     
     return *this;
@@ -180,7 +208,7 @@ template<typename IntT>
 ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator-=(const IntT &other)
 {
   // Discard no-effect subtractions
-  if(this->_value <= this->_minValue || other == 0)
+  if(other == 0)
     return *this;
   
   // Delegate to addition for subtraction of negatives
@@ -189,20 +217,16 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator-=(const IntT &oth
   
   // Handle remaining cases: other > 0
   else {
-    // Negative minimum, positive current: the reverse is impossible
-    if(this->_minValue < 0 && this->_value >= 0) {
-      if(other - this->_value >= this->_minValue)
+    switch(subtractReactionInteger(this->_value, other, this->_minValue, this->_maxValue)) {
+      case ClampReaction::NONE:
         this->_value -= other;
-      else
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
+      break;
+      case ClampReaction::MINIMUM:
         this->_value = this->_minValue;
-    }
-    
-    // Minimum and current have matching signs
-    else {
-      if(this->_value - this->_minValue <= other)
-        this->_value -= other;
-      else
-        this->_value = this->_minValue;
+      break;
     }
     
     return *this;
@@ -435,32 +459,4 @@ BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator/=(const N
   }
   
   return *this;
-}
-
-// ################################################# ClampedDecimal ################################################# //
-// ################################################################################################################## //
-// ################################################ Helper Functions ################################################ //
-
-template<typename NumT>
-static bool roomToAdd(NumT &current, NumT &other, NumT &min, NumT &max)
-{
-  return false;
-}
-
-template<typename NumT>
-static bool roomToSubtract(NumT &current, NumT &other, NumT &min, NumT &max)
-{
-  return false;
-}
-
-template<typename NumT>
-static bool roomToMultiply(NumT &current, NumT &other, NumT &min, NumT &max)
-{
-  return false;
-}
-
-template<typename NumT>
-static bool roomToDivide(NumT &current, NumT &other, NumT &min, NumT &max)
-{
-  return false;
 }
