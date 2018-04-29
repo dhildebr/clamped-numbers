@@ -163,9 +163,38 @@ static ClampReaction subtractReactionInteger(const IntT &current, const IntT &ot
     return (current - min <= other) ? ClampReaction::NONE : ClampReaction::MINIMUM;
 }
 
+// Invariants: current != 0, |other| >= 1
 template<typename IntT>
 static ClampReaction multiplyReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &max)
 {
+  if(current > 0) {
+    if(other > 0) {
+      if(other >= max)
+        return ClampReaction::MAXIMUM;
+      else
+        return (max / current >= other) ? ClampReaction::NONE : ClampReaction::MAXIMUM;
+    }
+    else {
+      if(min >= 0)
+        return ClampReaction::MINIMUM;
+      else if(other <= min)
+        return ClampReaction::MINIMUM;
+      else
+        return (min / -other >= current) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+  }
+  else {
+    if(other > 0) {
+      return (min / current >= other) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+    else {
+      if(other <= min)
+        return ClampReaction::MINIMUM;
+      else
+        return (min / current >= -other) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+  }
+  
   return ClampReaction::NONE;
 }
 
@@ -237,33 +266,21 @@ template<typename IntT>
 ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator*=(const IntT &other)
 {
   // Multiplication by zero is trivially done
-  if(other == 0 || this->_value == 0)
+  if(this->_value == 0 || other == 0)
     this->_value = 0;
   
   // Handle remaining cases, i.e. where |other| >= 1
   else {
-    if(other > 0) {
-      if((this->_value > 0 && this->_maxValue / this->_value >= other)
-          || (this->_value < 0 && this->_minValue / this->_value >= other))
+    switch(multiplyReactionInteger(this->_value, other, this->_minValue, this->_maxValue)) {
+      case ClampReaction::NONE:
         this->_value *= other;
-      else {
-        if((this->_value > 0 && other > 0) || (this->_value < 0 && other < 0))
-          this->_value = this->_maxValue;
-        else
-          this->_value = this->_minValue;
-      }
-    }
-    else {
-      if((this->_value > 0 && false)
-          || (this->_value < 0 && ((this->_maxValue >= 0) ? this->_maxValue / this->_value >= other :
-                                                            -(this->_maxValue) / this->_value <= other)))
-        this->_value *= other;
-      else {
-        if((this->_value > 0 && other > 0) || (this->_value < 0 && other < 0))
-          this->_value = this->_maxValue;
-        else
-          this->_value = this->_minValue;
-      }
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
+      break;
+      case ClampReaction::MINIMUM:
+        this->_value = this->_minValue;
+      break;
     }
   }
   
