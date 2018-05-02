@@ -321,10 +321,6 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator/=(const IntT &oth
   if(this->_value == 0 || other == 1)
     return *this;
   
-  // Division by -1 is the same as multiplication by -1 (delegate)
-  else if(other == -1)
-    return (*this *= -1);
-  
   // Handle division by zero
   else if(other == 0) {
     if(this->_value > 0)
