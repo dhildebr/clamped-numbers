@@ -198,9 +198,36 @@ static ClampReaction multiplyReactionInteger(const IntT &current, const IntT &ot
   return ClampReaction::NONE;
 }
 
+// Invariants: current != 0, other != 0, other != 1
 template<typename IntT>
 static ClampReaction divideReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &max)
 {
+  if(current > 0) {
+    if(other > 0) {
+      if(min < 0)
+        return ClampReaction::NONE;
+      else
+        return (current / other >= min) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+    else {
+      if(min >= 0)
+        return ClampReaction::MINIMUM;
+      else
+        return (current / other >= min) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+  }
+  else {
+    if(other > 0) {
+      return (current / other >= min) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+    else {
+      if(max < 0)
+        return ClampReaction::MAXIMUM;
+      else
+        return (current / other <= max) ? ClampReaction::NONE : ClampReaction::MAXIMUM;
+    }
+  }
+  
   return ClampReaction::NONE;
 }
 
@@ -308,20 +335,19 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator/=(const IntT &oth
       this->_value = 0;
   }
   
-  // Handle division by positive numbers: other > 1
-  else if(other > 0) {
-    if(this->_value > 0)
-      this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
-    else
-      this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
-  }
-  
-  // Handle division by negative numbers: other < -1
+  // Handle division by positive numbers: other != 0, other != 1
   else {
-    if(this->_value > 0)
-      this->_value = (this->_value / this->_minValue <= -other) ? this->_value / other : this->_maxValue;
-    else
-      this->_value = (this->_value / this->_minValue >= other) ? this->_value / other : this->_minValue;
+    switch(divideReactionInteger(this->_value, other, this->_minValue, this->_maxValue)) {
+      case ClampReaction::NONE:
+        this->_value /= other;
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
+      break;
+      case ClampReaction::MINIMUM:
+        this->_value = this->_minValue;
+      break;
+    }
   }
   
   return *this;
