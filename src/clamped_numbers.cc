@@ -138,8 +138,8 @@ ClampedNaturalNumber<NatT> & clamped::ClampedNaturalNumber<NatT>::operator%=(con
 // ################################################# ClampedInteger ################################################# //
 
 // Invariants: other > 0
-template<typename IntT>
-static ClampReaction addReactionInteger(const IntT &current, const IntT &other, const IntT &, const IntT &max)
+template<typename IntT> static
+ClampReaction addReactionInteger(const IntT &current, const IntT &other, const IntT &, const IntT &max)
 {
   // Positive max, negative current: the reverse is impossible
   if(max >= 0 && current < 0)
@@ -151,8 +151,8 @@ static ClampReaction addReactionInteger(const IntT &current, const IntT &other, 
 }
 
 // Invariants: other > 0
-template<typename IntT>
-static ClampReaction subtractReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &)
+template<typename IntT> static
+ClampReaction subtractReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &)
 {
   // Negative minimum, positive current: the reverse is impossible
   if(min < 0 && current >= 0)
@@ -164,8 +164,8 @@ static ClampReaction subtractReactionInteger(const IntT &current, const IntT &ot
 }
 
 // Invariants: current != 0, |other| >= 1
-template<typename IntT>
-static ClampReaction multiplyReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &max)
+template<typename IntT> static
+ClampReaction multiplyReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &max)
 {
   if(current > 0) {
     if(other > 0) {
@@ -199,8 +199,8 @@ static ClampReaction multiplyReactionInteger(const IntT &current, const IntT &ot
 }
 
 // Invariants: current != 0, other != 0, other != 1
-template<typename IntT>
-static ClampReaction divideReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &max)
+template<typename IntT> static
+ClampReaction divideReactionInteger(const IntT &current, const IntT &other, const IntT &min, const IntT &max)
 {
   if(current > 0) {
     if(other > 0) {
@@ -248,11 +248,11 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator+=(const IntT &oth
       case ClampReaction::NONE:
         this->_value += other;
       break;
-      case ClampReaction::MAXIMUM:
-        this->_value = this->_maxValue;
-      break;
       case ClampReaction::MINIMUM:
         this->_value = this->_minValue;
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
       break;
     }
     
@@ -277,11 +277,11 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator-=(const IntT &oth
       case ClampReaction::NONE:
         this->_value -= other;
       break;
-      case ClampReaction::MAXIMUM:
-        this->_value = this->_maxValue;
-      break;
       case ClampReaction::MINIMUM:
         this->_value = this->_minValue;
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
       break;
     }
     
@@ -302,11 +302,11 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator*=(const IntT &oth
       case ClampReaction::NONE:
         this->_value *= other;
       break;
-      case ClampReaction::MAXIMUM:
-        this->_value = this->_maxValue;
-      break;
       case ClampReaction::MINIMUM:
         this->_value = this->_minValue;
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
       break;
     }
   }
@@ -337,11 +337,11 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator/=(const IntT &oth
       case ClampReaction::NONE:
         this->_value /= other;
       break;
-      case ClampReaction::MAXIMUM:
-        this->_value = this->_maxValue;
-      break;
       case ClampReaction::MINIMUM:
         this->_value = this->_minValue;
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
       break;
     }
   }
@@ -366,29 +366,41 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator%=(const IntT &oth
 // ################################################################################################################## //
 // ################################################# ClampedDecimal ################################################# //
 
-template<typename FloatT>
-static ClampReaction addReactionDecimal(const FloatT &current, const FloatT &other,
+// Invariants: other > 0
+template<typename FloatT> static
+ClampReaction addReactionDecimal(const FloatT &current, const FloatT &other, const FloatT &, const FloatT &max)
+{
+  // Positive max, negative current: the reverse is impossible
+  if(max >= 0 && current < 0)
+    return (current + other <= max) ? ClampReaction::NONE : ClampReaction::MAXIMUM;
+  
+  // Maximum and current have matching signs
+  else
+    return (max - current >= other) ? ClampReaction::NONE : ClampReaction::MAXIMUM;
+}
+
+// Invariants: other > 0
+template<typename FloatT> static
+ClampReaction subtractReactionDecimal(const FloatT &current, const FloatT &other, const FloatT &min, const FloatT &)
+{
+  // Negative minimum, positive current: the reverse is impossible
+  if(min < 0 && current >= 0)
+    return (current - other >= min) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+  
+  // Minimum and current have matching signs
+  else
+    return (current - min <= other) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+}
+
+template<typename FloatT> static
+ClampReaction multiplyReactionDecimal(const FloatT &current, const FloatT &other,
     const FloatT &min, const FloatT &max)
 {
   return ClampReaction::NONE;
 }
 
-template<typename FloatT>
-static ClampReaction subtractReactionDecimal(const FloatT &current, const FloatT &other,
-    const FloatT &min, const FloatT &max)
-{
-  return ClampReaction::NONE;
-}
-
-template<typename FloatT>
-static ClampReaction multiplyReactionDecimal(const FloatT &current, const FloatT &other,
-    const FloatT &min, const FloatT &max)
-{
-  return ClampReaction::NONE;
-}
-
-template<typename FloatT>
-static ClampReaction divideReactionDecimal(const FloatT &current, const FloatT &other,
+template<typename FloatT> static
+ClampReaction divideReactionDecimal(const FloatT &current, const FloatT &other,
     const FloatT &min, const FloatT &max)
 {
   return ClampReaction::NONE;
@@ -397,13 +409,59 @@ static ClampReaction divideReactionDecimal(const FloatT &current, const FloatT &
 template<typename FloatT>
 ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator+=(const FloatT &other)
 {
-  return *this;
+  // Discard no-effect additions
+  if(other == 0)
+    return *this;
+  
+  // Delegate to subtraction when adding negatives
+  else if(other < 0)
+    return (*this -= (-other));
+  
+  // Handle remaining cases: other > 0
+  else {
+    switch(addReactionDecimal(this->_value, other, this->_minValue, this->_maxValue)) {
+      case ClampReaction::NONE:
+        this->_value += other;
+      break;
+      case ClampReaction::MINIMUM:
+        this->_value = this->_minValue;
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
+      break;
+    }
+    
+    return *this;
+  }
 }
 
 template<typename FloatT>
 ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator-=(const FloatT &other)
 {
-  return *this;
+  // Discard no-effect subtractions
+  if(other == 0)
+    return *this;
+  
+  // Delegate to addition for subtraction of negatives
+  else if(other < 0)
+    return (*this += (-other));
+  
+  // Handle remaining cases: other > 0
+  else {
+    switch(subtractReactionDecimal(this->_value, other, this->_minValue, this->_maxValue)) {
+      case ClampReaction::NONE:
+        this->_value -= other;
+      break;
+      case ClampReaction::MINIMUM:
+        this->_value = this->_minValue;
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
+      break;
+    }
+    
+    return *this;
+  }
 }
 
 template<typename FloatT>
@@ -419,39 +477,6 @@ ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator/=(const Float
 }
 
 // ################################################################################################################## //
-
-template<typename NumT>
-BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator+=(const NumT &other)
-{
-  // Discard no-effect additions
-  if(this->_value == this->_maxValue || other == 0)
-    return *this;
-  
-  // Delegate to subtraction when adding negatives
-  else if(other < 0)
-    return (*this -= (-other));
-  
-  // Handle remaining cases: other > 0
-  else {
-    // Positive max, negative min: the reverse is ipossible
-    if(this->_maxValue >= 0 && this->_value < 0) {
-      if(other + this->_value <= this->_maxValue)
-        this->_value += other;
-      else
-        this->_value = this->_maxValue;
-    }
-    
-    // Maximum and current have matching signs
-    else {
-      if(this->_maxValue - this->_value >= other)
-        this->_value += other;
-      else
-        this->_value = this->_maxValue;
-    }
-  }
-  
-  return *this;
-}
 
 template<typename NumT>
 BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator-=(const NumT &other)
