@@ -366,6 +366,60 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator%=(const IntT &oth
 // ################################################################################################################## //
 // ################################################# ClampedDecimal ################################################# //
 
+template<typename FloatT>
+static ClampReaction addReactionDecimal(const FloatT &current, const FloatT &other,
+    const FloatT &min, const FloatT &max)
+{
+  return ClampReaction::NONE;
+}
+
+template<typename FloatT>
+static ClampReaction subtractReactionDecimal(const FloatT &current, const FloatT &other,
+    const FloatT &min, const FloatT &max)
+{
+  return ClampReaction::NONE;
+}
+
+template<typename FloatT>
+static ClampReaction multiplyReactionDecimal(const FloatT &current, const FloatT &other,
+    const FloatT &min, const FloatT &max)
+{
+  return ClampReaction::NONE;
+}
+
+template<typename FloatT>
+static ClampReaction divideReactionDecimal(const FloatT &current, const FloatT &other,
+    const FloatT &min, const FloatT &max)
+{
+  return ClampReaction::NONE;
+}
+
+template<typename FloatT>
+ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator+=(const FloatT &other)
+{
+  return *this;
+}
+
+template<typename FloatT>
+ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator-=(const FloatT &other)
+{
+  return *this;
+}
+
+template<typename FloatT>
+ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator*=(const FloatT &other)
+{
+  return *this;
+}
+
+template<typename FloatT>
+ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator/=(const FloatT &other)
+{
+  return *this;
+}
+
+// ################################################################################################################## //
+
 template<typename NumT>
 BasicClampedNumber<NumT> & clamped::BasicClampedNumber<NumT>::operator+=(const NumT &other)
 {
