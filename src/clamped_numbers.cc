@@ -194,8 +194,6 @@ ClampReaction multiplyReactionInteger(const IntT &current, const IntT &other, co
         return (min / current >= -other) ? ClampReaction::NONE : ClampReaction::MINIMUM;
     }
   }
-  
-  return ClampReaction::NONE;
 }
 
 // Invariants: current != 0, other != 0, other != 1
@@ -227,8 +225,6 @@ ClampReaction divideReactionInteger(const IntT &current, const IntT &other, cons
         return (current / other <= max) ? ClampReaction::NONE : ClampReaction::MAXIMUM;
     }
   }
-  
-  return ClampReaction::NONE;
 }
 
 template<typename IntT>
@@ -396,7 +392,25 @@ template<typename FloatT> static
 ClampReaction multiplyReactionDecimal(const FloatT &current, const FloatT &other,
     const FloatT &min, const FloatT &max)
 {
-  return ClampReaction::NONE;
+  if(current > 0) {
+    if(other > 0) {
+      return (max / current >= other) ? ClampReaction::NONE : ClampReaction::MAXIMUM;
+    }
+    else {
+      if(min >= 0)
+        return ClampReaction::MINIMUM;
+      else
+        return (min / -other >= current) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+  }
+  else {
+    if(other > 0) {
+      return (min / current >= other) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+    else {
+      return (min / current >= -other) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+  }
 }
 
 template<typename FloatT> static
