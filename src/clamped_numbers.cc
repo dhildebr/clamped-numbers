@@ -6,9 +6,9 @@ using namespace clamped;
 
 // An enumeration of clamping reactions during modification
 enum class ClampReaction: uint8_t
-{ 
-  MAXIMUM, // Value should clamp to maximum
+{
   MINIMUM, // Value should clamp to minimum
+  MAXIMUM, // Value should clamp to maximum
   NONE     // Value can be modified normally
 };
 
@@ -202,7 +202,7 @@ ClampReaction divideReactionInteger(const IntT &current, const IntT &other, cons
 {
   if(current > 0) {
     if(other > 0) {
-      if(min < 0)
+      if(min <= 0)
         return ClampReaction::NONE;
       else
         return (current / other >= min) ? ClampReaction::NONE : ClampReaction::MINIMUM;
@@ -327,7 +327,7 @@ ClampedInteger<IntT> & clamped::ClampedInteger<IntT>::operator/=(const IntT &oth
       this->_value = 0;
   }
   
-  // Handle division by positive numbers: other != 0, other != 1
+  // Handle the more meaningful cases: other != 0, other != 1
   else {
     switch(divideReactionInteger(this->_value, other, this->_minValue, this->_maxValue)) {
       case ClampReaction::NONE:
@@ -388,6 +388,7 @@ ClampReaction subtractReactionDecimal(const FloatT &current, const FloatT &other
     return (current - min <= other) ? ClampReaction::NONE : ClampReaction::MINIMUM;
 }
 
+// Invariants: current != 0, |other| >= 1
 template<typename FloatT> static
 ClampReaction multiplyReactionDecimal(const FloatT &current, const FloatT &other,
     const FloatT &min, const FloatT &max)
@@ -413,11 +414,36 @@ ClampReaction multiplyReactionDecimal(const FloatT &current, const FloatT &other
   }
 }
 
+// Invariants: current != 0, |other| >= 1, other != 1
 template<typename FloatT> static
 ClampReaction divideReactionDecimal(const FloatT &current, const FloatT &other,
     const FloatT &min, const FloatT &max)
 {
-  return ClampReaction::NONE;
+  if(current > 0) {
+    if(other > 0) {
+      if(min <= 0)
+        return ClampReaction::NONE;
+      else
+        return (current / other >= min) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+    else {
+      if(min >= 0)
+        return ClampReaction::MINIMUM;
+      else
+        return (current / other >= min) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+  }
+  else {
+    if(other > 0) {
+      return (current / other >= min) ? ClampReaction::NONE : ClampReaction::MINIMUM;
+    }
+    else {
+      if(max < 0)
+        return ClampReaction::MAXIMUM;
+      else
+        return (current / other <= max) ? ClampReaction::NONE : ClampReaction::MAXIMUM;
+    }
+  }
 }
 
 template<typename FloatT>
@@ -481,12 +507,68 @@ ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator-=(const Float
 template<typename FloatT>
 ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator*=(const FloatT &other)
 {
+  // Multiplication by zero is trivially done
+  if(this->_value == 0 || other == 0)
+    this->_value = 0;
+  
+  // Delegate to division for |other| < 1 (while avoiding sign/unsigned comparison)
+  else if((other > 0) ? other < 1 : -other < 1)
+    return (*this /= (1 / other));
+  
+  // Handle remaining cases, i.e. where |other| >= 1
+  else {
+    switch(multiplyReactionDecimal(this->_value, other, this->_minValue, this->_maxValue)) {
+      case ClampReaction::NONE:
+        this->_value *= other;
+      break;
+      case ClampReaction::MINIMUM:
+        this->_value = this->_minValue;
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
+      break;
+    }
+  }
+  
   return *this;
 }
 
 template<typename FloatT>
 ClampedDecimal<FloatT> & clamped::ClampedDecimal<FloatT>::operator/=(const FloatT &other)
 {
+  // Discard no-effect divisions
+  if(this->_value == 0 || other == 1)
+    return *this;
+  
+  // Handle division by zero
+  else if(other == 0) {
+    if(this->_value > 0)
+      this->_value = this->_maxValue;
+    else if(this->_value < 0)
+      this->_value = this->_minValue;
+    else
+      this->_value = 0;
+  }
+  
+  // Delegate to multiplication for |other| < 1 (while avoiding sign/unsigned comparison)
+  else if((other > 0) ? other < 1 : -other < 1)
+    return (*this *= (1 / other));
+  
+  // Handle the more meaningful cases: |other| >= 1
+  else {
+    switch(divideReactionDecimal(this->_value, other, this->_minValue, this->_maxValue)) {
+      case ClampReaction::NONE:
+        this->_value /= other;
+      break;
+      case ClampReaction::MINIMUM:
+        this->_value = this->_minValue;
+      break;
+      case ClampReaction::MAXIMUM:
+        this->_value = this->_maxValue;
+      break;
+    }
+  }
+  
   return *this;
 }
 
