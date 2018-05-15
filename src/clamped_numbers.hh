@@ -874,13 +874,15 @@ namespace clamped
   };
   
 # ifdef CLAMPED_INT8
+  
   /**
    * A signed integer exactly 8 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
    * defined if `int8_t` from `<cstdint>`, upon which it relies, also exists. If
    * so, the macro `CLAMPED_INT8` will also be defined.
    */
-  class ClampedInt8: public ClampedInteger<int8_t>
+  template<>
+  class ClampedInteger<int8_t>
   {
     public:
     
@@ -890,7 +892,7 @@ namespace clamped
      * like an `int8_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
      */
-    ClampedInt8() :
+    ClampedInteger<int8_t>() :
         ClampedInteger<int8_t>(0, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
     {
     }
@@ -903,7 +905,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedInt8(int8_t value) :
+    ClampedInteger<int8_t>(int8_t value) :
         ClampedInteger<int8_t>(value, std::numeric_limits<int8_t>::min(), std::numeric_limits<int8_t>::max())
     {
     }
@@ -919,7 +921,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedInt8(int8_t value, int8_t min, int8_t max) :
+    ClampedInteger<int8_t>(int8_t value, int8_t min, int8_t max) :
         ClampedInteger<int8_t>(value, min, max)
     {
     }
@@ -927,18 +929,23 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedInt8() = default;
+    virtual ~ClampedInteger<int8_t>() = default;
   };
+  
+  using ClampedInt8 = ClampedInteger<int8_t>;
+  
 # endif
   
 # ifdef CLAMPED_INT16
+  
   /**
    * A signed integer exactly 16 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
    * defined if `int16_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_INT16` will also be defined.
    */
-  class ClampedInt16: public ClampedInteger<int16_t>
+  template<>
+  class ClampedInteger<int16_t>
   {
     public:
     
@@ -948,7 +955,7 @@ namespace clamped
      * like an `int16_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
      */
-    ClampedInt16() :
+    ClampedInteger<int16_t>() :
         ClampedInteger(0, std::numeric_limits<int16_t>::min(), std::numeric_limits<int16_t>::max())
     {
     }
@@ -961,7 +968,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedInt16(int16_t value) :
+    ClampedInteger<int16_t>(int16_t value) :
         ClampedInteger(value, std::numeric_limits<int16_t>::min(), std::numeric_limits<int16_t>::max())
     {
     }
@@ -977,7 +984,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedInt16(int16_t value, int16_t min, int16_t max) :
+    ClampedInteger<int16_t>(int16_t value, int16_t min, int16_t max) :
         ClampedInteger(value, min, max)
     {
     }
@@ -985,18 +992,23 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedInt16() = default;
+    virtual ~ClampedInteger<int16_t>() = default;
   };
+  
+  using ClampedInt16 = ClampedInteger<int16_t>;
+  
 # endif
   
 # ifdef CLAMPED_INT32
+  
   /**
    * A signed integer exactly 32 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
    * defined if `int32_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_INT32` will also be defined.
    */
-  class ClampedInt32: public ClampedInteger<int32_t>
+  template<>
+  class ClampedInteger<int32_t>
   {
     public:
     
@@ -1006,7 +1018,7 @@ namespace clamped
      * like an `int32_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
      */
-    ClampedInt32() :
+    ClampedInteger<int32_t>() :
         ClampedInteger(0, std::numeric_limits<int32_t>::min(), std::numeric_limits<int32_t>::max())
     {
     }
@@ -1019,7 +1031,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedInt32(int32_t value) :
+    ClampedInteger<int32_t>(int32_t value) :
         ClampedInteger(value, std::numeric_limits<int32_t>::min(), std::numeric_limits<int32_t>::max())
     {
     }
@@ -1035,7 +1047,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedInt32(int32_t value, int32_t min, int32_t max) :
+    ClampedInteger<int32_t>(int32_t value, int32_t min, int32_t max) :
         ClampedInteger(value, min, max)
     {
     }
@@ -1043,18 +1055,23 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedInt32() = default;
+    virtual ~ClampedInteger<int32_t>() = default;
   };
+  
+  using ClampedInt32 = ClampedInteger<int32_t>;
+  
 # endif
   
 # ifdef CLAMPED_INT64
+  
   /**
    * A signed integer exactly 64 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
    * defined if `int164_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_INT64` will also be defined.
    */
-  class ClampedInt64: public ClampedInteger<int64_t>
+  template<>
+  class ClampedInteger<int64_t>
   {
     public:
     
@@ -1064,7 +1081,7 @@ namespace clamped
      * like an `int64_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
      */
-    ClampedInt64() :
+    ClampedInteger<int64_t>() :
         ClampedInteger(0, std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::max())
     {
     }
@@ -1077,7 +1094,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedInt64(int64_t value) :
+    ClampedInteger<int64_t>(int64_t value) :
         ClampedInteger(value, std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::max())
     {
     }
@@ -1093,7 +1110,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedInt64(int64_t value, int64_t min, int64_t max) :
+    ClampedInteger<int64_t>(int64_t value, int64_t min, int64_t max) :
         ClampedInteger(value, min, max)
     {
     }
@@ -1101,18 +1118,23 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedInt64() = default;
+    virtual ~ClampedInteger<int64_t>() = default;
   };
+  
+  using ClampedInt64 = ClampedInteger<int64_t>;
+  
 # endif
   
 # ifdef CLAMPED_UINT8
+  
   /**
    * An unsigned integer exactly 8 bits in size and with defined lower and upper
    * bounds beyond which its value will never pass. This type wil only be
    * defined if `uint8_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_UINT8` will also be defined.
    */
-  class ClampedUInt8: public ClampedNaturalNumber<uint8_t>
+  template<>
+  class ClampedNaturalNumber<uint8_t>
   {
     public:
     
@@ -1122,7 +1144,7 @@ namespace clamped
      * like a `uint8_t` that does not overflow nor underflow when the maximum or
      * minimum value it can represent is exceeded.
      */
-    ClampedUInt8() :
+    ClampedNaturalNumber<uint8_t>() :
         ClampedNaturalNumber(0, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
     {
     }
@@ -1135,7 +1157,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedUInt8(uint8_t value) :
+    ClampedNaturalNumber<uint8_t>(uint8_t value) :
         ClampedNaturalNumber(value, std::numeric_limits<uint8_t>::min(), std::numeric_limits<uint8_t>::max())
     {
     }
@@ -1151,7 +1173,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedUInt8(uint8_t value, uint8_t min, uint8_t max) :
+    ClampedNaturalNumber<uint8_t>(uint8_t value, uint8_t min, uint8_t max) :
         ClampedNaturalNumber(value, min, max)
     {
     }
@@ -1159,18 +1181,23 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedUInt8() = default;
+    virtual ~ClampedNaturalNumber<uint8_t>() = default;
   };
+  
+  using ClampedUInt8 = ClampedInteger<uint8_t>;
+  
 # endif
   
 # ifdef CLAMPED_UINT16
+  
   /**
    * An unsigned integer exactly 16 bits in size and with defined lower and
    * upper bounds beyond which its value will never pass. This type wil only be
    * defined if `uint16_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_UINT16` will also be defined.
    */
-  class ClampedUInt16: public ClampedNaturalNumber<uint16_t>
+  template<>
+  class ClampedNaturalNumber<uint16_t>
   {
     public:
     
@@ -1180,7 +1207,7 @@ namespace clamped
      * like a `uint16_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
      */
-    ClampedUInt16() :
+    ClampedNaturalNumber<uint16_t>() :
         ClampedNaturalNumber(0, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
     {
     }
@@ -1193,7 +1220,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedUInt16(uint16_t value) :
+    ClampedNaturalNumber<uint16_t>(uint16_t value) :
         ClampedNaturalNumber(value, std::numeric_limits<uint16_t>::min(), std::numeric_limits<uint16_t>::max())
     {
     }
@@ -1209,7 +1236,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedUInt16(uint16_t value, uint16_t min, uint16_t max) :
+    ClampedNaturalNumber<uint16_t>(uint16_t value, uint16_t min, uint16_t max) :
         ClampedNaturalNumber(value, min, max)
     {
     }
@@ -1217,18 +1244,23 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedUInt16() = default;
+    virtual ~ClampedNaturalNumber<uint16_t>() = default;
   };
+  
+  using ClampedUInt16 = ClampedInteger<uint16_t>;
+  
 # endif
   
 # ifdef CLAMPED_UINT32
+  
   /**
    * An unsigned integer exactly 32 bits in size and with defined lower and
    * upper bounds beyond which its value will never pass. This type wil only be
    * defined if `uint32_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_UINT32` will also be defined.
    */
-  class ClampedUInt32: public ClampedNaturalNumber<uint32_t>
+  template<>
+  class ClampedNaturalNumber<uint32_t>
   {
     public:
     
@@ -1238,7 +1270,7 @@ namespace clamped
      * like a `uint32_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
      */
-    ClampedUInt32() :
+    ClampedNaturalNumber<uint32_t>() :
         ClampedNaturalNumber(0, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
     {
     }
@@ -1251,7 +1283,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedUInt32(uint32_t value) :
+    ClampedNaturalNumber<uint32_t>(uint32_t value) :
         ClampedNaturalNumber(value, std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max())
     {
     }
@@ -1267,7 +1299,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedUInt32(uint32_t value, uint32_t min, uint32_t max) :
+    ClampedNaturalNumber<uint32_t>(uint32_t value, uint32_t min, uint32_t max) :
         ClampedNaturalNumber(value, min, max)
     {
     }
@@ -1275,18 +1307,23 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedUInt32() = default;
+    virtual ~ClampedNaturalNumber<uint32_t>() = default;
   };
+  
+  using ClampedUInt32 = ClampedInteger<uint32_t>;
+  
 # endif
   
 # ifdef CLAMPED_UINT64
+  
   /**
    * An unsigned integer exactly 64 bits in size and with defined lower and
    * upper bounds beyond which its value will never pass. This type wil only be
    * defined if `uint64_t` from `<cstdint>`, upon which it relies, also exists.
    * If so, the macro `CLAMPED_UINT64` will also be defined.
    */
-  class ClampedUInt64: public ClampedNaturalNumber<uint64_t>
+  template<>
+  class ClampedNaturalNumber<uint64_t>
   {
     public:
     
@@ -1296,7 +1333,7 @@ namespace clamped
      * like a `uint64_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
      */
-    ClampedUInt64() :
+    ClampedNaturalNumber<uint64_t>() :
         ClampedNaturalNumber(0, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
     {
     }
@@ -1309,7 +1346,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedUInt64(uint64_t value) :
+    ClampedNaturalNumber<uint64_t>(uint64_t value) :
         ClampedNaturalNumber(value, std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max())
     {
     }
@@ -1325,7 +1362,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedUInt64(uint64_t value, uint64_t min, uint64_t max) :
+    ClampedNaturalNumber<uint64_t>(uint64_t value, uint64_t min, uint64_t max) :
         ClampedNaturalNumber(value, min, max)
     {
     }
@@ -1333,12 +1370,19 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedUInt64() = default;
+    virtual ~ClampedNaturalNumber<uint64_t>() = default;
   };
+  
+  using ClampedUInt64 = ClampedInteger<uint64_t>;
+  
 # endif
   
   using ClampedStdInt = ClampedInteger<int>;
   using ClampedStdUInt = ClampedNaturalNumber<unsigned int>;
   using ClampedMaxInt = ClampedInteger<intmax_t>;
   using ClampedMaxUInt = ClampedNaturalNumber<uintmax_t>;
+  
+  using ClampedFloat = ClampedDecimal<float>;
+  using ClampedDouble = ClampedDecimal<double>;
+  using ClampedLongDouble = ClampedDecimal<long double>;
 }
