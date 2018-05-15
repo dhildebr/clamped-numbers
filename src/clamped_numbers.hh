@@ -233,7 +233,7 @@ namespace clamped
      * \return Returns the sum of this and the other number.
      */
     virtual BasicClampedNumber<NumT> operator+(const NumT &other) const
-    {
+        {
       BasicClampedNumber<NumT> sum(*this);
       sum += other;
       return sum;
@@ -249,7 +249,7 @@ namespace clamped
      * \return Returns the difference of this and the other number.
      */
     virtual BasicClampedNumber<NumT> operator-(const NumT &other) const
-    {
+        {
       BasicClampedNumber<NumT> difference(*this);
       difference -= other;
       return difference;
@@ -265,7 +265,7 @@ namespace clamped
      * \return Returns the product of this and the other number.
      */
     virtual BasicClampedNumber<NumT> operator*(const NumT &other) const
-    {
+        {
       BasicClampedNumber<NumT> product(*this);
       product *= other;
       return product;
@@ -281,7 +281,7 @@ namespace clamped
      * \return Returns the quotient of this and the other number.
      */
     virtual BasicClampedNumber<NumT> operator/(const NumT &other) const
-    {
+        {
       BasicClampedNumber<NumT> quotient(*this);
       quotient /= other;
       return quotient;
@@ -341,7 +341,7 @@ namespace clamped
      * \return Returns true if this number equals the other, else false
      */
     virtual bool operator==(const BasicClampedNumber<NumT> &other) const
-    {
+        {
       return this->_value == other._value;
     }
     
@@ -354,7 +354,7 @@ namespace clamped
      * \return Returns true if this number does not equal the other, else false
      */
     virtual bool operator!=(const BasicClampedNumber<NumT> &other) const
-    {
+        {
       return !(*this == other);
     }
     
@@ -367,7 +367,7 @@ namespace clamped
      * \return Returns true if this number is less than the other, else false
      */
     virtual bool operator<(const BasicClampedNumber<NumT> &other) const
-    {
+        {
       return this->_value < other._value;
     }
     
@@ -381,7 +381,7 @@ namespace clamped
      * else false
      */
     virtual bool operator<=(const BasicClampedNumber<NumT> &other) const
-    {
+        {
       return *this < other || *this == other;
     }
     
@@ -394,7 +394,7 @@ namespace clamped
      * \return Returns true if this number is greater than the other, else false
      */
     virtual bool operator>(const BasicClampedNumber<NumT> &other) const
-    {
+        {
       return !(*this <= other);
     }
     
@@ -408,7 +408,7 @@ namespace clamped
      * other, else false
      */
     virtual bool operator>=(const BasicClampedNumber<NumT> &other) const
-    {
+        {
       return !(*this < other);
     }
     
@@ -514,7 +514,7 @@ namespace clamped
      * \return Returns the remainder of dividing this number by the other.
      */
     virtual ClampedNaturalNumber<NatT> operator%(const NatT &other) const
-    {
+        {
       ClampedNaturalNumber<NatT> remainder(*this);
       remainder %= other;
       return remainder;
@@ -654,7 +654,8 @@ namespace clamped
    * An `int` with defined lower and upper bounds beyond which its value will
    * never pass.
    */
-  class ClampedStdInt: public ClampedInteger<int>
+  template<>
+  class ClampedInteger<int>
   {
     public:
     
@@ -664,7 +665,7 @@ namespace clamped
      * like an `int` that does not overflow nor underflow when the maximum or
      * minimum value it can represent is exceeded.
      */
-    ClampedStdInt() :
+    ClampedInteger<int>() :
         ClampedInteger(0, std::numeric_limits<int>::min(), std::numeric_limits<int>::max())
     {
     }
@@ -677,7 +678,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedStdInt(int value) :
+    ClampedInteger<int>(int value) :
         ClampedInteger(value, std::numeric_limits<int>::min(), std::numeric_limits<int>::max())
     {
     }
@@ -693,7 +694,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedStdInt(int value, int min, int max) :
+    ClampedInteger<int>(int value, int min, int max) :
         ClampedInteger(value, min, max)
     {
     }
@@ -701,14 +702,15 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedStdInt() = default;
+    virtual ~ClampedInteger<int>() = default;
   };
   
   /**
    * An `unsigned int` with defined lower and upper bounds beyond which its
    * value will never pass.
    */
-  class ClampedStdUInt: public ClampedInteger<unsigned int>
+  template<>
+  class ClampedNaturalNumber<unsigned int>
   {
     public:
     
@@ -718,8 +720,8 @@ namespace clamped
      * like an `unsigned int` that does not overflow nor underflow when the
      * maximum or minimum value it can represent is exceeded.
      */
-    ClampedStdUInt() :
-        ClampedInteger(0, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
+    ClampedNaturalNumber<unsigned int>() :
+        ClampedNaturalNumber(0, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
     {
     }
     
@@ -731,8 +733,8 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedStdUInt(unsigned int value) :
-        ClampedInteger(value, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
+    ClampedNaturalNumber<unsigned int>(unsigned int value) :
+        ClampedNaturalNumber(value, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
     {
     }
     
@@ -747,15 +749,15 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedStdUInt(unsigned int value, unsigned int min, unsigned int max) :
-        ClampedInteger(value, min, max)
+    ClampedNaturalNumber<unsigned int>(unsigned int value, unsigned int min, unsigned int max) :
+        ClampedNaturalNumber(value, min, max)
     {
     }
     
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedStdUInt() = default;
+    virtual ~ClampedNaturalNumber<unsigned int>() = default;
   };
   
   /**
@@ -763,7 +765,8 @@ namespace clamped
    * bounds beyond which its value will never pass. In other words, this class
    * is a type specialization of `ClampedInteger` for `intmax_t` in `<cstdint>`.
    */
-  class ClampedMaxInt: public ClampedInteger<intmax_t>
+  template<>
+  class ClampedInteger<intmax_t>
   {
     public:
     
@@ -773,7 +776,7 @@ namespace clamped
      * like an `intmax_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
      */
-    ClampedMaxInt() :
+    ClampedInteger<intmax_t>() :
         ClampedInteger(0, std::numeric_limits<intmax_t>::min(), std::numeric_limits<intmax_t>::max())
     {
     }
@@ -786,7 +789,7 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedMaxInt(intmax_t value) :
+    ClampedInteger<intmax_t>(intmax_t value) :
         ClampedInteger(value, std::numeric_limits<intmax_t>::min(), std::numeric_limits<intmax_t>::max())
     {
     }
@@ -802,7 +805,7 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedMaxInt(intmax_t value, intmax_t min, intmax_t max) :
+    ClampedInteger<intmax_t>(intmax_t value, intmax_t min, intmax_t max) :
         ClampedInteger(value, min, max)
     {
     }
@@ -810,7 +813,7 @@ namespace clamped
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedMaxInt() = default;
+    virtual ~ClampedInteger<intmax_t>() = default;
   };
   
   /**
@@ -819,7 +822,8 @@ namespace clamped
    * this class is a type specialization of `ClampedInteger` for `uintmax_t`
    * in `<cstdint>`.
    */
-  class ClampedMaxUInt: public ClampedInteger<uintmax_t>
+  template<>
+  class ClampedNaturalNumber<uintmax_t>
   {
     public:
     
@@ -829,8 +833,8 @@ namespace clamped
      * like a `uintmax_t` that does not overflow nor underflow when the maximum
      * or minimum value it can represent is exceeded.
      */
-    ClampedMaxUInt() :
-        ClampedInteger(0, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
+    ClampedNaturalNumber<uintmax_t>() :
+        ClampedNaturalNumber(0, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
     {
     }
     
@@ -842,8 +846,8 @@ namespace clamped
      * 
      * \param value the starting value of this number
      */
-    ClampedMaxUInt(uintmax_t value) :
-        ClampedInteger(value, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
+    ClampedNaturalNumber<uintmax_t>(uintmax_t value) :
+        ClampedNaturalNumber(value, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
     {
     }
     
@@ -858,15 +862,15 @@ namespace clamped
      * \param min the minimum value for this number
      * \param max the maximum value for this number
      */
-    ClampedMaxUInt(uintmax_t value, uintmax_t min, uintmax_t max) :
-        ClampedInteger(value, min, max)
+    ClampedNaturalNumber<uintmax_t>(uintmax_t value, uintmax_t min, uintmax_t max) :
+        ClampedNaturalNumber(value, min, max)
     {
     }
     
     /**
      * Provides a virtual destructor with the default dehavior.
      */
-    virtual ~ClampedMaxUInt() = default;
+    virtual ~ClampedNaturalNumber<uintmax_t>() = default;
   };
   
 # ifdef CLAMPED_INT8
@@ -1332,4 +1336,9 @@ namespace clamped
     virtual ~ClampedUInt64() = default;
   };
 # endif
+  
+  using ClampedStdInt = ClampedInteger<int>;
+  using ClampedStdUInt = ClampedNaturalNumber<unsigned int>;
+  using ClampedMaxInt = ClampedInteger<intmax_t>;
+  using ClampedMaxUInt = ClampedNaturalNumber<uintmax_t>;
 }
