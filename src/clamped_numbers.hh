@@ -535,7 +535,8 @@ namespace clamped
    * example, given a number with value 5 and bounds [0, 10], num + 10 returns
    * a new number with value 10 and bounds [0, 10].
    * 
-   * \param other the number added onto this one
+   * \param lhs the original number which is added to
+   * \param rhs the number added onto this one
    * \return Returns the sum of this and the other number.
    * 
    * \related ClampedNaturalNumber
@@ -553,7 +554,8 @@ namespace clamped
    * example, given a number with value 5 and bounds [0, 10], num - 10 returns
    * a new number with value 0 and bounds [0, 10].
    * 
-   * \param other the number subtracted from this one
+   * \param lhs the original number which is subtracted from
+   * \param rhs the number subtracted from this one
    * \return Returns the difference of this and the other number.
    * 
    * \related ClampedNaturalNumber
@@ -571,7 +573,8 @@ namespace clamped
    * bounds. For example, given a number with value 10 and bounds [0, 50],
    * num * 10 returns a new number with value 50 and bounds [0, 50].
    * 
-   * \param other the number by which this one is multiplied
+   * \param lhs the original number which is multiplied
+   * \param rhs the number by which this one is multiplied
    * \return Returns the product of this and the other number.
    * 
    * \related ClampedNaturalNumber
@@ -589,7 +592,8 @@ namespace clamped
    * bounds. For example, given a number with value 50 and bounds [25, 100],
    * num / 10 returns a new number with value 25 and bounds [25, 100].
    * 
-   * \param other the number by which this one is divided
+   * \param lhs the original number which is divided
+   * \param rhs the number by which this one is divided
    * \return Returns the quotient of this and the other number.
    * 
    * \related ClampedNaturalNumber
@@ -609,7 +613,8 @@ namespace clamped
    * the right operand is zero then the remainder will be zero, rather than
    * being undefined.
    * 
-   * \param other the number from which this one's remainder is found
+   * \param lhs the original number which is divided and the remainder given
+   * \param rhs the number from which this one's remainder is found
    * \return Returns the remainder of dividing this number by the other.
    * 
    * \related ClampedNaturalNumber
@@ -763,7 +768,9 @@ namespace clamped
    * given a number with value 5 and bounds [0, 10], num + 10 returns a new
    * number with value 10 and bounds [0, 10].
    * 
-   * \param other the number added onto this one
+   * 
+   * \param lhs the original number which is added to
+   * \param rhs the number added onto this one
    * \return Returns the sum of this and the other number.
    * 
    * \related ClampedInteger
@@ -781,7 +788,9 @@ namespace clamped
    * given a number with value 5 and bounds [0, 10], num - 10 returns a new
    * number with value 0 and bounds [0, 10].
    * 
-   * \param other the number subtracted from this one
+   * 
+   * \param lhs the original number which is subtracted from
+   * \param rhs the number subtracted from this one
    * \return Returns the difference of this and the other number.
    * 
    * \related ClampedInteger
@@ -799,7 +808,9 @@ namespace clamped
    * example, given a number with value 10 and bounds [0, 50], num * 10 returns
    * a new number with value 50 and bounds [0, 50].
    * 
-   * \param other the number by which this one is multiplied
+   * 
+   * \param lhs the original number which is multiplied
+   * \param rhs the number by which this one is multiplied
    * \return Returns the product of this and the other number.
    * 
    * \related ClampedInteger
@@ -817,7 +828,9 @@ namespace clamped
    * example, given a number with value 50 and bounds [25, 100], num / 10
    * returns a new number with value 25 and bounds [25, 100].
    * 
-   * \param other the number by which this one is divided
+   * 
+   * \param lhs the original number which is divided
+   * \param rhs the number by which this one is divided
    * \return Returns the quotient of this and the other number.
    * 
    * \related ClampedInteger
@@ -836,7 +849,9 @@ namespace clamped
    * number with value 5 and bounds [5, 10]. Notably, if the right operand is
    * then the remainder will be zero, rather than being undefined.
    * 
-   * \param other the number from which this one's remainder is found
+   * 
+   * \param lhs the original number which is divided, and the remainder given
+   * \param rhs the number from which this one's remainder is found
    * \return Returns the remainder of dividing this number by the other.
    * 
    * \related ClampedInteger
@@ -1011,7 +1026,9 @@ namespace clamped
    * given a number with value 5 and bounds [0, 10], num + 10 returns a new
    * number with value 10 and bounds [0, 10].
    * 
-   * \param other the number added onto this one
+   * 
+   * \param lhs the original number which is added to
+   * \param rhs the number added onto this one
    * \return Returns the sum of this and the other number.
    * 
    * \related ClampedDecimal
@@ -1029,7 +1046,9 @@ namespace clamped
    * given a number with value 5 and bounds [0, 10], num - 10 returns a new
    * number with value 0 and bounds [0, 10].
    * 
-   * \param other the number subtracted from this one
+   * 
+   * \param lhs the original number which is subtracted from
+   * \param rhs the number subtracted from this one
    * \return Returns the difference of this and the other number.
    * 
    * \related ClampedDecimal
@@ -1047,7 +1066,8 @@ namespace clamped
    * example, given a number with value 10 and bounds [0, 50], num * 10 returns
    * a new number with value 50 and bounds [0, 50].
    * 
-   * \param other the number by which this one is multiplied
+   * \param lhs the original number which is multiplied
+   * \param rhs the number by which this one is multiplied
    * \return Returns the product of this and the other number.
    * 
    * \related ClampedDecimal
@@ -1065,7 +1085,8 @@ namespace clamped
    * example, given a number with value 50 and bounds [25, 100], num / 10
    * returns a new number with value 25 and bounds [25, 100].
    * 
-   * \param other the number by which this one is divided
+   * \param lhs the original number which is divided
+   * \param rhs the number by which this one is divided
    * \return Returns the quotient of this and the other number.
    * 
    * \related ClampedDecimal
@@ -1086,7 +1107,7 @@ namespace clamped
    * \param orig the original number whose negation is returned
    * \return Returns the negation of the given number.
    * 
-   * \related ClampedInteger
+   * \related ClampedDecimal
    */
   template<typename FloatT>
   ClampedDecimal<FloatT> operator-(const ClampedDecimal<FloatT> &orig)

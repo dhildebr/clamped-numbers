@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">C++ Clamped Numbers
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -39,13 +39,12 @@ $(function() {
 <div id="main-nav"></div>
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespaceclamped.html">clamped</a></li><li class="navelem"><a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a></li>  </ul>
+<li class="navelem"><b>clamped</b></li><li class="navelem"><a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classclamped_1_1_basic_clamped_number-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">clamped::BasicClampedNumber&lt; NumT &gt; Class Template Reference</div>  </div>
@@ -55,7 +54,7 @@ $(function() {
 <p>A generic number with defined lower and upper bounds beyond which its value will never pass.  
  <a href="classclamped_1_1_basic_clamped_number.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="clamped__numbers_8hh_source.html">clamped_numbers.hh</a>&gt;</code></p>
+<p><code>#include &lt;clamped_numbers.hh&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -65,8 +64,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7d9963ca2303ddc879669b8a84d933fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a7d9963ca2303ddc879669b8a84d933fe">BasicClampedNumber</a> (const NumT &amp;<a class="el" href="classclamped_1_1_basic_clamped_number.html#a1e30f985b86986731c24130661a7a002">value</a>, const NumT &amp;min, const NumT &amp;max)</td></tr>
 <tr class="memdesc:a7d9963ca2303ddc879669b8a84d933fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> with the specified current, minimum, and maximum values.  <a href="#a7d9963ca2303ddc879669b8a84d933fe">More...</a><br /></td></tr>
 <tr class="separator:a7d9963ca2303ddc879669b8a84d933fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85bff37d79ce7f34fb0620cc1f8ee063"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a85bff37d79ce7f34fb0620cc1f8ee063">~BasicClampedNumber</a> ()=default</td></tr>
-<tr class="memdesc:a85bff37d79ce7f34fb0620cc1f8ee063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a virtual destructor with the default dehavior.  <a href="#a85bff37d79ce7f34fb0620cc1f8ee063">More...</a><br /></td></tr>
+<tr class="memitem:a85bff37d79ce7f34fb0620cc1f8ee063"><td class="memItemLeft" align="right" valign="top"><a id="a85bff37d79ce7f34fb0620cc1f8ee063"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a85bff37d79ce7f34fb0620cc1f8ee063">~BasicClampedNumber</a> ()=default</td></tr>
+<tr class="memdesc:a85bff37d79ce7f34fb0620cc1f8ee063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a virtual destructor with the default dehavior. <br /></td></tr>
 <tr class="separator:a85bff37d79ce7f34fb0620cc1f8ee063"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e30f985b86986731c24130661a7a002"><td class="memItemLeft" align="right" valign="top">virtual const NumT &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a1e30f985b86986731c24130661a7a002">value</a> () const final</td></tr>
 <tr class="memdesc:a1e30f985b86986731c24130661a7a002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns this number's current value by const reference.  <a href="#a1e30f985b86986731c24130661a7a002">More...</a><br /></td></tr>
@@ -92,42 +92,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9c62fee230bbef705b40379ff68e7863"><td class="memItemLeft" align="right" valign="top">virtual const NumT &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a9c62fee230bbef705b40379ff68e7863">maximize</a> () final</td></tr>
 <tr class="memdesc:a9c62fee230bbef705b40379ff68e7863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets this number's current value to its minimum.  <a href="#a9c62fee230bbef705b40379ff68e7863">More...</a><br /></td></tr>
 <tr class="separator:a9c62fee230bbef705b40379ff68e7863"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab091131d0171efcc4066a3cd5ac242ae"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#ab091131d0171efcc4066a3cd5ac242ae">operator+=</a> (const NumT &amp;other)</td></tr>
-<tr class="memdesc:ab091131d0171efcc4066a3cd5ac242ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given number to this one, as constrained by this number's bounds.  <a href="#ab091131d0171efcc4066a3cd5ac242ae">More...</a><br /></td></tr>
-<tr class="separator:ab091131d0171efcc4066a3cd5ac242ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2909b317b09d2960f5842ed63b96ec2b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a2909b317b09d2960f5842ed63b96ec2b">operator-=</a> (const NumT &amp;other)</td></tr>
-<tr class="memdesc:a2909b317b09d2960f5842ed63b96ec2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtracts the given number from this one, as constrained by this number's bounds.  <a href="#a2909b317b09d2960f5842ed63b96ec2b">More...</a><br /></td></tr>
-<tr class="separator:a2909b317b09d2960f5842ed63b96ec2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9f0790d82d20a20d878cc7e76d9c378"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#ab9f0790d82d20a20d878cc7e76d9c378">operator*=</a> (const NumT &amp;other)</td></tr>
-<tr class="memdesc:ab9f0790d82d20a20d878cc7e76d9c378"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplies this number by the one given, as constrained by this number's bounds.  <a href="#ab9f0790d82d20a20d878cc7e76d9c378">More...</a><br /></td></tr>
-<tr class="separator:ab9f0790d82d20a20d878cc7e76d9c378"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35ac5e1ef54e6c33be920e5fa8de9664"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a35ac5e1ef54e6c33be920e5fa8de9664">operator/=</a> (const NumT &amp;other)</td></tr>
-<tr class="memdesc:a35ac5e1ef54e6c33be920e5fa8de9664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides this number by the one given, as constrained by this number's bounds.  <a href="#a35ac5e1ef54e6c33be920e5fa8de9664">More...</a><br /></td></tr>
-<tr class="separator:a35ac5e1ef54e6c33be920e5fa8de9664"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6423da99a3c196f574af8b01e573394e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a6423da99a3c196f574af8b01e573394e">operator+</a> (const NumT &amp;other) const</td></tr>
-<tr class="memdesc:a6423da99a3c196f574af8b01e573394e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> with a value equal to that of the original, plus the given number, within the clamped number's bounds.  <a href="#a6423da99a3c196f574af8b01e573394e">More...</a><br /></td></tr>
-<tr class="separator:a6423da99a3c196f574af8b01e573394e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6eac53b20f3b39679fce7d12251cd320"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a6eac53b20f3b39679fce7d12251cd320">operator-</a> (const NumT &amp;other) const</td></tr>
-<tr class="memdesc:a6eac53b20f3b39679fce7d12251cd320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> with a value equal to that of the original, minus the given number, within the clamped nunber's bounds.  <a href="#a6eac53b20f3b39679fce7d12251cd320">More...</a><br /></td></tr>
-<tr class="separator:a6eac53b20f3b39679fce7d12251cd320"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0282cb0a4d68782e4f35f873f06c44b2"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a0282cb0a4d68782e4f35f873f06c44b2">operator*</a> (const NumT &amp;other) const</td></tr>
-<tr class="memdesc:a0282cb0a4d68782e4f35f873f06c44b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> with a value equal to that of the original, multiplied by the given number, within the clamped nunber's bounds.  <a href="#a0282cb0a4d68782e4f35f873f06c44b2">More...</a><br /></td></tr>
-<tr class="separator:a0282cb0a4d68782e4f35f873f06c44b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e55daed679633056ebed50484a4d3ac"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a3e55daed679633056ebed50484a4d3ac">operator/</a> (const NumT &amp;other) const</td></tr>
-<tr class="memdesc:a3e55daed679633056ebed50484a4d3ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> with a value equal to that of the original, divided by the given number, within the clamped nunber's bounds.  <a href="#a3e55daed679633056ebed50484a4d3ac">More...</a><br /></td></tr>
-<tr class="separator:a3e55daed679633056ebed50484a4d3ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf36defe4228cfa9c962775fcec121bc"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#abf36defe4228cfa9c962775fcec121bc">operator++</a> ()</td></tr>
-<tr class="memdesc:abf36defe4228cfa9c962775fcec121bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increments this number by one, within its bounds.  <a href="#abf36defe4228cfa9c962775fcec121bc">More...</a><br /></td></tr>
-<tr class="separator:abf36defe4228cfa9c962775fcec121bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d7065b4736e024781d1ccaab392d3e5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a7d7065b4736e024781d1ccaab392d3e5">operator--</a> ()</td></tr>
-<tr class="memdesc:a7d7065b4736e024781d1ccaab392d3e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decrements this number by one, within its bounds.  <a href="#a7d7065b4736e024781d1ccaab392d3e5">More...</a><br /></td></tr>
-<tr class="separator:a7d7065b4736e024781d1ccaab392d3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5474aaac0c24b8da259931694f402435"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a5474aaac0c24b8da259931694f402435">operator++</a> (int)</td></tr>
-<tr class="memdesc:a5474aaac0c24b8da259931694f402435"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increments this number by one, within its bounds.  <a href="#a5474aaac0c24b8da259931694f402435">More...</a><br /></td></tr>
-<tr class="separator:a5474aaac0c24b8da259931694f402435"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85b8e198052ebe2d19e4db8c90242931"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a85b8e198052ebe2d19e4db8c90242931">operator--</a> (int)</td></tr>
-<tr class="memdesc:a85b8e198052ebe2d19e4db8c90242931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decrements this number by one, within its bounds.  <a href="#a85b8e198052ebe2d19e4db8c90242931">More...</a><br /></td></tr>
-<tr class="separator:a85b8e198052ebe2d19e4db8c90242931"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c9407869312e509658f2b94fe399865"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a1c9407869312e509658f2b94fe399865">operator==</a> (const <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a1c9407869312e509658f2b94fe399865"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this number equals the other.  <a href="#a1c9407869312e509658f2b94fe399865">More...</a><br /></td></tr>
 <tr class="separator:a1c9407869312e509658f2b94fe399865"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,24 +116,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abb233fb67b74b51eef099238165d915e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#abb233fb67b74b51eef099238165d915e">operator bool</a> () const final</td></tr>
 <tr class="memdesc:abb233fb67b74b51eef099238165d915e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows the explicit conversion of this <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> to a boolean value.  <a href="#abb233fb67b74b51eef099238165d915e">More...</a><br /></td></tr>
 <tr class="separator:abb233fb67b74b51eef099238165d915e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:aa4d7572da18c880ae626d50e69fdf30b"><td class="memItemLeft" align="right" valign="top">NumT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#aa4d7572da18c880ae626d50e69fdf30b">_value</a></td></tr>
-<tr class="separator:aa4d7572da18c880ae626d50e69fdf30b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58720c9dbed012e34399f492cced8a50"><td class="memItemLeft" align="right" valign="top">NumT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a58720c9dbed012e34399f492cced8a50">_minValue</a></td></tr>
-<tr class="separator:a58720c9dbed012e34399f492cced8a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64179057f2532c524fd53f0a7169d644"><td class="memItemLeft" align="right" valign="top">NumT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclamped_1_1_basic_clamped_number.html#a64179057f2532c524fd53f0a7169d644">_maxValue</a></td></tr>
-<tr class="separator:a64179057f2532c524fd53f0a7169d644"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename NumT&gt;<br />
 class clamped::BasicClampedNumber&lt; NumT &gt;</h3>
 
 <p>A generic number with defined lower and upper bounds beyond which its value will never pass. </p>
-<p>The type parameter for this class determines the numeric type which is kept within these bounds. Clamped numbers are designed with the built-in types such as <code>int</code>, <code>double</code>, and <code>size_t</code> in mind, though any numeric type with suitable operators defined can be substituted as the type parameter.</p>
-<p>Numeric types used in a <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> must, in general, implement the same operators as a float. This includes the four basic arithmetic operators (+, -, *, /, +=, -=, *=, /=) and the comparison operators (==, !=, &lt;, &lt;=, &gt;, &gt;=), each with an <code>int</code> as the right operand. For example, it must be possible to ask whether <code>num == 0</code>. A <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> does not have a concept of a sign, and hence the numeric type it wraps does not necessarily need to implement the unary - operator.</p>
-<p>While <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> is technically a fully concrete class and has all the necessary operators to wrap a floating-point type such as <code>double</code>, direct instantiation is not reccomended, at least not for the built-in types. For floating-point types, <code><a class="el" href="classclamped_1_1_clamped_decimal.html" title="A real number with defined lower and upper bounds beyond which its value will never pass...">ClampedDecimal</a></code> is instead reccomended.</p>
+<p>The type parameter for this class determines the numeric type which is kept within these bounds. Clamped numbers are designed with the built-in types such as <code>int</code>, <code>double</code>, and <code>size_t</code> in mind, though any numeric type with suitable operators defined can be substituted here.</p>
+<p><code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> does not implement any arithmetic nor bitwise operators, conretely or abstractly. It does, however, implement comparison with other <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code>s and with the type parameter <code>NumT</code>. The provided default implementations of the six comparison operators (==, !=, &lt;, &lt;=, &gt;, &gt;=) relies on <code>NumT</code> having == and &lt; defined for a right operand also of type <code>NumT</code>.</p>
+<p>While <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> is a fully concrete type and thus instantiable as-is, due to the lack of operators it is likely to be less than useful. Refer instead to the derivitive types <code><a class="el" href="classclamped_1_1_clamped_natural_number.html" title="A natural number with defined lower and upper bounds beyond which its value will never pass...">ClampedNaturalNumber</a></code>, <code><a class="el" href="classclamped_1_1_clamped_integer.html" title="An integer with defined lower and upper bounds beyond which its value will never pass. ">ClampedInteger</a></code>, and <code><a class="el" href="classclamped_1_1_clamped_decimal.html" title="A real number with defined lower and upper bounds beyond which its value will never pass...">ClampedDecimal</a></code> for suitable wrappers for unsigned integer, signed integer, and floating-point numeric types respectively.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">NumT</td><td>the numeric type being bounded</td></tr>
@@ -260,35 +215,6 @@ template&lt;typename NumT&gt; </div>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a85bff37d79ce7f34fb0620cc1f8ee063"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85bff37d79ce7f34fb0620cc1f8ee063">&#9670;&nbsp;</a></span>~BasicClampedNumber()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::~<a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Provides a virtual destructor with the default dehavior. </p>
 
 </div>
 </div>
@@ -591,429 +517,6 @@ template&lt;typename NumT&gt; </div>
 
 </div>
 </div>
-<a id="a0282cb0a4d68782e4f35f873f06c44b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0282cb0a4d68782e4f35f873f06c44b2">&#9670;&nbsp;</a></span>operator*()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt;NumT&gt; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator* </td>
-          <td>(</td>
-          <td class="paramtype">const NumT &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a new <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> with a value equal to that of the original, multiplied by the given number, within the clamped nunber's bounds. </p>
-<p>For example, given a number with value 10 and bounds [0, 50], num * 10 returns a new number with value 50 and bounds [0, 50].</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>the number by which this one is multiplied </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the product of this and the other number. </dd></dl>
-
-</div>
-</div>
-<a id="ab9f0790d82d20a20d878cc7e76d9c378"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9f0790d82d20a20d878cc7e76d9c378">&#9670;&nbsp;</a></span>operator*=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator*= </td>
-          <td>(</td>
-          <td class="paramtype">const NumT &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Multiplies this number by the one given, as constrained by this number's bounds. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>the right operand for multiplication </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns this number, allowing chaining of operations. </dd></dl>
-
-</div>
-</div>
-<a id="a6423da99a3c196f574af8b01e573394e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6423da99a3c196f574af8b01e573394e">&#9670;&nbsp;</a></span>operator+()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt;NumT&gt; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator+ </td>
-          <td>(</td>
-          <td class="paramtype">const NumT &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a new <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> with a value equal to that of the original, plus the given number, within the clamped number's bounds. </p>
-<p>For example, given a number with value 5 and bounds [0, 10], num + 10 returns a new number with value 10 and bounds [0, 10].</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>the number added onto this one </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the sum of this and the other number. </dd></dl>
-
-</div>
-</div>
-<a id="abf36defe4228cfa9c962775fcec121bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf36defe4228cfa9c962775fcec121bc">&#9670;&nbsp;</a></span>operator++() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt;NumT&gt;&amp; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator++ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Increments this number by one, within its bounds. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns this number post-incrementation. </dd></dl>
-
-</div>
-</div>
-<a id="a5474aaac0c24b8da259931694f402435"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5474aaac0c24b8da259931694f402435">&#9670;&nbsp;</a></span>operator++() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt;NumT&gt; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator++ </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Increments this number by one, within its bounds. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns a copy of this number, reflecting its state prior to incrementation. </dd></dl>
-
-</div>
-</div>
-<a id="ab091131d0171efcc4066a3cd5ac242ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab091131d0171efcc4066a3cd5ac242ae">&#9670;&nbsp;</a></span>operator+=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator+= </td>
-          <td>(</td>
-          <td class="paramtype">const NumT &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds the given number to this one, as constrained by this number's bounds. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>the right operand for addition </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns this number, allowing chaining of operations. </dd></dl>
-
-</div>
-</div>
-<a id="a6eac53b20f3b39679fce7d12251cd320"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6eac53b20f3b39679fce7d12251cd320">&#9670;&nbsp;</a></span>operator-()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt;NumT&gt; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator- </td>
-          <td>(</td>
-          <td class="paramtype">const NumT &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a new <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> with a value equal to that of the original, minus the given number, within the clamped nunber's bounds. </p>
-<p>For example, given a number with value 5 and bounds [0, 10], num - 10 returns a new number with value 0 and bounds [0, 10].</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>the number subtracted from this one </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the difference of this and the other number. </dd></dl>
-
-</div>
-</div>
-<a id="a7d7065b4736e024781d1ccaab392d3e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d7065b4736e024781d1ccaab392d3e5">&#9670;&nbsp;</a></span>operator--() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt;NumT&gt;&amp; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator-- </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Decrements this number by one, within its bounds. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns this number post-decrementation. </dd></dl>
-
-</div>
-</div>
-<a id="a85b8e198052ebe2d19e4db8c90242931"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85b8e198052ebe2d19e4db8c90242931">&#9670;&nbsp;</a></span>operator--() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt;NumT&gt; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator-- </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Decrements this number by one, within its bounds. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns a copy of this number, reflecting its state prior to decrementation. </dd></dl>
-
-</div>
-</div>
-<a id="a2909b317b09d2960f5842ed63b96ec2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2909b317b09d2960f5842ed63b96ec2b">&#9670;&nbsp;</a></span>operator-=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator-= </td>
-          <td>(</td>
-          <td class="paramtype">const NumT &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Subtracts the given number from this one, as constrained by this number's bounds. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>the right operand for subtraction </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns this number, allowing chaining of operations. </dd></dl>
-
-</div>
-</div>
-<a id="a3e55daed679633056ebed50484a4d3ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e55daed679633056ebed50484a4d3ac">&#9670;&nbsp;</a></span>operator/()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt;NumT&gt; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator/ </td>
-          <td>(</td>
-          <td class="paramtype">const NumT &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a new <code><a class="el" href="classclamped_1_1_basic_clamped_number.html" title="A generic number with defined lower and upper bounds beyond which its value will never pass...">BasicClampedNumber</a></code> with a value equal to that of the original, divided by the given number, within the clamped nunber's bounds. </p>
-<p>For example, given a number with value 50 and bounds [25, 100], num / 10 returns a new number with value 25 and bounds [25, 100].</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>the number by which this one is divided </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the quotient of this and the other number. </dd></dl>
-
-</div>
-</div>
-<a id="a35ac5e1ef54e6c33be920e5fa8de9664"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35ac5e1ef54e6c33be920e5fa8de9664">&#9670;&nbsp;</a></span>operator/=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classclamped_1_1_basic_clamped_number.html">BasicClampedNumber</a>&lt; NumT &gt; &amp; <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::operator/= </td>
-          <td>(</td>
-          <td class="paramtype">const NumT &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Divides this number by the one given, as constrained by this number's bounds. </p>
-<p>Division by zero will not throw an exception: instead, the resultant undefined or "infinte" value will be this number's maximum or minimum, depending on its sign (if applicable) prior to division.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>the right operand for division </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns this number, allowing chaining of operations. </dd></dl>
-
-</div>
-</div>
 <a id="af657f139bec2b2a7ffd6c5a00602f5d8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af657f139bec2b2a7ffd6c5a00602f5d8">&#9670;&nbsp;</a></span>operator&lt;()</h2>
 
@@ -1272,82 +775,9 @@ template&lt;typename NumT&gt; </div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a64179057f2532c524fd53f0a7169d644"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64179057f2532c524fd53f0a7169d644">&#9670;&nbsp;</a></span>_maxValue</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">NumT <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::_maxValue</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a58720c9dbed012e34399f492cced8a50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58720c9dbed012e34399f492cced8a50">&#9670;&nbsp;</a></span>_minValue</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">NumT <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::_minValue</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa4d7572da18c880ae626d50e69fdf30b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4d7572da18c880ae626d50e69fdf30b">&#9670;&nbsp;</a></span>_value</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename NumT&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">NumT <a class="el" href="classclamped_1_1_basic_clamped_number.html">clamped::BasicClampedNumber</a>&lt; NumT &gt;::_value</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/<a class="el" href="clamped__numbers_8hh_source.html">clamped_numbers.hh</a></li>
-<li>src/<a class="el" href="clamped__numbers_8cc.html">clamped_numbers.cc</a></li>
+<li>src/clamped_numbers.hh</li>
+<li>src/clamped_numbers.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
