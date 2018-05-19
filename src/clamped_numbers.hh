@@ -504,7 +504,7 @@ namespace clamped
      */
     virtual ClampedNaturalNumber<NatT> & operator--()
     {
-      return (*thid -= 1);
+      return (*this -= 1);
     }
     
     /**
@@ -549,8 +549,7 @@ namespace clamped
   ClampedNaturalNumber<NatT> operator+(const ClampedNaturalNumber<NatT> &lhs, const NatT &rhs)
   {
     ClampedNaturalNumber<NatT> sum(lhs);
-    sum += rhs;
-    return sum;
+    return (sum += rhs);
   }
   
   /**
@@ -568,8 +567,7 @@ namespace clamped
   ClampedNaturalNumber<NatT> operator-(const ClampedNaturalNumber<NatT> &lhs, const NatT &rhs)
   {
     ClampedNaturalNumber<NatT> difference(lhs);
-    difference -= rhs;
-    return difference;
+    return (difference -= rhs);
   }
   
   /**
@@ -587,8 +585,7 @@ namespace clamped
   ClampedNaturalNumber<NatT> operator*(const ClampedNaturalNumber<NatT> &lhs, const NatT &rhs)
   {
     ClampedNaturalNumber<NatT> product(lhs);
-    product *= rhs;
-    return product;
+    return (product *= rhs);
   }
   
   /**
@@ -606,8 +603,7 @@ namespace clamped
   ClampedNaturalNumber<NatT> operator/(const ClampedNaturalNumber<NatT> &lhs, const NatT &rhs)
   {
     ClampedNaturalNumber<NatT> quotient(lhs);
-    quotient /= rhs;
-    return quotient;
+    return (quotient /= rhs);
   }
   
   /**
@@ -627,8 +623,7 @@ namespace clamped
   ClampedNaturalNumber<NatT> operator%(const ClampedNaturalNumber<NatT> &lhs, const NatT &rhs)
   {
     ClampedNaturalNumber<NatT> remainder(lhs);
-    remainder %= rhs;
-    return remainder;
+    return (remainder %= rhs);
   }
   
   /**
@@ -782,8 +777,7 @@ namespace clamped
   ClampedInteger operator+(const ClampedInteger &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> sum(lhs);
-    sum += rhs;
-    return sum;
+    return (sum += rhs);
   }
   
   /**
@@ -801,8 +795,7 @@ namespace clamped
   ClampedInteger operator-(const ClampedInteger &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> difference(lhs);
-    difference -= rhs;
-    return difference;
+    return (difference -= rhs);
   }
   
   /**
@@ -820,8 +813,7 @@ namespace clamped
   ClampedInteger operator*(const ClampedInteger &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> product(lhs);
-    product *= rhs;
-    return product;
+    return (product *= rhs);
   }
   
   /**
@@ -839,8 +831,7 @@ namespace clamped
   ClampedInteger operator/(const ClampedInteger &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> quotient(lhs);
-    quotient /= rhs;
-    return quotient;
+    return (quotient /= rhs);
   }
   
   /**
@@ -859,8 +850,7 @@ namespace clamped
   ClampedInteger operator%(const ClampedInteger &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> remainder(lhs);
-    remainder %= rhs;
-    return remainder;
+    return (remainder %= rhs);
   }
   
   /**
@@ -931,19 +921,179 @@ namespace clamped
     public:
     
     /**
-     * Returns the negative of this number. The value is negated, but the
-     * mimimum and maximum will be unchanged, except where they are stretched to
-     * fit the new value, in line with the constructors
-     * of `BasicClampedNumber`s.
+     * Adds the given number to this one, as constrained by this
+     * number's bounds.
      * 
-     * \return Returns the negation of this number.
+     * \param other the right operand for addition
+     * \return Returns this number, allowing chaining of operations.
      */
-    virtual ClampedDecimal<FloatT> operator-() const
+    virtual ClampedDecimal<FloatT> & operator+=(const NumT &other);
+    
+    /**
+     * Subtracts the given number from this one, as constrained by this
+     * number's bounds.
+     * 
+     * \param other the right operand for subtraction
+     * \return Returns this number, allowing chaining of operations.
+     */
+    virtual ClampedDecimal<FloatT> & operator-=(const NumT &other);
+    
+    /**
+     * Multiplies this number by the one given, as constrained by this
+     * number's bounds.
+     * 
+     * \param other the right operand for multiplication
+     * \return Returns this number, allowing chaining of operations.
+     */
+    virtual ClampedDecimal<FloatT> & operator*=(const NumT &other);
+    
+    /**
+     * Divides this number by the one given, as constrained by this number's
+     * bounds. Division by zero will not throw an exception: instead, the
+     * resultant undefined or "infinte" value will be this number's maximum or
+     * minimum, depending on its sign (if applicable) prior to division.
+     * 
+     * \param other the right operand for division
+     * \return Returns this number, allowing chaining of operations.
+     */
+    virtual ClampedDecimal<FloatT> & operator/=(const NumT &other);
+    
+    /**
+     * Increments this number by one, within its bounds.
+     * 
+     * \return Returns this number post-incrementation.
+     */
+    virtual ClampedDecimal<FloatT> & operator++()
     {
-      FloatT negVal = -(this->_value);
-      return {negVal, this->_minValue, this->_maxValue};
+      return (*this += 1);
+    }
+    
+    /**
+     * Decrements this number by one, within its bounds.
+     * 
+     * \return Returns this number post-decrementation.
+     */
+    virtual ClampedDecimal<FloatT> & operator--()
+    {
+      return (*this -= 1);
+    }
+    
+    /**
+     * Increments this number by one, within its bounds.
+     * 
+     * \return Returns a copy of this number, reflecting its state prior
+     * to incrementation.
+     */
+    virtual ClampedDecimal<FloatT> operator++(int)
+    {
+      ClampedDecimal<FloatT> preIncr(*this);
+      ++(*this);
+      return preIncr;
+    }
+    
+    /**
+     * Decrements this number by one, within its bounds.
+     * 
+     * \return Returns a copy of this number, reflecting its state prior
+     * to decrementation.
+     */
+    virtual ClampedDecimal<FloatT> operator--(int)
+    {
+      ClampedDecimal<FloatT> preDecr(*this);
+      --(*this);
+      return preDecr;
     }
   };
+  
+  /**
+   * Returns a new `ClampedDecimal` with a value equal to that of the original,
+   * plus the given number, within the clamped number's bounds. For example,
+   * given a number with value 5 and bounds [0, 10], num + 10 returns a new
+   * number with value 10 and bounds [0, 10].
+   * 
+   * \param other the number added onto this one
+   * \return Returns the sum of this and the other number.
+   * 
+   * \related ClampedDecimal
+   */
+  template<typename FloatT>
+  ClampedDecimal<FloatT> operator+(const ClampedDecimal<FloatT> &lhs, const FloatT &rhs)
+  {
+    ClampedDecimal sum(lhs);
+    return (sum += rhs);
+  }
+  
+  /**
+   * Returns a new `ClampedDecimal` with a value equal to that of the original,
+   * minus the given number, within the clamped nunber's bounds. For example,
+   * given a number with value 5 and bounds [0, 10], num - 10 returns a new
+   * number with value 0 and bounds [0, 10].
+   * 
+   * \param other the number subtracted from this one
+   * \return Returns the difference of this and the other number.
+   * 
+   * \related ClampedDecimal
+   */
+  template<typename FloatT>
+  ClampedDecimal<FloatT> operator-(const ClampedDecimal<FloatT> &lhs, const FloatT &rhs)
+  {
+    ClampedDecimal difference(lhs);
+    return (difference -= rhs);
+  }
+  
+  /**
+   * Returns a new `ClampedDecimal` with a value equal to that of the original,
+   * multiplied by the given number, within the clamped nunber's bounds. For
+   * example, given a number with value 10 and bounds [0, 50], num * 10 returns
+   * a new number with value 50 and bounds [0, 50].
+   * 
+   * \param other the number by which this one is multiplied
+   * \return Returns the product of this and the other number.
+   * 
+   * \related ClampedDecimal
+   */
+  template<typename FloatT>
+  ClampedDecimal<FloatT> operator*(const ClampedDecimal<FloatT> &lhs, const FloatT &rhs)
+  {
+    ClampedDecimal product(lhs);
+    return (product *= rhs);
+  }
+  
+  /**
+   * Returns a new `ClampedDecimal` with a value equal to that of the original,
+   * divided by the given number, within the clamped nunber's bounds. For
+   * example, given a number with value 50 and bounds [25, 100], num / 10
+   * returns a new number with value 25 and bounds [25, 100].
+   * 
+   * \param other the number by which this one is divided
+   * \return Returns the quotient of this and the other number.
+   * 
+   * \related ClampedDecimal
+   */
+  template<typename FloatT>
+  ClampedDecimal<FloatT> operator/(const ClampedDecimal<FloatT> &lhs, const FloatT &rhs)
+  {
+    ClampedDecimal quotient(lhs);
+    return (quotient /= rhs);
+  }
+  
+  /**
+   * Returns the negative of the given clamped number. The held value is
+   * negated, but the minimum and maximum will be unchanged, except where they
+   * are stretched to fit the new value, in line with the constructors of
+   * all `BasicClampedNumber`s.
+   * 
+   * \param orig the original number whose negation is returned
+   * \return Returns the negation of the given number.
+   * 
+   * \related ClampedInteger
+   */
+  template<typename FloatT>
+  ClampedDecimal<FloatT> operator-(const ClampedDecimal<FloatT> &orig)
+  {
+    FloatT negVal = -(orig._value);
+    return {negVal, orig._minValue, orig._maxValue};
+  }
   
   /**
    * An `int` with defined lower and upper bounds beyond which its value will
