@@ -769,7 +769,7 @@ namespace clamped
    * \related ClampedInteger
    */
   template<typename IntT>
-  ClampedInteger operator+(const ClampedInteger &lhs, const IntT &rhs)
+  ClampedInteger<IntT> operator+(const ClampedInteger<IntT> &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> sum(lhs);
     return (sum += rhs);
@@ -787,7 +787,7 @@ namespace clamped
    * \related ClampedInteger
    */
   template<typename IntT>
-  ClampedInteger operator-(const ClampedInteger &lhs, const IntT &rhs)
+  ClampedInteger<IntT> operator-(const ClampedInteger<IntT> &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> difference(lhs);
     return (difference -= rhs);
@@ -805,7 +805,7 @@ namespace clamped
    * \related ClampedInteger
    */
   template<typename IntT>
-  ClampedInteger operator*(const ClampedInteger &lhs, const IntT &rhs)
+  ClampedInteger<IntT> operator*(const ClampedInteger<IntT> &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> product(lhs);
     return (product *= rhs);
@@ -823,7 +823,7 @@ namespace clamped
    * \related ClampedInteger
    */
   template<typename IntT>
-  ClampedInteger operator/(const ClampedInteger &lhs, const IntT &rhs)
+  ClampedInteger<IntT> operator/(const ClampedInteger<IntT> &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> quotient(lhs);
     return (quotient /= rhs);
@@ -842,7 +842,7 @@ namespace clamped
    * \related ClampedInteger
    */
   template<typename IntT>
-  ClampedInteger operator%(const ClampedInteger &lhs, const IntT &rhs)
+  ClampedInteger<IntT> operator%(const ClampedInteger<IntT> &lhs, const IntT &rhs)
   {
     ClampedInteger<IntT> remainder(lhs);
     return (remainder %= rhs);
@@ -927,7 +927,7 @@ namespace clamped
      * \param other the right operand for addition
      * \return Returns this number, allowing chaining of operations.
      */
-    virtual ClampedDecimal<FloatT> & operator+=(const NumT &other);
+    virtual ClampedDecimal<FloatT> & operator+=(const FloatT &other);
     
     /**
      * Subtracts the given number from this one, as constrained by this
@@ -936,7 +936,7 @@ namespace clamped
      * \param other the right operand for subtraction
      * \return Returns this number, allowing chaining of operations.
      */
-    virtual ClampedDecimal<FloatT> & operator-=(const NumT &other);
+    virtual ClampedDecimal<FloatT> & operator-=(const FloatT &other);
     
     /**
      * Multiplies this number by the one given, as constrained by this
@@ -945,7 +945,7 @@ namespace clamped
      * \param other the right operand for multiplication
      * \return Returns this number, allowing chaining of operations.
      */
-    virtual ClampedDecimal<FloatT> & operator*=(const NumT &other);
+    virtual ClampedDecimal<FloatT> & operator*=(const FloatT &other);
     
     /**
      * Divides this number by the one given, as constrained by this number's
@@ -956,7 +956,7 @@ namespace clamped
      * \param other the right operand for division
      * \return Returns this number, allowing chaining of operations.
      */
-    virtual ClampedDecimal<FloatT> & operator/=(const NumT &other);
+    virtual ClampedDecimal<FloatT> & operator/=(const FloatT &other);
     
     /**
      * Increments this number by one, within its bounds.
@@ -1019,7 +1019,7 @@ namespace clamped
   template<typename FloatT>
   ClampedDecimal<FloatT> operator+(const ClampedDecimal<FloatT> &lhs, const FloatT &rhs)
   {
-    ClampedDecimal sum(lhs);
+    ClampedDecimal<FloatT> sum(lhs);
     return (sum += rhs);
   }
   
@@ -1037,7 +1037,7 @@ namespace clamped
   template<typename FloatT>
   ClampedDecimal<FloatT> operator-(const ClampedDecimal<FloatT> &lhs, const FloatT &rhs)
   {
-    ClampedDecimal difference(lhs);
+    ClampedDecimal<FloatT> difference(lhs);
     return (difference -= rhs);
   }
   
@@ -1055,7 +1055,7 @@ namespace clamped
   template<typename FloatT>
   ClampedDecimal<FloatT> operator*(const ClampedDecimal<FloatT> &lhs, const FloatT &rhs)
   {
-    ClampedDecimal product(lhs);
+    ClampedDecimal<FloatT> product(lhs);
     return (product *= rhs);
   }
   
@@ -1073,7 +1073,7 @@ namespace clamped
   template<typename FloatT>
   ClampedDecimal<FloatT> operator/(const ClampedDecimal<FloatT> &lhs, const FloatT &rhs)
   {
-    ClampedDecimal quotient(lhs);
+    ClampedDecimal<FloatT> quotient(lhs);
     return (quotient /= rhs);
   }
   
@@ -1094,245 +1094,6 @@ namespace clamped
     FloatT negVal = -(orig._value);
     return {negVal, orig._minValue, orig._maxValue};
   }
-  
-  /**
-   * An `int` with defined lower and upper bounds beyond which its value will
-   * never pass.
-   * 
-   * This type specialization provides no additional functions or operators:
-   * it only has a pair of additional constructors that don't ask for explicit
-   * lower and upper bounds. The default bounds are the minimum and maximum
-   * values the wrapped type can represent. Such a number will therefore behave
-   * much the same as the wrapped type, but without integer underflow
-   * or overflow.
-   */
-  template<>
-  class ClampedInteger<int>
-  {
-    public:
-    
-    /**
-     * Constructs a new `ClampedStdInt` with an initial value of zero and no
-     * bounds. With these default bounds left intact, this number will thus act
-     * like an `int` that does not overflow nor underflow when the maximum or
-     * minimum value it can represent is exceeded.
-     */
-    ClampedInteger<int>():
-        ClampedInteger(0, std::numeric_limits<int>::min(), std::numeric_limits<int>::max())
-    {}
-    
-    /**
-     * Constructs a new `ClampedStdInt` with the given initial value and no
-     * bounds. With these default bounds left intact, this number will thus act
-     * like an `int` that does not overflow nor underflow when the maximum or
-     * minimum value it can represent is exceeded.
-     * 
-     * \param value the starting value of this number
-     */
-    ClampedInteger<int>(int value):
-        ClampedInteger(value, std::numeric_limits<int>::min(), std::numeric_limits<int>::max())
-    {}
-    
-    /**
-     * Constructs a new `ClampedStdInt` with the given initial value and the
-     * specified lower and upper bounds. The minimum value must be less than or
-     * equal to the starting value: if it is not, it is itself clamped to the
-     * starting value. The maximum value is similarly constrained, and must be
-     * greater than or equal to the starting value.
-     * 
-     * \param value the starting value of this number
-     * \param min the minimum value for this number
-     * \param max the maximum value for this number
-     */
-    ClampedInteger<int>(int value, int min, int max):
-        ClampedInteger(value, min, max)
-    {}
-    
-    /**
-     * Provides a virtual destructor with the default dehavior.
-     */
-    virtual ~ClampedInteger<int>() = default;
-  };
-  
-  /**
-   * An `unsigned int` with defined lower and upper bounds beyond which its
-   * value will never pass.
-   * 
-   * This type specialization provides no additional functions or operators:
-   * it only has a pair of additional constructors that don't ask for explicit
-   * lower and upper bounds. The default bounds are the minimum and maximum
-   * values the wrapped type can represent. Such a number will therefore behave
-   * much the same as the wrapped type, but without integer underflow
-   * or overflow.
-   */
-  template<>
-  class ClampedNaturalNumber<unsigned int>
-  {
-    public:
-    
-    /**
-     * Constructs a new `ClampedStdUInt` with an initial value of zero and no
-     * bounds. With these default bounds left intact, this number will thus act
-     * like an `unsigned int` that does not overflow nor underflow when the
-     * maximum or minimum value it can represent is exceeded.
-     */
-    ClampedNaturalNumber<unsigned int>():
-        ClampedNaturalNumber(0, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
-    {}
-    
-    /**
-     * Constructs a new `ClampedStdUInt` with the given initial value and no
-     * bounds. With these default bounds left intact, this number will thus act
-     * like an `int` that does not overflow nor underflow when the maximum or
-     * minimum value it can represent is exceeded.
-     * 
-     * \param value the starting value of this number
-     */
-    ClampedNaturalNumber<unsigned int>(unsigned int value):
-        ClampedNaturalNumber(value, std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max())
-    {}
-    
-    /**
-     * Constructs a new `ClampedStdUInt` with the given initial value and the
-     * specified lower and upper bounds. The minimum value must be less than or
-     * equal to the starting value: if it is not, it is itself clamped to the
-     * starting value. The maximum value is similarly constrained, and must be
-     * greater than or equal to the starting value.
-     * 
-     * \param value the starting value of this number
-     * \param min the minimum value for this number
-     * \param max the maximum value for this number
-     */
-    ClampedNaturalNumber<unsigned int>(unsigned int value, unsigned int min, unsigned int max):
-        ClampedNaturalNumber(value, min, max)
-    {}
-    
-    /**
-     * Provides a virtual destructor with the default dehavior.
-     */
-    virtual ~ClampedNaturalNumber<unsigned int>() = default;
-  };
-  
-  /**
-   * A signed integer of the largest type supported with defined lower and upper
-   * bounds beyond which its value will never pass. In other words, this class
-   * is a type specialization of `ClampedInteger` for `intmax_t` in `<cstdint>`.
-   * 
-   * This type specialization provides no additional functions or operators:
-   * it only has a pair of additional constructors that don't ask for explicit
-   * lower and upper bounds. The default bounds are the minimum and maximum
-   * values the wrapped type can represent. Such a number will therefore behave
-   * much the same as the wrapped type, but without integer underflow
-   * or overflow.
-   */
-  template<>
-  class ClampedInteger<intmax_t>
-  {
-    public:
-    
-    /**
-     * Constructs a new `ClampedMaxInt` with an initial value of zero and no
-     * bounds. With these default bounds left intact, this number will thus act
-     * like an `intmax_t` that does not overflow nor underflow when the maximum
-     * or minimum value it can represent is exceeded.
-     */
-    ClampedInteger<intmax_t>():
-        ClampedInteger(0, std::numeric_limits<intmax_t>::min(), std::numeric_limits<intmax_t>::max())
-    {}
-    
-    /**
-     * Constructs a new `ClampedMaxInt` with the given initial value and no
-     * bounds. With these default bounds left intact, this number will thus act
-     * like an `intmax_t` that does not overflow nor underflow when the maximum
-     * or minimum value it can represent is exceeded.
-     * 
-     * \param value the starting value of this number
-     */
-    ClampedInteger<intmax_t>(intmax_t value):
-        ClampedInteger(value, std::numeric_limits<intmax_t>::min(), std::numeric_limits<intmax_t>::max())
-    {}
-    
-    /**
-     * Constructs a new `ClampedMaxInt` with the given initial value and the
-     * specified lower and upper bounds. The minimum value must be less than or
-     * equal to the starting value: if it is not, it is itself clamped to the
-     * starting value. The maximum value is similarly constrained, and must be
-     * greater than or equal to the starting value.
-     * 
-     * \param value the starting value of this number
-     * \param min the minimum value for this number
-     * \param max the maximum value for this number
-     */
-    ClampedInteger<intmax_t>(intmax_t value, intmax_t min, intmax_t max):
-        ClampedInteger(value, min, max)
-    {}
-    
-    /**
-     * Provides a virtual destructor with the default dehavior.
-     */
-    virtual ~ClampedInteger<intmax_t>() = default;
-  };
-  
-  /**
-   * An unsigned signed integer of the largest type supported with defined lower
-   * and upper bounds beyond which its value will never pass. In other words,
-   * this class is a type specialization of `ClampedNaturalNumber` for
-   * `uintmax_t` in `<cstdint>`.
-   * 
-   * This type specialization provides no additional functions or operators:
-   * it only has a pair of additional constructors that don't ask for explicit
-   * lower and upper bounds. The default bounds are the minimum and maximum
-   * values the wrapped type can represent. Such a number will therefore behave
-   * much the same as the wrapped type, but without integer underflow
-   * or overflow.
-   */
-  template<>
-  class ClampedNaturalNumber<uintmax_t>
-  {
-    public:
-    
-    /**
-     * Constructs a new `ClampedMaxUInt` with an initial value of zero and no
-     * bounds. With these default bounds left intact, this number will thus act
-     * like a `uintmax_t` that does not overflow nor underflow when the maximum
-     * or minimum value it can represent is exceeded.
-     */
-    ClampedNaturalNumber<uintmax_t>():
-        ClampedNaturalNumber(0, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
-    {}
-    
-    /**
-     * Constructs a new `ClampedMaxUInt` with the given initial value and no
-     * bounds. With these default bounds left intact, this number will thus act
-     * like a `uintmax_t` that does not overflow nor underflow when the maximum
-     * or minimum value it can represent is exceeded.
-     * 
-     * \param value the starting value of this number
-     */
-    ClampedNaturalNumber<uintmax_t>(uintmax_t value):
-        ClampedNaturalNumber(value, std::numeric_limits<uintmax_t>::min(), std::numeric_limits<uintmax_t>::max())
-    {}
-    
-    /**
-     * Constructs a new `ClampedMaxUInt` with the given initial value and the
-     * specified lower and upper bounds. The minimum value must be less than or
-     * equal to the starting value: if it is not, it is itself clamped to the
-     * starting value. The maximum value is similarly constrained, and must be
-     * greater than or equal to the starting value.
-     * 
-     * \param value the starting value of this number
-     * \param min the minimum value for this number
-     * \param max the maximum value for this number
-     */
-    ClampedNaturalNumber<uintmax_t>(uintmax_t value, uintmax_t min, uintmax_t max):
-        ClampedNaturalNumber(value, min, max)
-    {}
-    
-    /**
-     * Provides a virtual destructor with the default dehavior.
-     */
-    virtual ~ClampedNaturalNumber<uintmax_t>() = default;
-  };
   
 # ifdef CLAMPED_INT8
   
