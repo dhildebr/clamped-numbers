@@ -1,3 +1,7 @@
+/** \file
+ * The main file.
+ */
+
 #pragma once
 
 #include <cstdint>
@@ -1179,6 +1183,7 @@ namespace clamped
     virtual ~ClampedInteger<int8_t>() = default;
   };
   
+  /** ClampedInteger<int8_t> is aliased as ClampedInt8, if it exists. */
   using ClampedInt8 = ClampedInteger<int8_t>;
   
 # endif
@@ -1246,6 +1251,7 @@ namespace clamped
     virtual ~ClampedInteger<int16_t>() = default;
   };
   
+  /** ClampedInteger<int16_t> is aliased as ClampedInt16, if it exists. */
   using ClampedInt16 = ClampedInteger<int16_t>;
   
 # endif
@@ -1313,6 +1319,7 @@ namespace clamped
     virtual ~ClampedInteger<int32_t>() = default;
   };
   
+  /** ClampedInteger<int32_t> is aliased as ClampedInt32, if it exists. */
   using ClampedInt32 = ClampedInteger<int32_t>;
   
 # endif
@@ -1380,6 +1387,7 @@ namespace clamped
     virtual ~ClampedInteger<int64_t>() = default;
   };
   
+  /** ClampedInteger<int64_t> is aliased as ClampedInt64, if it exists. */
   using ClampedInt64 = ClampedInteger<int64_t>;
   
 # endif
@@ -1447,6 +1455,7 @@ namespace clamped
     virtual ~ClampedNaturalNumber<uint8_t>() = default;
   };
   
+  /** ClampedInteger<uint8_t> is aliased as ClampedUInt8, if it exists. */
   using ClampedUInt8 = ClampedInteger<uint8_t>;
   
 # endif
@@ -1514,6 +1523,7 @@ namespace clamped
     virtual ~ClampedNaturalNumber<uint16_t>() = default;
   };
   
+  /** ClampedInteger<uint16_t> is aliased as ClampedUInt16, if it exists. */
   using ClampedUInt16 = ClampedInteger<uint16_t>;
   
 # endif
@@ -1581,6 +1591,7 @@ namespace clamped
     virtual ~ClampedNaturalNumber<uint32_t>() = default;
   };
   
+  /** ClampedInteger<uint32_t> is aliased as ClampedUInt32, if it exists. */
   using ClampedUInt32 = ClampedInteger<uint32_t>;
   
 # endif
@@ -1649,16 +1660,29 @@ namespace clamped
     virtual ~ClampedNaturalNumber<uint64_t>() = default;
   };
   
+  /** ClampedInteger<uint64_t> is aliased as ClampedUInt64, if it exists. */
   using ClampedUInt64 = ClampedInteger<uint64_t>;
   
 # endif
   
+  /** ClampedInteger<int> is aliased as ClampedStdInt. */
   using ClampedStdInt = ClampedInteger<int>;
+  
+  /** ClampedNaturalNumber<unsigned int> is aliased as ClampedStdUInt. */
   using ClampedStdUInt = ClampedNaturalNumber<unsigned int>;
+  
+  /** ClampedInteger<intmax_t> is aliased as ClampedMaxInt. */
   using ClampedMaxInt = ClampedInteger<intmax_t>;
+  
+  /** ClampedNaturalNumber<uintmax_t> is aliased as ClampedMaxUInt. */
   using ClampedMaxUInt = ClampedNaturalNumber<uintmax_t>;
   
+  /** ClampedDecimal<float> is aliased as ClampedFloat. */
   using ClampedFloat = ClampedDecimal<float>;
+  
+  /** ClampedDecimal<double> is aliased as ClampedDouble. */
   using ClampedDouble = ClampedDecimal<double>;
+  
+  /** ClampedDecimal<long double> is aliased as ClampedLongDouble. */
   using ClampedLongDouble = ClampedDecimal<long double>;
 }

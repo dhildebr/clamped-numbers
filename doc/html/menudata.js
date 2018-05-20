@@ -41,4 +41,6 @@ var menudata={children:[
 {text:"m",url:"functions_func.html#index_m"},
 {text:"o",url:"functions_func.html#index_o"},
 {text:"v",url:"functions_func.html#index_v"},
-{text:"~",url:"functions_func.html#index_0x7e"}]}]}]}]}
+{text:"~",url:"functions_func.html#index_0x7e"}]}]}]},
+{text:"Files",url:"files.html",children:[
+{text:"File List",url:"files.html"}]}]}
