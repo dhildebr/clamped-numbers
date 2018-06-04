@@ -1,24 +1,24 @@
-srcdir :=     ../src
-contribdir := ../contrib
-testdir :=    ../test
-
+srcdir        := ../src
+contribdir    := ../contrib
+testdir       := ../test
 mainobjdir    := ./obj/src
 contribobjdir := ./obj/contrib
 testobjdir    := ./obj/test
-
-execdir :=    .
+execdir       := .
 
 GCC := g++
 GCCINCLUDE := -I $(srcdir) -I $(contribdir) -I $(testdir)
 GCCFLAGS := -std=gnu++14 -g -O0 -Wall -Wextra $(GCCINCLUDE)
 
-MAINSRC    := clamped_numbers.cc
-CONTRIBSRC := gtest/gtest-all.cc
-TESTSRC    := clamped_numbers_test.cc all_tests.cc
-
-CPPSRC  := $(srcdir)/$(MAINSRC)            $(contribdir)/$(CONTRIBSRC)           $(testdir)/$(TESTSRC)
-CPPOBJ  := $(mainobjdir)/$(MAINSRC:.cc=.o) $(contribobjdir)/$(CONTRIBSRC:.cc=.o) $(testobjdir)/$(TESTSRC:.cc=.o)
-EXECBIN := $(EXECDIR)/ClampedNumbersTest.exe
+CPPHEAD := $(srcdir)/clamped_numbers.hh \
+           $(contribdir)/gtest/gtest.h
+CPPSRC  := $(srcdir)/clamped_numbers.cc \
+           $(contribdir)/gtest/gtest-all.cc \
+           $(testdir)/clamped_numbers_test.cc $(testdir)/all_tests.cc
+CPPOBJ  := $(mainobjdir)/clamped_numbers.o \
+           $(contribobjdir)/gtest/gtest-all.o \
+           $(testdir)/clamped_numbers_test.o $(testdir)/all_tests.o
+EXECBIN := $(execdir)/ClampedNumbersTest.exe
 
 # Primary all-target just aliases building of the executable
 all: $(EXECBIN)
